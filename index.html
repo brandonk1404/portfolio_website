@@ -1,0 +1,488 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+  <meta name="theme-color" content="#315640">
+  <meta name="description" content="Brandon Kreitsch — Graphic Designer. Identity design, layout, typography, and motion.">
+  <title>Brandon Kreitsch — Graphic Designer</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Roboto:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
+  <style>
+    /* Typography system: Roboto for headings/logotype, Inter for body */
+    body {
+      font-family: "Inter", system-ui, sans-serif;
+    }
+
+    h1,
+    h2,
+    h3,
+    .section-title,
+    .work-group-title,
+    .logo span,
+    .contact-email {
+      font-family: "Roboto", system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+    }
+
+    /* Gallery dropdown under "Gallery" */
+    .nav-group {
+      position: relative;
+    }
+
+    .nav-sub {
+      position: absolute;
+      left: 0;
+      top: 100%;
+      margin-top: 0.35rem;
+      padding: 0.5rem 0.25rem;
+      background: #ffffff;
+      border-radius: 8px;
+      border: 1px solid rgba(229, 231, 230, 0.9);
+      box-shadow: 0 12px 34px rgba(49, 86, 64, 0.2);
+      display: none;
+      gap: 0.25rem;
+      white-space: nowrap;
+    }
+
+    .nav-group.open .nav-sub {
+      display: flex;
+    }
+
+    /* Open gallery dropdown on hover (desktop) */
+    @media (min-width: 769px) {
+      .nav-group:hover .nav-sub {
+        display: flex;
+      }
+    }
+
+    /* Buttons */
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      padding: 0.7rem 1.3rem;
+      border-radius: 999px;
+      border: 1px solid transparent;
+      font-size: clamp(0.9rem, 1.5vw, 0.95rem);
+      font-weight: 500;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      text-decoration: none;
+      cursor: pointer;
+      min-width: min(11rem, 100%);
+      transition: transform 0.18s ease, box-shadow 0.18s ease, background-color 0.18s ease, color 0.18s ease;
+    }
+
+    .btn-primary {
+      background-color: #52af79;
+      color: #ffffff;
+      border-color: #315640;
+      box-shadow: 0 10px 28px rgba(49, 86, 64, 0.32);
+    }
+
+    .btn:hover,
+    .btn:focus-visible {
+      background-color: #315640;
+      color: #ffffff;
+      box-shadow: 0 18px 40px rgba(49, 86, 64, 0.45);
+      transform: translateY(-2px) translateZ(0);
+    }
+
+    .btn:active {
+      transform: translateY(0);
+      box-shadow: 0 6px 18px rgba(49, 86, 64, 0.3);
+    }
+
+    /* Map existing important actions to buttons */
+    .resume-download {
+      margin-top: 0.5rem;
+    }
+
+    .contact-email,
+    .contact-phone {
+      text-decoration: none;
+      min-width: min(11rem, 100%);
+    }
+
+  </style>
+</head>
+<body>
+  <a href="#main-content" class="skip-link">Skip to main content</a>
+  <header class="site-header">
+    <a href="#" class="logo">
+      <img src="site-logo.svg" alt="Brandon Kreitsch logo">
+      <span>Brandon Kreitsch</span>
+    </a>
+    <nav id="site-nav" class="nav" aria-label="Main">
+      <a href="#about">About</a>
+      <div class="nav-group">
+        <a href="#work" class="nav-link nav-link-main" role="button" aria-haspopup="true" aria-expanded="false">Gallery</a>
+        <div class="nav-sub">
+          <a href="#work-photographic">Photography</a>
+          <a href="#work-digital">Digital</a>
+          <a href="#work-motion">Motion</a>
+        </div>
+      </div>
+      <a href="#resume">Resume</a>
+      <a href="#contact">Contact</a>
+    </nav>
+    <button class="menu-toggle" aria-label="Toggle menu" aria-controls="site-nav" aria-expanded="false">
+      <span></span>
+      <span></span>
+      <span></span>
+    </button>
+  </header>
+  <div class="nav-overlay" id="nav-overlay" aria-hidden="true" tabindex="-1"></div>
+
+  <main id="main-content">
+    <section class="hero">
+      <div class="hero-inner">
+        <div class="hero-copy">
+          <p class="hero-label">Graphic Design BFA — Caldwell University</p>
+          <h1 class="hero-title"><span class="hero-title-word">Brandon</span> <span class="hero-title-word">Kreitsch</span></h1>
+          <p class="hero-desc">Identity design, layout, typography, and motion rooted in color and negative space.</p>
+        </div>
+        <div class="hero-showcase" aria-label="Selected work preview">
+          <div class="hero-showcase-frame">
+            <img class="hero-showcase-image" src="images/image8.jpg" alt="The Maker">
+          </div>
+          <div class="hero-showcase-meta">
+            <span class="hero-showcase-category">Photography</span>
+            <span class="hero-showcase-title">The Maker</span>
+            <span class="hero-showcase-year">2024</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="about" class="section about">
+      <div class="about-inner">
+        <h2 class="section-title">About</h2>
+        <div class="about-content">
+          <p class="about-lead">I’m a Graphic Design BFA student at Caldwell University, focused on identity design, layout, visual hierarchy, and typography—shaped by both academic work and hands-on, customer-facing experience.</p>
+          <p>My approach is structured yet exploratory. I often revisit earlier work and push ideas in new directions rather than repeating an aesthetic. Sketching gives me a loose order of elements; most development happens digitally in Illustrator and Photoshop. I work with an implied grid, limited palettes, strong contrast, and deliberate negative space. Color is central—balanced for vibrancy and clarity without overwhelming. I’m influenced by modernist design (Mondrian’s grids and restraint, Matisse’s fluid forms and bold color, Joseph Binder’s poster hierarchy) and by natural forms: trees, branches, grass. I prefer solid color and clear structure over heavy detail, and I use AI only for ideation and refinement, never as a substitute for design thinking or authorship.</p>
+          <p>Open to select projects and collaborations.</p>
+        </div>
+      </div>
+    </section>
+
+    <section id="work" class="section work">
+      <h2 class="section-title">Selected Work</h2>
+
+      <div class="work-group" id="work-photographic">
+        <h3 class="work-group-title">Photography</h3>
+        <div class="gallery">
+          <article class="gallery-item">
+            <a href="images/image8.jpg" class="gallery-link" target="_blank" rel="noopener">
+              <div class="gallery-image-wrap">
+                <img src="images/image8.jpg" alt="The Maker">
+              </div>
+              <div class="gallery-meta">
+                <span class="gallery-category">Photographic Print</span>
+                <span class="gallery-name">The Maker</span>
+                <span class="gallery-year">2024</span>
+              </div>
+            </a>
+          </article>
+          <article class="gallery-item">
+            <a href="images/image17.jpg" class="gallery-link" target="_blank" rel="noopener">
+              <div class="gallery-image-wrap">
+                <img src="images/image17.jpg" alt="Garden">
+              </div>
+              <div class="gallery-meta">
+                <span class="gallery-category">Photographic Print</span>
+                <span class="gallery-name">Garden</span>
+                <span class="gallery-year">2024</span>
+              </div>
+            </a>
+          </article>
+          <article class="gallery-item">
+            <a href="images/image14.jpg" class="gallery-link" target="_blank" rel="noopener">
+              <div class="gallery-image-wrap">
+                <img src="images/image14.jpg" alt="Glow of The Road">
+              </div>
+              <div class="gallery-meta">
+                <span class="gallery-category">Photographic Print</span>
+                <span class="gallery-name">Glow of The Road</span>
+                <span class="gallery-year">2023</span>
+              </div>
+            </a>
+          </article>
+          <article class="gallery-item">
+            <a href="images/image9.jpg" class="gallery-link" target="_blank" rel="noopener">
+              <div class="gallery-image-wrap">
+                <img src="images/image9.jpg" alt="Shadow Home">
+              </div>
+              <div class="gallery-meta">
+                <span class="gallery-category">Photographic Print</span>
+                <span class="gallery-name">Shadow Home</span>
+                <span class="gallery-year">2023</span>
+              </div>
+            </a>
+          </article>
+        </div>
+      </div>
+
+      <div class="work-group" id="work-digital">
+        <h3 class="work-group-title">Digital</h3>
+        <div class="gallery">
+          <article class="gallery-item">
+            <a href="images/image16.png" class="gallery-link" target="_blank" rel="noopener">
+              <div class="gallery-image-wrap">
+                <img src="images/image16.png" alt="Room Depth">
+              </div>
+              <div class="gallery-meta">
+                <span class="gallery-category">Digital Illustration</span>
+                <span class="gallery-name">Room Depth</span>
+                <span class="gallery-year">2024</span>
+              </div>
+            </a>
+          </article>
+          <article class="gallery-item">
+            <a href="images/image5.png" class="gallery-link" target="_blank" rel="noopener">
+              <div class="gallery-image-wrap">
+                <img src="images/image5.png" alt="CityMD Logo">
+              </div>
+              <div class="gallery-meta">
+                <span class="gallery-category">Digital Illustration</span>
+                <span class="gallery-name">CityMD Logo</span>
+                <span class="gallery-year">2023</span>
+              </div>
+            </a>
+          </article>
+          <article class="gallery-item">
+            <a href="images/image2.png" class="gallery-link" target="_blank" rel="noopener">
+              <div class="gallery-image-wrap">
+                <img src="images/image2.png" alt="Sight By Sound Packaging">
+              </div>
+              <div class="gallery-meta">
+                <span class="gallery-category">Digital Illustration</span>
+                <span class="gallery-name">Sight By Sound Packaging</span>
+                <span class="gallery-year">2025</span>
+              </div>
+            </a>
+          </article>
+          <article class="gallery-item">
+            <a href="images/image12.jpg" class="gallery-link" target="_blank" rel="noopener">
+              <div class="gallery-image-wrap">
+                <img src="images/image12.jpg" alt="Coffee Infographic">
+              </div>
+              <div class="gallery-meta">
+                <span class="gallery-category">Digital Illustration</span>
+                <span class="gallery-name">Coffee Infographic</span>
+                <span class="gallery-year">2025</span>
+              </div>
+            </a>
+          </article>
+          <article class="gallery-item">
+            <a href="images/image11.jpg" class="gallery-link" target="_blank" rel="noopener">
+              <div class="gallery-image-wrap">
+                <img src="images/image11.jpg" alt="2024 Lunar New Year Bookmark">
+              </div>
+              <div class="gallery-meta">
+                <span class="gallery-category">Digital Illustration</span>
+                <span class="gallery-name">2024 Lunar New Year Bookmark</span>
+                <span class="gallery-year">2024</span>
+              </div>
+            </a>
+          </article>
+          <article class="gallery-item">
+            <a href="images/image19.png" class="gallery-link" target="_blank" rel="noopener">
+              <div class="gallery-image-wrap">
+                <img src="images/image19.png" alt="Dan Friedman Poster">
+              </div>
+              <div class="gallery-meta">
+                <span class="gallery-category">Digital Illustration</span>
+                <span class="gallery-name">Dan Friedman Poster</span>
+                <span class="gallery-year">2024</span>
+              </div>
+            </a>
+          </article>
+          <article class="gallery-item">
+            <a href="images/image18.jpg" class="gallery-link" target="_blank" rel="noopener">
+              <div class="gallery-image-wrap">
+                <img src="images/image18.jpg" alt="Star Wars: The Empire Strikes Back Movie Poster">
+              </div>
+              <div class="gallery-meta">
+                <span class="gallery-category">Digital Illustration</span>
+                <span class="gallery-name">Star Wars: The Empire Strikes Back Movie Poster</span>
+                <span class="gallery-year">2023</span>
+              </div>
+            </a>
+          </article>
+          <article class="gallery-item">
+            <a href="images/image10.png" class="gallery-link" target="_blank" rel="noopener">
+              <div class="gallery-image-wrap">
+                <img src="images/image10.png" alt="Academic Tutoring Poster">
+              </div>
+              <div class="gallery-meta">
+                <span class="gallery-category">Digital Illustration</span>
+                <span class="gallery-name">Academic Tutoring Poster</span>
+                <span class="gallery-year">2025</span>
+              </div>
+            </a>
+          </article>
+        </div>
+      </div>
+
+      <div class="work-group" id="work-oil">
+        <h3 class="work-group-title">Oil Painting</h3>
+        <div class="gallery">
+          <article class="gallery-item">
+            <a href="images/image15.jpg" class="gallery-link" target="_blank" rel="noopener">
+              <div class="gallery-image-wrap gallery-image-wrap-white">
+                <img src="images/image15.jpg" alt="Soap Bottles">
+              </div>
+              <div class="gallery-meta">
+                <span class="gallery-category">Oil Painting</span>
+                <span class="gallery-name">Soap Bottles</span>
+                <span class="gallery-year">2023</span>
+              </div>
+            </a>
+          </article>
+        </div>
+      </div>
+
+      <div class="work-group" id="work-motion">
+        <h3 class="work-group-title">Motion</h3>
+        <div class="gallery">
+          <article class="gallery-item video-item">
+            <a href="https://youtu.be/F0PHY8v6Bh4" class="gallery-link" target="_blank" rel="noopener">
+              <div class="gallery-image-wrap">
+                <img src="images/image18.jpg" alt="Time Flies wearable sculpture still">
+                <div class="play-icon"></div>
+              </div>
+              <div class="gallery-meta">
+                <span class="gallery-category">Wearable Sculpture</span>
+                <span class="gallery-name">Time Flies</span>
+                <span class="gallery-year">2023</span>
+              </div>
+            </a>
+          </article>
+          <article class="gallery-item video-item">
+            <a href="https://youtu.be/YpmN35h6KgY" class="gallery-link" target="_blank" rel="noopener">
+              <div class="gallery-image-wrap">
+                <img src="images/955_poster.png" alt="9:55 short film poster">
+                <div class="play-icon"></div>
+              </div>
+              <div class="gallery-meta">
+                <span class="gallery-category">Video</span>
+                <span class="gallery-name">9:55</span>
+                <span class="gallery-year">2024</span>
+              </div>
+            </a>
+          </article>
+          <article class="gallery-item video-item">
+            <a href="https://youtu.be/1CvbDo5HBYk" class="gallery-link" target="_blank" rel="noopener">
+              <div class="gallery-image-wrap">
+                <img src="images/strength_poster.png" alt="Strength short film poster">
+                <div class="play-icon"></div>
+              </div>
+              <div class="gallery-meta">
+                <span class="gallery-category">Video</span>
+                <span class="gallery-name">Strength</span>
+                <span class="gallery-year">2024</span>
+              </div>
+            </a>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section id="resume" class="section resume">
+      <h2 class="section-title">Resume</h2>
+      <div class="resume-preview-wrap">
+        <div class="resume-preview-inner">
+          <iframe src="Brandon_Kreitsch_Resume.pdf#toolbar=0&amp;navpanes=0" title="Resume preview"></iframe>
+        </div>
+      </div>
+      <div class="resume-grid">
+        <div class="resume-block">
+          <h3>Education</h3>
+          <ul class="resume-list">
+            <li>
+              <strong>BFA Graphic Design</strong>
+              <span>Caldwell University — In progress</span>
+            </li>
+          </ul>
+        </div>
+        <div class="resume-block">
+          <h3>Focus</h3>
+          <ul class="resume-list resume-skills">
+            <li>Identity design</li>
+            <li>Layout & visual hierarchy</li>
+            <li>Typography</li>
+            <li>Color & negative space</li>
+          </ul>
+        </div>
+        <div class="resume-block">
+          <h3>Tools</h3>
+          <ul class="resume-list resume-skills">
+            <li>Adobe Illustrator</li>
+            <li>Adobe Photoshop</li>
+            <li>GIMP</li>
+            <li>Adobe Acrobat</li>
+            <li>Canva</li>
+          </ul>
+        </div>
+        <div class="resume-block">
+          <h3>Awards &amp; Honors</h3>
+          <ul class="resume-list">
+            <li>
+              <strong>Caldwell University Dean’s List</strong>
+              <span>Fall 2022 – Fall 2023, Spring 2025 – Fall 2025</span>
+            </li>
+            <li>
+              <strong>Kappa Pi Art Honors Society</strong>
+              <span>Spring 2026 – Present</span>
+            </li>
+            <li>
+              <strong>Caldwell University Scholar Merit Scholarship</strong>
+              <span>Fall 2022</span>
+            </li>
+            <li>
+              <strong>Perfect Attendance Award – High School</strong>
+              <span>2018–2022</span>
+            </li>
+          </ul>
+        </div>
+      </div>
+      <a href="Brandon_Kreitsch_Resume.pdf" class="resume-download btn btn-primary" download>Download PDF</a>
+    </section>
+
+    <section id="contact" class="section contact">
+      <h2 class="section-title">Contact</h2>
+      <div class="contact-inner">
+        <a href="mailto:brandonk1404@icloud.com" class="contact-email btn btn-primary">brandonk1404@icloud.com</a>
+        <a href="tel:+12016555131" class="contact-phone btn btn-primary">201-655-5131</a>
+        <ul class="socials">
+          <li><a href="https://www.linkedin.com/in/brandon-kreitsch-b5b5203a7" target="_blank" rel="noopener" aria-label="LinkedIn">LinkedIn</a></li>
+          <li><a href="https://www.instagram.com/bkreitschdesign/" target="_blank" rel="noopener" aria-label="Instagram">@bkreitschdesign</a></li>
+        </ul>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <p>© <span id="year"></span> Brandon Kreitsch. All rights reserved.</p>
+  </footer>
+
+  <div class="lightbox" id="lightbox" aria-hidden="true">
+    <div class="lightbox-backdrop" data-lightbox-close></div>
+    <div class="lightbox-dialog" role="dialog" aria-modal="true" aria-label="Work preview">
+      <button class="lightbox-close" type="button" aria-label="Close preview" data-lightbox-close>×</button>
+      <button class="lightbox-nav lightbox-prev" type="button" aria-label="Previous item" data-lightbox-prev>‹</button>
+      <button class="lightbox-nav lightbox-next" type="button" aria-label="Next item" data-lightbox-next>›</button>
+      <div class="lightbox-body" id="lightbox-body"></div>
+      <div class="lightbox-caption">
+        <div class="lightbox-category" id="lightbox-category"></div>
+        <div class="lightbox-title" id="lightbox-title"></div>
+      </div>
+    </div>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>
