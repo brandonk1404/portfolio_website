@@ -26,7 +26,27 @@
     <changefreq>monthly</changefreq>
   </url>
   <url>
+    <loc>https://www.brandonkreitsch.com/case-study-mural.html</loc>
+    <priority>0.7</priority>
+    <changefreq>monthly</changefreq>
+  </url>
+  <url>
+    <loc>https://www.brandonkreitsch.com/case-study-doors.html</loc>
+    <priority>0.7</priority>
+    <changefreq>monthly</changefreq>
+  </url>
+  <url>
     <loc>https://www.brandonkreitsch.com/case-study-arkade.html</loc>
+    <priority>0.7</priority>
+    <changefreq>monthly</changefreq>
+  </url>
+  <url>
+    <loc>https://www.brandonkreitsch.com/case-study-strength.html</loc>
+    <priority>0.7</priority>
+    <changefreq>monthly</changefreq>
+  </url>
+  <url>
+    <loc>https://www.brandonkreitsch.com/case-study-the-maker.html</loc>
     <priority>0.7</priority>
     <changefreq>monthly</changefreq>
   </url>
