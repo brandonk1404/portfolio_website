@@ -220,6 +220,16 @@
 
     // Populate first slide into active layer
     activeLayer.appendChild(makeMedia(shuffled[0]));
+    // Set initial title and medium
+    if (heroTitle) heroTitle.textContent = shuffled[0].title;
+    var heroMediumInit = document.querySelector('.hero-showcase-medium');
+    if (heroMediumInit) heroMediumInit.textContent = shuffled[0].medium || '';
+    // Apply Ken Burns to first image if it's not a video
+    var firstMedia = activeLayer.querySelector('img');
+    if (firstMedia) {
+      var kbInit = ['', 'kb-2', 'kb-3'][0];
+      if (kbInit) firstMedia.classList.add(kbInit);
+    }
 
     function setHeroSlide(next) {
       var slide = shuffled[next];
@@ -531,6 +541,7 @@
       var prevBtn = c.prevBtn;
       var nextBtn = c.nextBtn;
       var canScroll = gallery.scrollWidth - gallery.clientWidth > 4;
+      // Hide both arrows entirely if everything fits without scrolling
       if (!canScroll) {
         prevBtn.style.display = 'none';
         nextBtn.style.display = 'none';
