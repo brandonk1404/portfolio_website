@@ -2432,27 +2432,40 @@ p, h1, h2, h3, li, .about-lead, .cs-body p {
 }
 
 @media (max-width: 768px) {
-  .nav-group {
+  /* Hide the dropdown arrow trigger on mobile */
+  .nav-group .nav-link-main .gallery-arrow {
     display: none;
   }
 
-  .nav-mobile-gallery {
-    display: contents;
+  /* Show nav-sub inline as flat links on mobile */
+  .nav-sub {
+    position: static !important;
+    display: flex !important;
+    flex-direction: column !important;
+    gap: 0 !important;
+    background: transparent !important;
+    border: none !important;
+    box-shadow: none !important;
+    padding: 0 !important;
+    margin: 0 !important;
+    border-radius: 0 !important;
+    visibility: visible !important;
+    opacity: 1 !important;
   }
 
-  .nav-mobile-gallery a {
-    font-size: 0.85rem;
-    color: var(--text-muted);
-    min-height: 2.25rem;
-    display: inline-flex;
-    align-items: center;
-    padding: 0.4rem 0;
-    width: 100%;
-    justify-content: flex-end;
-    transition: color 0.18s ease;
+  .nav-sub a {
+    font-size: 0.75rem !important;
+    color: var(--text-muted) !important;
+    padding: 0.3rem 0 !important;
+    justify-content: flex-end !important;
+    width: 100% !important;
+    display: flex !important;
+    letter-spacing: 0.04em;
   }
 
-  .nav-mobile-gallery a:hover {
-    color: var(--text);
+  /* Gallery link itself on mobile — no arrow, just the word */
+  .nav-group .nav-link-main {
+    pointer-events: none;
+    font-weight: 700;
   }
 }

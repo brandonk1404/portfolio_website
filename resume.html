@@ -26,6 +26,22 @@
     .nav-sub a { padding: 0.3rem 0; }
     .nav-group.open .nav-sub { display: flex; }
     @media (min-width: 769px) { .nav-group:hover .nav-sub { display: flex; } }
+    /* Mobile: show sub-links flat, no dropdown behavior */
+    @media (max-width: 768px) {
+      .nav-sub {
+        position: static !important; display: flex !important; flex-direction: column !important;
+        gap: 0 !important; background: transparent !important; border: none !important;
+        box-shadow: none !important; padding: 0 !important; margin: 0 !important;
+        border-radius: 0 !important; white-space: normal !important; min-width: unset !important;
+      }
+      .nav-sub a {
+        font-size: 0.75rem !important; color: #5a6b62 !important;
+        padding: 0.3rem 0 !important; justify-content: flex-end !important;
+        width: 100% !important; display: flex !important; letter-spacing: 0.04em;
+      }
+      .nav-group .nav-link-main { pointer-events: none; }
+      .nav-link-main .gallery-arrow { display: none !important; }
+    }
     .nav-link-main { position: relative; display: inline-flex; align-items: center; }
     .nav-link-main .gallery-label { display: inline-block; transition: opacity 0.18s ease, transform 0.18s ease; }
     .nav-link-main .gallery-arrow {
@@ -86,12 +102,7 @@
           <a href="gallery.html#work-oil">Studio Art</a>
         </div>
       </div>
-      <div class="nav-mobile-gallery">
-        <a href="gallery.html#work-digital">Digital</a>
-        <a href="gallery.html#work-photographic">Photography</a>
-        <a href="gallery.html#work-motion">Motion</a>
-        <a href="gallery.html#work-oil">Studio Art</a>
-      </div>
+
       <a href="resume.html" class="active" style="display:none">Resume</a>
       <a href="contact.html">Contact</a>
     </nav>
