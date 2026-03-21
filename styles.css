@@ -2160,10 +2160,17 @@ body, h1, h2, h3 {
 }
 
 /* ── No widows ───────────────────────────────────────────────────── */
-p, h1, h2, h3, li, .about-lead, .cs-body p {
+p, li, .about-lead, .cs-body p, .hero-desc, .hero-label,
+.contact-availability, .featured-desc, .gallery-overlay-text,
+.cs-meta-value, .cs-feature-card p {
   text-wrap: pretty;
   orphans: 3;
   widows: 3;
+}
+
+h1, h2, h3, h4, .cs-hero-title, .cs-hero-sub, .gallery-name,
+.section-title, .featured-title, .work-group-title {
+  text-wrap: balance;
 }
 
 /* ── Mobile: extra top padding so section titles clear the fixed nav ─ */
