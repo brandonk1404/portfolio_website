@@ -1,0 +1,326 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+  <meta name="theme-color" content="#315640">
+  <meta name="description" content="A deep dive into ArKade Systems — a personal e-commerce web design project rooted in retro gaming, pixel art identity, and custom arcade cabinet building.">
+  <title>ArKade Systems — Case Study — Brandon Kreitsch</title>
+  <link rel="icon" type="image/svg+xml" href="site-logo.svg">
+  <link rel="apple-touch-icon" href="apple-touch-icon.png">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
+  <style>
+    body { font-family: "Roboto", system-ui, sans-serif; }
+    .nav-group { position: relative; }
+    /* Desktop: dropdown hidden by default, shows on hover */
+    .nav-sub {
+      position: absolute; left: 0; top: 100%; margin-top: 0.35rem;
+      padding: 0.5rem 0.75rem; background: #ffffff; border-radius: 8px;
+      border: 1px solid rgba(229,231,230,0.9); box-shadow: 0 12px 34px rgba(49,86,64,0.2);
+      display: none; flex-direction: column; gap: 0.1rem; white-space: nowrap; min-width: 140px;
+    }
+    .nav-sub a { padding: 0.3rem 0; }
+    .nav-group.open .nav-sub { display: flex; }
+    @media (min-width: 769px) { .nav-group:hover .nav-sub { display: flex; } }
+    /* Mobile: show sub-links flat, no dropdown behavior */
+    @media (max-width: 768px) {
+      .nav-sub {
+        position: static !important; display: flex !important; flex-direction: column !important;
+        gap: 0 !important; background: transparent !important; border: none !important;
+        box-shadow: none !important; padding: 0 !important; margin: 0 !important;
+        border-radius: 0 !important; white-space: normal !important; min-width: unset !important;
+      }
+      .nav-sub a {
+        font-size: 0.75rem !important; color: #5a6b62 !important;
+        padding: 0.3rem 0 !important; justify-content: flex-end !important;
+        width: 100% !important; display: flex !important; letter-spacing: 0.04em;
+      }
+      .nav-group .nav-link-main { pointer-events: none; }
+      .nav-link-main .gallery-arrow { display: none !important; }
+    }
+    .nav-link-main { position: relative; display: inline-flex; align-items: center; }
+    .nav-link-main .gallery-label { display: inline-block; transition: opacity 0.18s ease, transform 0.18s ease; }
+    .nav-link-main .gallery-arrow { position: absolute; left: 0; opacity: 0; transform: translateY(4px); transition: opacity 0.18s ease, transform 0.18s ease; font-size: 1.1em; line-height: 1; }
+    .nav-group:hover .nav-link-main .gallery-label, .nav-group.open .nav-link-main .gallery-label { opacity: 0; transform: translateY(-4px); }
+    .nav-group:hover .nav-link-main .gallery-arrow, .nav-group.open .nav-link-main .gallery-arrow { opacity: 1; transform: translateY(0); }
+    .menu-toggle span { transition: transform 0.25s ease, opacity 0.2s ease; transform-origin: center; }
+    .menu-toggle.is-active span:nth-child(1) { transform: translateY(8px) rotate(45deg); }
+    .menu-toggle.is-active span:nth-child(2) { opacity: 0; transform: scaleX(0); }
+    .menu-toggle.is-active span:nth-child(3) { transform: translateY(-8px) rotate(-45deg); }
+    .nav a.active { color: var(--text); font-weight: 700; }
+
+    /* Case study specific styles */
+    .cs-hero {
+      background: #111;
+      border-radius: calc(var(--radius) + 6px);
+      overflow: hidden;
+      margin-bottom: 3.5rem;
+      position: relative;
+    }
+    .cs-hero img {
+      width: 100%;
+      height: clamp(280px, 40vw, 480px);
+      object-fit: cover;
+      opacity: 0.85;
+      display: block;
+    }
+    .cs-hero-overlay {
+      position: absolute;
+      bottom: 0; left: 0; right: 0;
+      padding: 2rem 2.5rem;
+      background: linear-gradient(to top, rgba(0,0,0,0.85) 0%, transparent 100%);
+    }
+    .cs-hero-title {
+      font-size: clamp(2rem, 5vw, 3.5rem);
+      font-weight: 700;
+      color: #fff;
+      margin: 0 0 0.3rem;
+      letter-spacing: -0.02em;
+    }
+    .cs-hero-sub {
+      font-size: 0.9rem;
+      color: rgba(255,255,255,0.65);
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+    }
+    .cs-meta-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 2rem;
+      margin-bottom: 3.5rem;
+      padding-bottom: 2.5rem;
+      border-bottom: 1px solid var(--border);
+    }
+    .cs-meta-item {
+      display: flex;
+      flex-direction: column;
+      gap: 0.25rem;
+    }
+    .cs-meta-label {
+      font-size: 0.7rem;
+      font-weight: 700;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--text-muted);
+    }
+    .cs-meta-value {
+      font-size: 0.95rem;
+      font-weight: 400;
+      color: var(--text);
+    }
+    .cs-body {
+      max-width: 720px;
+    }
+    .cs-section-label {
+      font-size: 0.7rem;
+      font-weight: 700;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--accent);
+      margin: 0 0 0.6rem;
+    }
+    .cs-body h3 {
+      font-size: 1.35rem;
+      font-weight: 700;
+      margin: 0 0 1rem;
+      color: var(--text);
+    }
+    .cs-body p {
+      margin: 0 0 1.25rem;
+      line-height: 1.8;
+      color: var(--text);
+    }
+    .cs-divider {
+      border: none;
+      border-top: 1px solid var(--border);
+      margin: 3rem 0;
+    }
+    .cs-feature-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 1.5rem;
+      margin: 1.5rem 0 2.5rem;
+    }
+    .cs-feature-card {
+      background: rgba(82, 175, 121, 0.06);
+      border: 1px solid rgba(82, 175, 121, 0.2);
+      border-radius: var(--radius);
+      padding: 1.25rem 1.5rem;
+    }
+    .cs-feature-card h4 {
+      font-size: 0.95rem;
+      font-weight: 700;
+      margin: 0 0 0.5rem;
+      color: var(--accent-dark);
+    }
+    .cs-feature-card p {
+      font-size: 0.88rem;
+      margin: 0;
+      line-height: 1.65;
+      color: var(--text-muted);
+    }
+    .cs-cta {
+      margin-top: 3rem;
+      display: flex;
+      gap: 1rem;
+      flex-wrap: wrap;
+      align-items: center;
+    }
+    .cs-back {
+      font-size: 0.82rem;
+      font-weight: 700;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--text-muted);
+      text-decoration: none;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.4rem;
+      transition: color 0.18s ease;
+    }
+    .cs-back:hover { color: var(--accent-dark); }
+  </style>
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="Brandon Kreitsch">
+  <meta property="og:title" content="ArKade Systems Case Study — Brandon Kreitsch">
+  <meta property="og:description" content="A deep dive into ArKade Systems — a personal e-commerce web design project rooted in retro gaming, pixel art identity, and custom arcade cabinet building.">
+  <meta property="og:image" content="https://brandonkreitsch.com/images/arkade_moodboard.png">
+  <meta property="og:url" content="https://brandonkreitsch.com/case-study-arkade.html">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="ArKade Systems Case Study — Brandon Kreitsch">
+  <meta name="twitter:description" content="A deep dive into ArKade Systems — a personal e-commerce web design project rooted in retro gaming, pixel art identity, and custom arcade cabinet building.">
+  <meta name="twitter:image" content="https://brandonkreitsch.com/images/arkade_moodboard.png">
+  <meta name="keywords" content="Brandon Kreitsch, graphic designer, portfolio, identity design, typography, photography, Caldwell University">
+  <script>
+    (function () {
+      var loc = window.location;
+      if (loc.pathname.endsWith(".html")) {
+        var clean = loc.pathname.replace(/\.html$/, "");
+        if (clean.endsWith("/index")) clean = clean.replace(/\/index$/, "/") || "/";
+        history.replaceState(null, "", clean + loc.search + loc.hash);
+      }
+    })();
+  </script>
+</head>
+<body>
+  <a href="#main-content" class="skip-link" style="position:absolute;left:-9999px;top:-9999px;width:1px;height:1px;overflow:hidden;opacity:0;">Skip to main content</a>
+  <header class="site-header">
+    <a href="index.html" class="logo">
+      <img src="site-logo.svg" alt="Brandon Kreitsch logo">
+      <span>Brandon Kreitsch</span>
+    </a>
+    <nav id="site-nav" class="nav" aria-label="Main">
+      <a href="index.html">Home</a>
+      <a href="about.html">About</a>
+      <div class="nav-group">
+        <a href="gallery.html" class="nav-link nav-link-main active" role="button" aria-haspopup="true" aria-expanded="false"><span class="gallery-label">Gallery</span><span class="gallery-arrow" aria-hidden="true">▼</span></a>
+        <div class="nav-sub">
+          <a href="gallery.html#work-digital">Digital</a>
+          <a href="gallery.html#work-photographic">Photography</a>
+          <a href="gallery.html#work-motion">Motion</a>
+          <a href="gallery.html#work-oil">Studio Art</a>
+        </div>
+      </div>
+      <a href="resume.html">Resume</a>
+      <a href="contact.html">Contact</a>
+    </nav>
+    <button class="menu-toggle" aria-label="Toggle menu" aria-controls="site-nav" aria-expanded="false">
+      <span></span><span></span><span></span>
+    </button>
+  </header>
+  <div class="nav-overlay" id="nav-overlay" aria-hidden="true" tabindex="-1"></div>
+
+  <main id="main-content">
+    <section class="section">
+
+      <div class="cs-hero">
+        <img src="images/arkade_moodboard.png" alt="ArKade Systems mood board and website design">
+        <div class="cs-hero-overlay">
+          <h1 class="cs-hero-title">ArKade Systems</h1>
+          <p class="cs-hero-sub">Web Design &nbsp;·&nbsp; E-Commerce &nbsp;·&nbsp;&nbsp;Identity</p>
+        </div>
+      </div>
+
+      <div class="cs-meta-row">
+        <div class="cs-meta-item">
+          <span class="cs-meta-label">Medium</span>
+          <span class="cs-meta-value">Web Design, UI/UX</span>
+        </div>
+        <div class="cs-meta-item">
+          <span class="cs-meta-label">Tools</span>
+          <span class="cs-meta-value">Adobe XD, Illustrator</span>
+        </div>
+        <div class="cs-meta-item">
+          <span class="cs-meta-label">Type</span>
+          <span class="cs-meta-value">E-Commerce Prototype</span>
+        </div>
+        <div class="cs-meta-item">
+          <span class="cs-meta-label">Deliverable</span>
+          <span class="cs-meta-value">Mood Board + Interactive Prototype</span>
+        </div>
+      </div>
+
+      <div class="cs-body">
+
+        <p class="cs-section-label">The Idea</p>
+        <h3>Built from a real obsession. Designed from the inside out.</h3>
+        <p>ArKade Systems is not a hypothetical. It is a brand rooted in something I actually built with my family during COVID — a full custom arcade cabinet that I have to this day. I handled all of the graphic art while we built the cabinet itself, and the two influenced each other constantly throughout the process. That hands-on experience gave this project a level of authenticity that is impossible to fake. ArKade combines "arcade" with "Kreitsch" — it is as personal as a design project gets.</p>
+        <p>I have built at least two of these systems, designed a full manual for the experience, and spent a significant amount of time obsessing over retro games — especially Super Nintendo and Sega Genesis. That deep familiarity with the subject drove every decision on this project, from the identity to the interactions. This is a site for gamers who want to have fun, and it was designed by someone who genuinely is one.</p>
+
+        <hr class="cs-divider">
+
+        <p class="cs-section-label">Research & Direction</p>
+        <h3>From mindmap to mood board — finding the visual language.</h3>
+        <p>The early mindmap focused on the product itself rather than how to represent it visually. I quickly shifted focus to the design language of the cabinet — the colors, the button shapes, the pixel art frames. The background started as dark gray, but white ultimately created a stronger contrast for the bold visual elements the brand demanded.</p>
+        <p>The mood board locked in the direction: red and black as the primary palette, color stripes pulled directly from the joysticks on the physical cabinet. The pixel block designs from the frames under the red "K" logo became the direct inspiration for the button style throughout the site. This was not arbitrary — the site and the cabinet are the same object, just in two different dimensions.</p>
+        <p>The ArKade logo has been in use since 2020. The Kade mascot was created as a second home icon and brand representative — giving the system a character-driven identity in the tradition of retro gaming culture.</p>
+
+        <hr class="cs-divider">
+
+        <p class="cs-section-label">Design Process</p>
+        <h3>The wireframe was a starting point, not a blueprint.</h3>
+        <p>The wireframe evolved significantly. The Games Page was completely overhauled from a simple gallery into a far more dynamic and interactive experience. Page sizes changed across the board, with the final prototype leaning heavily on scrolling layouts that feel natural on both desktop and mobile. The original wireframe treated all pages as the same fixed size — the final prototype knew better.</p>
+        <p>The secondary and tertiary color palette expanded beyond the original red and black. Over time ArKade grew into its own color system — one that started with joystick colors but developed into something with its own identity, reflecting the variety and energy of the games it celebrates.</p>
+
+        <hr class="cs-divider">
+
+        <p class="cs-section-label">Standout Features</p>
+        <h3>Two features that defined the final prototype.</h3>
+
+        <div class="cs-feature-grid">
+          <div class="cs-feature-card">
+            <h4>Looping Homepage Video</h4>
+            <p>A looping video on the homepage brings the site to life in the way a travel site pulls you in with a destination. The source footage already existed from the cabinet build in 2020 — it just needed to be edited into a seamless loop. The goal was to eliminate the static feeling that kills engagement on portfolio and product sites.</p>
+          </div>
+          <div class="cs-feature-card">
+            <h4>40-System Carousel</h4>
+            <p>Displaying over 40 game systems — each with a custom pixel art illustration and description — required more than a flat image grid. The carousel format gives each system the space it deserves while keeping the page dynamic and navigable. Wiring 40 artboards together was a considerable undertaking, but the result is a browsing experience that feels true to the subject matter.</p>
+          </div>
+        </div>
+
+        <hr class="cs-divider">
+
+        <p class="cs-section-label">Reflection</p>
+        <h3>What this project proved.</h3>
+        <p>ArKade Systems demonstrates what happens when a designer works on something they genuinely care about. The identity is consistent because the inspiration was consistent. The interactions feel intentional because they were built around real constraints — 40 systems, a manual's worth of copy, a physical cabinet that already had a visual language. Every design decision had a reason, and most of those reasons came from years of living with the subject before the project even started.</p>
+
+        <div class="cs-cta">
+          <a href="https://xd.adobe.com/view/7e13c877-b002-478d-97a0-552efbed5e7d-2b40/screen/8e487426-8a56-4301-839f-dd52512f743b" target="_blank" rel="noopener" class="btn btn-primary">View Live Prototype</a>
+          <a href="gallery.html" class="cs-back">← Back to Gallery</a>
+        </div>
+
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <p>&copy; <span id="year"></span> Brandon Kreitsch. All Rights Reserved.</p>
+    <p>Download, scraping, or use of any material is prohibited without permission. &nbsp;|&nbsp; <a href="terms.html">Terms of Service</a></p>
+  </footer>
+
+  <script src="script.js"></script>
+</body>
+</html>

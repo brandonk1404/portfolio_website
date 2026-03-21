@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+  <meta name="theme-color" content="#315640">
+  <meta name="description" content="The Maker — Case Study by Brandon Kreitsch. A conceptual digital photographic piece reimagining a craftsman's tools as computer desktop windows, inspired by Piet Mondrian.">
+  <title>The Maker — Case Study — Brandon Kreitsch</title>
+  <link rel="icon" type="image/svg+xml" href="site-logo.svg">
+  <link rel="apple-touch-icon" href="apple-touch-icon.png">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
+  <style>
+    body { font-family: "Roboto", system-ui, sans-serif; }
+    .nav-group { position: relative; }
+    .nav-sub { position: absolute; left: 0; top: 100%; margin-top: 0.35rem; padding: 0.5rem 0.75rem; background: #ffffff; border-radius: 8px; border: 1px solid rgba(229,231,230,0.9); box-shadow: 0 12px 34px rgba(49,86,64,0.2); display: none; flex-direction: column; gap: 0.1rem; white-space: nowrap; min-width: 140px; }
+    .nav-sub a { padding: 0.3rem 0; }
+    .nav-group.open .nav-sub { display: flex; }
+    @media (min-width: 769px) { .nav-group:hover .nav-sub { display: flex; } }
+    /* Mobile: show sub-links flat, no dropdown behavior */
+    @media (max-width: 768px) {
+      .nav-sub {
+        position: static !important; display: flex !important; flex-direction: column !important;
+        gap: 0 !important; background: transparent !important; border: none !important;
+        box-shadow: none !important; padding: 0 !important; margin: 0 !important;
+        border-radius: 0 !important; white-space: normal !important; min-width: unset !important;
+      }
+      .nav-sub a {
+        font-size: 0.75rem !important; color: #5a6b62 !important;
+        padding: 0.3rem 0 !important; justify-content: flex-end !important;
+        width: 100% !important; display: flex !important; letter-spacing: 0.04em;
+      }
+      .nav-group .nav-link-main { pointer-events: none; }
+      .nav-link-main .gallery-arrow { display: none !important; }
+    }
+    .nav-link-main { position: relative; display: inline-flex; align-items: center; }
+    .nav-link-main .gallery-label { display: inline-block; transition: opacity 0.18s ease, transform 0.18s ease; }
+    .nav-link-main .gallery-arrow { position: absolute; left: 0; opacity: 0; transform: translateY(4px); transition: opacity 0.18s ease, transform 0.18s ease; font-size: 1.1em; line-height: 1; }
+    .nav-group:hover .nav-link-main .gallery-label, .nav-group.open .nav-link-main .gallery-label { opacity: 0; transform: translateY(-4px); }
+    .nav-group:hover .nav-link-main .gallery-arrow, .nav-group.open .nav-link-main .gallery-arrow { opacity: 1; transform: translateY(0); }
+    .menu-toggle span { transition: transform 0.25s ease, opacity 0.2s ease; transform-origin: center; }
+    .menu-toggle.is-active span:nth-child(1) { transform: translateY(8px) rotate(45deg); }
+    .menu-toggle.is-active span:nth-child(2) { opacity: 0; transform: scaleX(0); }
+    .menu-toggle.is-active span:nth-child(3) { transform: translateY(-8px) rotate(-45deg); }
+    .nav a.active { color: var(--text); font-weight: 700; }
+    .cs-hero { background: #111; border-radius: calc(var(--radius) + 6px); overflow: hidden; margin-bottom: 3.5rem; position: relative; }
+    .cs-hero img { width: 100%; height: clamp(280px, 40vw, 480px); object-fit: cover; object-position: center top; opacity: 0.85; display: block; }
+    .cs-hero-overlay { position: absolute; bottom: 0; left: 0; right: 0; padding: 2rem 2.5rem; background: linear-gradient(to top, rgba(0,0,0,0.85) 0%, transparent 100%); }
+    .cs-hero-title { font-size: clamp(2rem, 5vw, 3.5rem); font-weight: 700; color: #fff; margin: 0 0 0.3rem; letter-spacing: -0.02em; }
+    .cs-hero-sub { font-size: 0.9rem; color: rgba(255,255,255,0.65); letter-spacing: 0.1em; text-transform: uppercase; }
+    .cs-meta-row { display: flex; flex-wrap: wrap; gap: 2rem; margin-bottom: 3.5rem; padding-bottom: 2.5rem; border-bottom: 1px solid var(--border); }
+    .cs-meta-item { display: flex; flex-direction: column; gap: 0.25rem; }
+    .cs-meta-label { font-size: 0.7rem; font-weight: 700; letter-spacing: 0.14em; text-transform: uppercase; color: var(--text-muted); }
+    .cs-meta-value { font-size: 0.95rem; font-weight: 400; color: var(--text); }
+    .cs-body { max-width: 720px; }
+    .cs-section-label { font-size: 0.7rem; font-weight: 700; letter-spacing: 0.14em; text-transform: uppercase; color: var(--accent); margin: 0 0 0.6rem; }
+    .cs-body h3 { font-size: 1.35rem; font-weight: 700; margin: 0 0 1rem; color: var(--text); }
+    .cs-body p { margin: 0 0 1.25rem; line-height: 1.8; color: var(--text); }
+    .cs-divider { border: none; border-top: 1px solid var(--border); margin: 3rem 0; }
+    .cs-feature-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 1.5rem; margin: 1.5rem 0 2.5rem; }
+    .cs-feature-card { background: rgba(82,175,121,0.06); border: 1px solid rgba(82,175,121,0.2); border-radius: var(--radius); padding: 1.25rem 1.5rem; }
+    .cs-feature-card h4 { font-size: 0.95rem; font-weight: 700; margin: 0 0 0.5rem; color: var(--accent-dark); }
+    .cs-feature-card p { font-size: 0.88rem; margin: 0; line-height: 1.65; color: var(--text-muted); }
+    .cs-cta { margin-top: 3rem; display: flex; gap: 1rem; flex-wrap: wrap; align-items: center; }
+    .cs-back { font-size: 0.82rem; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; color: var(--text-muted); text-decoration: none; display: inline-flex; align-items: center; gap: 0.4rem; transition: color 0.18s ease; }
+    .cs-back:hover { color: var(--accent-dark); }
+  </style>
+  <script>
+    (function () {
+      var loc = window.location;
+      if (loc.pathname.endsWith(".html")) {
+        var clean = loc.pathname.replace(/\.html$/, "");
+        if (clean.endsWith("/index")) clean = clean.replace(/\/index$/, "/") || "/";
+        history.replaceState(null, "", clean + loc.search + loc.hash);
+      }
+    })();
+  </script>
+  <meta property="og:image" content="https://brandonkreitsch.com/images/image8.jpg">
+</head>
+<body>
+  <a href="#main-content" class="skip-link" style="position:absolute;left:-9999px;top:-9999px;width:1px;height:1px;overflow:hidden;opacity:0;">Skip to main content</a>
+  <header class="site-header">
+    <a href="index.html" class="logo">
+      <img src="site-logo.svg" alt="Brandon Kreitsch logo">
+      <span>Brandon Kreitsch</span>
+    </a>
+    <nav id="site-nav" class="nav" aria-label="Main">
+      <a href="index.html">Home</a>
+      <a href="about.html">About</a>
+      <div class="nav-group">
+        <a href="gallery.html" class="nav-link nav-link-main active" role="button" aria-haspopup="true" aria-expanded="false"><span class="gallery-label">Gallery</span><span class="gallery-arrow" aria-hidden="true">▼</span></a>
+        <div class="nav-sub">
+          <a href="gallery.html#work-digital">Digital</a>
+          <a href="gallery.html#work-photographic">Photography</a>
+          <a href="gallery.html#work-motion">Motion</a>
+          <a href="gallery.html#work-oil">Studio Art</a>
+        </div>
+      </div>
+      <a href="resume.html">Resume</a>
+      <a href="contact.html">Contact</a>
+    </nav>
+    <button class="menu-toggle" aria-label="Toggle menu" aria-controls="site-nav" aria-expanded="false">
+      <span></span><span></span><span></span>
+    </button>
+  </header>
+  <div class="nav-overlay" id="nav-overlay" aria-hidden="true" tabindex="-1"></div>
+
+  <main id="main-content">
+    <section class="section">
+
+      <div class="cs-hero">
+        <img src="images/image8.jpg" alt="The Maker — final photograph">
+        <div class="cs-hero-overlay">
+          <h1 class="cs-hero-title">The Maker</h1>
+          <p class="cs-hero-sub">Photography &nbsp;·&nbsp; Digital Composite &nbsp;·&nbsp; Junior Comprehension</p>
+        </div>
+      </div>
+
+      <div class="cs-meta-row">
+        <div class="cs-meta-item">
+          <span class="cs-meta-label">Medium</span>
+          <span class="cs-meta-value">Photographic Print, Digital Composite</span>
+        </div>
+        <div class="cs-meta-item">
+          <span class="cs-meta-label">Tools</span>
+          <span class="cs-meta-value">GIMP, Camera</span>
+        </div>
+        <div class="cs-meta-item">
+          <span class="cs-meta-label">Influence</span>
+          <span class="cs-meta-value">Piet Mondrian</span>
+        </div>
+        <div class="cs-meta-item">
+          <span class="cs-meta-label">Course</span>
+          <span class="cs-meta-value">Junior Comprehension — Caldwell University</span>
+        </div>
+      </div>
+
+      <div class="cs-body">
+
+        <p class="cs-section-label">The Concept</p>
+        <h3>A craftsman's tools, seen through a screen.</h3>
+        <p>The Maker began as a response to Piet Mondrian — specifically to his use of rigid grid structures, black linework, and blocks of pure color to suggest meaning beneath the surface. What Mondrian did with paint and canvas, this piece attempts to do with a desktop: use windows as the organizing grid, and let each one become a door into a different tool, a different act of making.</p>
+        <p>The subject — a treehouse and the tools required to build one — was chosen for the tension between the physical and the digital. A hammer, a drill, a tape measure, a pencil. These are objects that exist in the hand. The piece asks what happens when you move them into a screen, interpret them as software, and photograph the result. The pencil becomes a digital paint program. The tape measure becomes a measuring app. The outdoors becomes a wallpaper.</p>
+
+        <hr class="cs-divider">
+
+        <p class="cs-section-label">Influence</p>
+        <h3>Mondrian's grid as a compositional framework.</h3>
+        <p>The initial response to Mondrian's work focused on what makes his pieces immediately recognizable: the black lines that carve the canvas into zones, and the way bright color draws the eye while white recedes. His grids were inspired by the streets of New York City — geometry pulled from the real world and made abstract. That same logic drove The Maker. Computer windows are the grid. Each window is a colored zone. The arrangement on the desktop mirrors the structure of a treehouse — an informal geometry held together by the logic of construction.</p>
+        <p>An early sketch — reused from a previous project — was used to plan the window arrangement before any digital work began. That sketch became the blueprint for the final composition.</p>
+
+        <hr class="cs-divider">
+
+        <p class="cs-section-label">Process</p>
+        <h3>Built in GIMP, window by window.</h3>
+        <p>The piece was developed entirely in GIMP, with each window positioned and adjusted across multiple working sessions. The color palette took shape gradually — splotches in a cube design, bright and saturated, drawing from the same primaries that Mondrian favored. The background wallpaper was assembled from nature photographs to place the digital construction in an outdoor context — the treehouse as environment.</p>
+        <p>The final shot was the image that locked everything together: a man in a dark room, face lit only by the glow of the monitor. The screen is the only light source. The maker is not outside building — he is inside, at the computer, constructing something just as real through a different kind of tool.</p>
+
+        <hr class="cs-divider">
+
+        <p class="cs-section-label">Key Decisions</p>
+        <h3>What shaped the final image.</h3>
+
+        <div class="cs-feature-grid">
+          <div class="cs-feature-card">
+            <h4>Windows as Doors</h4>
+            <p>Each application window on the desktop was treated as a doorway into a subject — paint program as pencil, measuring app as tape measure, photo grid as the outdoors. The abstraction never loses its anchor in the physical.</p>
+          </div>
+          <div class="cs-feature-card">
+            <h4>The Dark Room Shot</h4>
+            <p>Photographing the finished desktop with a man in a darkened room, lit only by the screen, turned a digital composite into a photographic print. The screen becomes a light source. The maker becomes a subject.</p>
+          </div>
+          <div class="cs-feature-card">
+            <h4>Mondrian's Grid Logic</h4>
+            <p>The window arrangement was planned with a sketch before any digital work began, treating the desktop as a canvas and the windows as compositional zones — direct application of Mondrian's grid thinking.</p>
+          </div>
+          <div class="cs-feature-card">
+            <h4>Color as Structure</h4>
+            <p>Bright splotches in a cube design mirror Mondrian's use of primary color to direct attention. The color is not decorative — it defines which windows matter and which ones recede.</p>
+          </div>
+        </div>
+
+        <hr class="cs-divider">
+
+        <p class="cs-section-label">Reflection</p>
+        <h3>What this piece proved.</h3>
+        <p>The Maker demonstrates that a desktop can be a canvas. The grid of windows, the color, the arrangement — these are all formal decisions, not technical ones. The piece succeeds because it commits to the concept fully: every element on the screen has a reason to be there, and the final photograph ties the digital work back to a physical, human presence. The maker at the screen is not separate from the maker with the hammer. They are the same person.</p>
+
+        <div class="cs-cta">
+          <a href="gallery.html#work-photographic" class="cs-back">← Back to Gallery</a>
+        </div>
+
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <p>&copy; <span id="year"></span> Brandon Kreitsch. All Rights Reserved.</p>
+    <p>Download, scraping, or use of any material is prohibited without permission. &nbsp;|&nbsp; <a href="terms.html">Terms of Service</a></p>
+  </footer>
+
+  <script src="script.js"></script>
+</body>
+</html>

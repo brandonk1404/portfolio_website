@@ -1,0 +1,223 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+  <meta name="theme-color" content="#315640">
+  <meta name="description" content="Portfolio of Brandon Kreitsch — graphic designer specializing in identity design, layout, typography, photography, and motion.">
+  <title>Brandon Kreitsch — Graphic Designer</title>
+  <link rel="icon" type="image/svg+xml" href="site-logo.svg">
+  <link rel="apple-touch-icon" href="apple-touch-icon.png">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
+  <style>
+    body { font-family: "Roboto", system-ui, sans-serif; }
+    .nav-group { position: relative; }
+    .nav-sub {
+      position: absolute; left: 0; top: 100%; margin-top: 0.35rem;
+      padding: 0.5rem 0.75rem; background: #ffffff; border-radius: 8px;
+      border: 1px solid rgba(229,231,230,0.9); box-shadow: 0 12px 34px rgba(49,86,64,0.2);
+      display: none; flex-direction: column; gap: 0.1rem; white-space: nowrap; min-width: 140px;
+    }
+    .nav-sub a { padding: 0.3rem 0; }
+    .nav-group.open .nav-sub { display: flex; }
+    @media (min-width: 769px) { .nav-group:hover .nav-sub { display: flex; } }
+    /* Mobile: show sub-links flat, no dropdown behavior */
+    @media (max-width: 768px) {
+      .nav-sub {
+        position: static !important; display: flex !important; flex-direction: column !important;
+        gap: 0 !important; background: transparent !important; border: none !important;
+        box-shadow: none !important; padding: 0 !important; margin: 0 !important;
+        border-radius: 0 !important; white-space: normal !important; min-width: unset !important;
+      }
+      .nav-sub a {
+        font-size: 0.75rem !important; color: #5a6b62 !important;
+        padding: 0.3rem 0 !important; justify-content: flex-end !important;
+        width: 100% !important; display: flex !important; letter-spacing: 0.04em;
+      }
+      .nav-group .nav-link-main { pointer-events: none; }
+      .nav-link-main .gallery-arrow { display: none !important; }
+    }
+    .nav-link-main { position: relative; display: inline-flex; align-items: center; }
+    .nav-link-main .gallery-label { display: inline-block; transition: opacity 0.18s ease, transform 0.18s ease; }
+    .nav-link-main .gallery-arrow {
+      position: absolute; left: 0; opacity: 0; transform: translateY(4px);
+      transition: opacity 0.18s ease, transform 0.18s ease; font-size: 1.1em; line-height: 1;
+    }
+    .nav-group:hover .nav-link-main .gallery-label,
+    .nav-group.open .nav-link-main .gallery-label { opacity: 0; transform: translateY(-4px); }
+    .nav-group:hover .nav-link-main .gallery-arrow,
+    .nav-group.open .nav-link-main .gallery-arrow { opacity: 1; transform: translateY(0); }
+    .menu-toggle span { transition: transform 0.25s ease, opacity 0.2s ease; transform-origin: center; }
+    .menu-toggle.is-active span:nth-child(1) { transform: translateY(8px) rotate(45deg); }
+    .menu-toggle.is-active span:nth-child(2) { opacity: 0; transform: scaleX(0); }
+    .menu-toggle.is-active span:nth-child(3) { transform: translateY(-8px) rotate(-45deg); }
+    .btn {
+      display: inline-flex; align-items: center; justify-content: center;
+      padding: 0.7rem 1.3rem; border-radius: 999px; border: 1px solid transparent;
+      font-size: clamp(0.9rem, 1.5vw, 0.95rem); font-weight: 400; letter-spacing: 0.08em;
+      text-transform: uppercase; text-decoration: none; cursor: pointer;
+      min-width: min(11rem, 100%);
+      transition: transform 0.18s ease, box-shadow 0.18s ease, background-color 0.18s ease, color 0.18s ease;
+    }
+    .btn-primary { background-color: #52af79; color: #ffffff; border-color: #315640; box-shadow: 0 10px 28px rgba(49,86,64,0.32); }
+    .btn:hover, .btn:focus-visible { background-color: #315640; color: #ffffff; box-shadow: 0 18px 40px rgba(49,86,64,0.45); transform: translateY(-2px) translateZ(0); }
+    .btn:active { transform: translateY(0); box-shadow: 0 6px 18px rgba(49,86,64,0.3); }
+    .resume-download { margin-top: 0.5rem; }
+    .contact-email, .contact-phone { text-decoration: none; min-width: min(11rem, 100%); }
+    .nav a.active { color: var(--text); font-weight: 700; }
+  </style>
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="Brandon Kreitsch">
+  <meta property="og:title" content="Brandon Kreitsch — Graphic Designer">
+  <meta property="og:description" content="Portfolio of Brandon Kreitsch — graphic designer specializing in identity design, layout, typography, photography, and motion.">
+  <meta property="og:image" content="https://brandonkreitsch.com/images/image16.png">
+  <meta property="og:url" content="https://brandonkreitsch.com/index.html">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Brandon Kreitsch — Graphic Designer">
+  <meta name="twitter:description" content="Portfolio of Brandon Kreitsch — graphic designer specializing in identity design, layout, typography, photography, and motion.">
+  <meta name="twitter:image" content="https://brandonkreitsch.com/images/image16.png">
+  <meta name="keywords" content="Brandon Kreitsch, graphic designer, portfolio, identity design, typography, photography, Caldwell University">
+  <script>
+    (function () {
+      var loc = window.location;
+      if (loc.pathname.endsWith(".html")) {
+        var clean = loc.pathname.replace(/\.html$/, "");
+        if (clean.endsWith("/index")) clean = clean.replace(/\/index$/, "/") || "/";
+        history.replaceState(null, "", clean + loc.search + loc.hash);
+      }
+    })();
+  </script>
+</head>
+<body>
+  <a href="#main-content" class="skip-link" style="position:absolute;left:-9999px;top:-9999px;width:1px;height:1px;overflow:hidden;opacity:0;">Skip to main content</a>
+  <header class="site-header">
+    <a href="index.html" class="logo">
+      <img src="site-logo.svg" alt="Brandon Kreitsch logo">
+      <span>Brandon Kreitsch</span>
+    </a>
+    <nav id="site-nav" class="nav" aria-label="Main">
+      <a href="index.html" class="active" style="display:none">Home</a>
+      <a href="about.html">About</a>
+      <div class="nav-group">
+        <a href="gallery.html" class="nav-link nav-link-main" role="button" aria-haspopup="true" aria-expanded="false"><span class="gallery-label">Gallery</span><span class="gallery-arrow" aria-hidden="true">▼</span></a>
+        <div class="nav-sub">
+          <a href="gallery.html#work-digital">Digital</a>
+          <a href="gallery.html#work-photographic">Photography</a>
+          <a href="gallery.html#work-motion">Motion</a>
+          <a href="gallery.html#work-oil">Studio Art</a>
+        </div>
+      </div>
+
+      <a href="resume.html">Resume</a>
+      <a href="contact.html">Contact</a>
+    </nav>
+    <button class="menu-toggle" aria-label="Toggle menu" aria-controls="site-nav" aria-expanded="false">
+      <span></span><span></span><span></span>
+    </button>
+  </header>
+  <div class="nav-overlay" id="nav-overlay" aria-hidden="true" tabindex="-1"></div>
+  <main id="main-content">
+    <section class="hero">
+      <div class="hero-inner">
+        <div class="hero-copy">
+          <h1 class="hero-title"><span class="hero-title-word">Brandon</span> <span class="hero-title-word">Kreitsch</span></h1>
+          <p class="hero-label">Graphic Design BFA — Caldwell University</p>
+          <p class="hero-desc">Identity design, layout, typography, and motion rooted in color and negative space.</p>
+        </div>
+        <div class="hero-showcase" aria-label="Selected work preview">
+          <div class="hero-showcase-frame">
+            <img class="hero-showcase-image" src="images/image8.jpg" alt="The Maker">
+          </div>
+          <div class="hero-showcase-meta">
+            <span class="hero-showcase-title">The Maker</span><span class="hero-showcase-sep"> &nbsp;&mdash;&nbsp; </span><span class="hero-showcase-medium">Photographic Print</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section awards-section">
+      <h2 class="section-title">Featured Work</h2>
+      <div class="featured-grid">
+
+        <a href="case-study-arkade.html" class="featured-card">
+          <div class="featured-img-wrap">
+            <img src="images/arkade_moodboard.png" alt="ArKade Systems">
+          </div>
+          <div class="featured-meta">
+            <span class="featured-category">Web Design</span>
+            <span class="featured-title">ArKade Systems</span>
+            <span class="featured-desc">E-commerce web design and identity for a personal retro arcade system.</span>
+          </div>
+        </a>
+
+        <a href="case-study-doors.html" class="featured-card">
+          <div class="featured-img-wrap">
+            <img src="images/doors_thumb.png" alt="Doors">
+          </div>
+          <div class="featured-meta">
+            <span class="featured-category">Video</span>
+            <span class="featured-title">Doors</span>
+            <span class="featured-desc">A short mystery film using eight doors as gateways between worlds.</span>
+          </div>
+        </a>
+
+        <a href="case-study-the-maker.html" class="featured-card">
+          <div class="featured-img-wrap">
+            <img src="images/image8.jpg" alt="The Maker">
+          </div>
+          <div class="featured-meta">
+            <span class="featured-category">Photography</span>
+            <span class="featured-title">The Maker</span>
+            <span class="featured-desc">A craftsman's tools reimagined as computer desktop windows.</span>
+          </div>
+        </a>
+
+        <a href="case-study-strength.html" class="featured-card">
+          <div class="featured-img-wrap">
+            <img src="images/strength_poster.png" alt="Strength">
+          </div>
+          <div class="featured-meta">
+            <span class="featured-category">Video</span>
+            <span class="featured-title">Strength</span>
+            <span class="featured-desc">A nature documentary short film finished with a VHS aesthetic.</span>
+          </div>
+        </a>
+
+      </div>
+    </section>
+
+    <section class="section awards-section">
+      <h2 class="section-title">Awards &amp; Honors</h2>
+      <ul class="awards-list">
+        <li class="awards-item"><strong>Kappa Pi Art Honors Society</strong><span>Spring 2026 &#8211; Present</span></li>
+        <li class="awards-item"><strong>Caldwell University Dean&#8217;s List</strong><span>Fall 2022 &#8211; Fall 2023, Spring 2025 &#8211; Fall 2025</span></li>
+        <li class="awards-item"><strong>Caldwell University Scholar Merit Scholarship</strong><span>Fall 2022</span></li>
+        <li class="awards-item"><strong>Perfect Attendance Award &#8211; High School</strong><span>2018&#8211;2022</span></li>
+      </ul>
+    </section>
+
+  </main>
+  <footer class="site-footer">
+    <p>&copy; <span id="year"></span> Brandon Kreitsch. All Rights Reserved.</p>
+    <p>Download, scraping, or use of any material is prohibited without permission. &nbsp;|&nbsp; <a href="terms.html">Terms of Service</a></p>
+  </footer>
+  <div class="lightbox" id="lightbox" aria-hidden="true">
+    <div class="lightbox-backdrop" data-lightbox-close></div>
+    <div class="lightbox-dialog" role="dialog" aria-modal="true" aria-label="Work preview">
+      <button class="lightbox-close" type="button" aria-label="Close preview" data-lightbox-close>&times;</button>
+      <button class="lightbox-nav lightbox-prev" type="button" aria-label="Previous item" data-lightbox-prev>&#8249;</button>
+      <button class="lightbox-nav lightbox-next" type="button" aria-label="Next item" data-lightbox-next>&#8250;</button>
+      <div class="lightbox-body" id="lightbox-body"></div>
+      <div class="lightbox-caption">
+        <div class="lightbox-category" id="lightbox-category"></div>
+        <div class="lightbox-title" id="lightbox-title"></div>
+        <a href="https://xd.adobe.com/view/7e13c877-b002-478d-97a0-552efbed5e7d-2b40/screen/8e487426-8a56-4301-839f-dd52512f743b" id="lightbox-prototype-link" class="lightbox-prototype-btn" target="_blank" rel="noopener" style="display:none;">View Prototype &#8594;</a>
+      </div>
+    </div>
+  </div>
+  <script src="script.js"></script>
+</body>
+</html>
