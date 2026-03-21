@@ -623,6 +623,8 @@
           addPressed();
           setTimeout(removePressed, 180);
         }, { passive: true });
+        el.addEventListener('touchend', removePressed, { passive: true });
+        el.addEventListener('touchcancel', removePressed, { passive: true });
         el.addEventListener('click', function () {
           addPressed();
           setTimeout(removePressed, 140);
@@ -662,8 +664,9 @@
           break;
         }
       }
-      // Clean the URL so refreshing doesn't re-open
-      history.replaceState(null, '', 'gallery.html');
+      // Clean the URL (strip .html) so refreshing doesn't re-open
+      var cleanPath = window.location.pathname.replace(/\.html$/, '') || '/';
+      history.replaceState(null, '', cleanPath);
     }
 
     if (document.readyState === 'complete') {
@@ -672,6 +675,15 @@
       window.addEventListener('load', tryOpen);
     }
   })();
+
+  // ── Guard: close lightbox on browser back/forward so case study
+  //    back-navigation never re-opens the lightbox behind the page ──
+  window.addEventListener('popstate', function () {
+    if (lightbox && lightbox.classList.contains('open')) {
+      closeLightbox();
+    }
+  });
+
   (function () {
     var revealEls = [];
 
@@ -745,6 +757,9 @@
       if (!href || href.startsWith('#') || href.startsWith('mailto') ||
           href.startsWith('tel') || href.startsWith('http') ||
           link.getAttribute('target') === '_blank') return;
+      // Don't intercept external prototype links (handled separately) or cs-back links
+      if (link.classList.contains('gallery-prototype-link')) return;
+      if (link.classList.contains('cs-back')) return;
       link.addEventListener('click', function (e) {
         e.preventDefault();
         document.body.classList.add('is-leaving');
@@ -795,13 +810,19 @@
     updateBg();
   })();
 
-  // ── Prototype links open in lightbox ──────────────────────────
+  // ── Prototype links: external URLs open in lightbox; case study pages navigate normally ──
   (function () {
     document.querySelectorAll('.gallery-prototype-link').forEach(function (link) {
       link.addEventListener('click', function (e) {
-        e.preventDefault();
         var href = link.getAttribute('href');
-        if (!href || !lightbox || !lightboxBody) return;
+        if (!href) return;
+
+        // Case study pages (.html or clean URL paths) — let them navigate normally
+        var isExternal = href.indexOf('xd.adobe.com') !== -1 || href.indexOf('figma.com') !== -1;
+        if (!isExternal) return; // fall through to normal navigation
+
+        e.preventDefault();
+        if (!lightbox || !lightboxBody) return;
 
         lightboxBody.innerHTML = '';
         if (captionCategory) captionCategory.textContent = 'Web Design';

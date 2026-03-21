@@ -272,6 +272,17 @@ ul {
   object-fit: cover;
 }
 
+/* Portrait posters get a taller box so they aren't squashed */
+.poster-item .gallery-image-wrap {
+  aspect-ratio: 3 / 4;
+}
+
+/* Prevent single-word widow on long gallery item names */
+.gallery-name {
+  text-wrap: pretty;
+  max-width: 22ch;
+}
+
 .gallery-meta {
   display: flex;
   flex-direction: column;
@@ -376,6 +387,16 @@ ul {
   color: #fff;
   box-shadow: 0 8px 24px rgba(49, 86, 64, 0.3);
   transform: translateY(-50%) scale(1.08);
+}
+
+/* On touch-only devices, suppress hover so tapping doesn't leave arrow stuck dark */
+@media (hover: none) {
+  .gallery-nav:hover {
+    background: #ffffff;
+    color: var(--text);
+    box-shadow: 0 4px 16px rgba(49, 86, 64, 0.15);
+    transform: translateY(-50%);
+  }
 }
 
 .gallery-nav-prev {
@@ -564,6 +585,10 @@ ul {
   font-size: 26px;
   cursor: pointer;
   z-index: 10;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  line-height: 1;
 }
 
 .lightbox-nav {
@@ -581,6 +606,8 @@ ul {
   display: flex;
   align-items: center;
   justify-content: center;
+  line-height: 1;
+  padding: 0;
   z-index: 10;
 }
 
@@ -2097,11 +2124,6 @@ body, h1, h2, h3 {
 .gallery-overlay {
   position: absolute;
   inset: 0;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: calc(100% - (100% - 1rem - 2.5rem)); /* covers image only */
-  height: calc(100% - 3.5rem);
   background: rgba(49, 86, 64, 0.88);
   border-radius: var(--radius);
   display: flex;
@@ -2408,6 +2430,19 @@ p, h1, h2, h3, li, .about-lead, .cs-body p {
   /* Hide the animated arrow on mobile — not needed */
   .nav-group .nav-link-main .gallery-arrow {
     display: none !important;
+  }
+
+  /* Lock the Gallery label visible at all times on mobile — no fade */
+  .nav-group .nav-link-main .gallery-label {
+    opacity: 1 !important;
+    transform: none !important;
+    transition: none !important;
+  }
+
+  .nav-group:hover .nav-link-main .gallery-label,
+  .nav-group.open .nav-link-main .gallery-label {
+    opacity: 1 !important;
+    transform: none !important;
   }
 
   /* "Gallery" label: non-interactive heading, full width, right-aligned */
