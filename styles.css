@@ -6,6 +6,7 @@
   --text-muted: #5a6b62;
   --accent: #52af79;
   --accent-dark: #315640;
+  --black: #0a0a0a;
   --border: #e5e7e6;
   --radius: 6px;
   --font-display: "Roboto", system-ui, sans-serif;
@@ -621,10 +622,19 @@ ul {
 
 .site-footer {
   padding: 1.5rem var(--space);
-  border-top: 1px solid var(--border);
+  border-top: none;
   text-align: center;
   font-size: 0.85rem;
-  color: var(--text-muted);
+  color: rgba(255, 255, 255, 0.55);
+  background: var(--black);
+}
+
+.site-footer a {
+  color: rgba(255, 255, 255, 0.55);
+}
+
+.site-footer a:hover {
+  color: var(--accent);
 }
 
 .site-footer p {
