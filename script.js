@@ -224,11 +224,11 @@
     if (heroTitle) heroTitle.textContent = shuffled[0].title;
     var heroMediumInit = document.querySelector('.hero-showcase-medium');
     if (heroMediumInit) heroMediumInit.textContent = shuffled[0].medium || '';
-    // Apply Ken Burns to first image if it's not a video
+    // Apply Ken Burns to first image
     var firstMedia = activeLayer.querySelector('img');
     if (firstMedia) {
-      var kbInit = ['', 'kb-2', 'kb-3'][0];
-      if (kbInit) firstMedia.classList.add(kbInit);
+      var kbClasses = ['', 'kb-2', 'kb-3', 'kb-4'];
+      firstMedia.classList.add(kbClasses[0 % 4] || '');
     }
 
     function setHeroSlide(next) {
@@ -254,8 +254,9 @@
         // Ken Burns on images only
         var newImg = activeLayer.querySelector('img');
         if (newImg) {
-          newImg.classList.remove('kb-2', 'kb-3');
-          var kbClass = ['', 'kb-2', 'kb-3'][heroIndex % 3];
+          newImg.classList.remove('kb-2', 'kb-3', 'kb-4');
+          var kbClasses = ['', 'kb-2', 'kb-3', 'kb-4'];
+          var kbClass = kbClasses[heroIndex % 4];
           if (kbClass) newImg.classList.add(kbClass);
         }
       }
