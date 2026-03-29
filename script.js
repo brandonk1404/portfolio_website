@@ -148,28 +148,40 @@
   // Hero auto-slideshow — crossfade between two stacked images
   var heroFrame = document.querySelector('.hero-showcase-frame');
   var heroTitle = document.querySelector('.hero-showcase-title');
-  var heroYear = document.querySelector('.hero-showcase-year');
+  var heroYear  = document.querySelector('.hero-showcase-year');
 
   var heroSlides = [
-    { src: 'images/image8.jpg',           title: 'The Maker',                       medium: 'Photographic Print' },
-    { src: 'images/image17.jpg',          title: 'Garden',                          medium: 'Photographic Print' },
-    { src: 'images/image16.png',          title: 'Room Depth',                      medium: 'Digital Illustration' },
-    { src: 'images/image2.png',           title: 'Sight By Sound Packaging',        medium: 'Digital Illustration' },
-    { src: 'images/image19.png',          title: 'Dan Friedman Information Poster', medium: 'Digital Illustration' },
-    { src: 'images/image15.jpg',          title: 'Soap Bottles',                    medium: 'Oil Painting' },
-    { src: 'images/image9.jpg',           title: 'Shadow Home',                     medium: 'Photographic Print' },
-    { src: 'images/time_flies_loop.mp4',  title: 'Time Flies',                      medium: 'Wearable Sculpture' },
-    { src: 'images/955_loop.mp4',         title: '9:55',                            medium: 'Video' },
-    { src: 'images/strength_loop.mp4',    title: 'Strength',                        medium: 'Video' }
+    { src: 'images/image8.jpg',              title: 'The Maker',                             medium: 'Photographic Print' },
+    { src: 'images/image17.jpg',             title: 'Garden',                                medium: 'Photographic Print' },
+    { src: 'images/image16.png',             title: 'Room Depth',                            medium: 'Digital Illustration' },
+    { src: 'images/image2.png',              title: 'Sight By Sound Packaging',              medium: 'Digital Illustration' },
+    { src: 'images/image19.png',             title: 'Dan Friedman Information Poster',       medium: 'Digital Illustration' },
+    { src: 'images/image15.jpg',             title: 'Soap Bottles',                          medium: 'Oil Painting' },
+    { src: 'images/image9.jpg',              title: 'Shadow Home',                           medium: 'Photographic Print' },
+    { src: 'images/image11.jpg',             title: '2024 Lunar New Year Bookmark',          medium: 'Digital Illustration' },
+    { src: 'images/image10.png',             title: 'Academic Tutoring Poster',              medium: 'Digital Illustration' },
+    { src: 'images/arkade_moodboard.png',    title: 'ArKade Mood Board & Website',           medium: 'Web Design' },
+    { src: 'images/image5.png',              title: 'CityMD Logo',                           medium: 'Digital Illustration' },
+    { src: 'images/image12.jpg',             title: 'Coffee Infographic',                    medium: 'Digital Illustration' },
+    { src: 'images/image18.jpg',             title: 'Star Wars: The Empire Strikes Back Movie Poster', medium: 'Digital Illustration' },
+    { src: 'images/image14.jpg',             title: 'Glow of The Road',                      medium: 'Photographic Print' },
+    { src: 'images/mural.jpg',               title: 'Mural',                                 medium: 'Mixed Media' },
+    { src: 'images/doors_thumb.png',         title: 'Doors',                                 medium: 'Video' },
+    { src: 'images/never_ending_thumb.png',  title: 'Never Ending',                          medium: 'Video' },
+    { src: 'images/time_flies_loop.mp4',     title: 'Time Flies',                            medium: 'Wearable Sculpture' },
+    { src: 'images/955_loop.mp4',            title: '9:55',                                  medium: 'Video' },
+    { src: 'images/strength_loop.mp4',       title: 'Strength',                              medium: 'Video' }
   ];
 
   if (heroFrame && heroSlides.length) {
-    // Shuffle slides randomly
-    var shuffled = heroSlides.slice();
-    for (var si = shuffled.length - 1; si > 0; si--) {
+    // Always start with The Maker; shuffle the rest
+    var first = heroSlides[0];
+    var rest = heroSlides.slice(1);
+    for (var si = rest.length - 1; si > 0; si--) {
       var sj = Math.floor(Math.random() * (si + 1));
-      var tmp = shuffled[si]; shuffled[si] = shuffled[sj]; shuffled[sj] = tmp;
+      var tmp = rest[si]; rest[si] = rest[sj]; rest[sj] = tmp;
     }
+    var shuffled = [first].concat(rest);
 
     heroFrame.style.position = 'relative';
     heroFrame.style.cursor = 'pointer';
@@ -180,7 +192,7 @@
     spacer.style.cssText = 'width:100%;aspect-ratio:4/3;display:block;';
     heroFrame.appendChild(spacer);
 
-    // Two persistent layer divs — fade always happens on these, never swap element types
+    // Two persistent layers — crossfade between them
     var layerStyle = 'position:absolute;inset:0;width:100%;height:100%;transition:opacity 0.9s ease;overflow:hidden;';
     var layerA = document.createElement('div');
     layerA.style.cssText = layerStyle + 'opacity:1;z-index:1;';
@@ -189,8 +201,8 @@
     heroFrame.appendChild(layerA);
     heroFrame.appendChild(layerB);
 
-    var heroIndex = 0;
-    var activeLayer = layerA;
+    var heroIndex   = 0;
+    var activeLayer   = layerA;
     var inactiveLayer = layerB;
 
     function isVideo(src) {
@@ -218,78 +230,87 @@
       }
     }
 
-    // Populate first slide into active layer
-    activeLayer.appendChild(makeMedia(shuffled[0]));
-    // Set initial title and medium
-    if (heroTitle) heroTitle.textContent = shuffled[0].title;
-    var heroMediumInit = document.querySelector('.hero-showcase-medium');
-    if (heroMediumInit) heroMediumInit.textContent = shuffled[0].medium || '';
-    // Apply Ken Burns to first image
-    var firstMedia = activeLayer.querySelector('img');
-    if (firstMedia) {
-      var kbClasses = ['', 'kb-2', 'kb-3', 'kb-4'];
-      firstMedia.classList.add(kbClasses[0 % 4] || '');
+    function updateCaption(slide) {
+      if (heroTitle) heroTitle.textContent = slide.title;
+      var heroMedium = document.querySelector('.hero-showcase-medium');
+      if (heroMedium) heroMedium.textContent = slide.medium || '';
+    }
+
+    // Load first slide
+    var firstEl = makeMedia(shuffled[0]);
+    activeLayer.appendChild(firstEl);
+    updateCaption(shuffled[0]);
+    if (isVideo(shuffled[0].src)) {
+      firstEl.play().catch(function(){});
     }
 
     function setHeroSlide(next) {
       var slide = shuffled[next];
       if (!slide) return;
 
-      // Build new media into inactive layer (hidden)
       inactiveLayer.innerHTML = '';
       var el = makeMedia(slide);
 
-      function doFadeNow() {
+      function doFade() {
+        // Bring inactive to front and fade it in
+        inactiveLayer.style.zIndex = '2';
+        activeLayer.style.zIndex  = '1';
         inactiveLayer.style.opacity = '1';
-        activeLayer.style.opacity = '0';
-        // Pause any video in the old active layer
-        var oldVid = activeLayer.querySelector('video');
-        if (oldVid) { try { oldVid.pause(); } catch(e) {} }
-        var tmp = activeLayer;
-        activeLayer = inactiveLayer;
-        inactiveLayer = tmp;
-        if (heroTitle) heroTitle.textContent = slide.title;
-        var heroMedium = document.querySelector('.hero-showcase-medium');
-        if (heroMedium) heroMedium.textContent = slide.medium || '';
-        // Ken Burns on images only
-        var newImg = activeLayer.querySelector('img');
-        if (newImg) {
-          newImg.classList.remove('kb-2', 'kb-3', 'kb-4');
-          var kbClasses = ['', 'kb-2', 'kb-3', 'kb-4'];
-          var kbClass = kbClasses[heroIndex % 4];
-          if (kbClass) newImg.classList.add(kbClass);
+        activeLayer.style.opacity   = '0';
+
+        if (isVideo(slide.src)) {
+          el.play().catch(function(){});
         }
+
+        // After fade completes, pause old video and swap roles
+        setTimeout(function () {
+          var oldVid = activeLayer.querySelector('video');
+          if (oldVid) { try { oldVid.pause(); oldVid.src = ''; } catch(e) {} }
+          activeLayer.innerHTML = '';
+          var tmp = activeLayer;
+          activeLayer   = inactiveLayer;
+          inactiveLayer = tmp;
+        }, 950);
+
+        updateCaption(slide);
       }
 
       inactiveLayer.appendChild(el);
 
       if (isVideo(slide.src)) {
-        doFadeNow();
+        doFade();
       } else {
         if (el.complete && el.naturalWidth > 0) {
-          doFadeNow();
+          doFade();
         } else {
-          el.onload = doFadeNow;
+          el.onload = doFade;
+          el.onerror = doFade;
         }
       }
     }
 
-    // Click carousel → go to gallery and auto-open that project's lightbox
+    // Click → open project in gallery lightbox
     var galleryProjectMap = {
-      'The Maker':                       'The Maker',
-      'Garden':                          'Garden',
-      'Room Depth':                      'Room Depth',
-      'Sight By Sound Packaging':        'Sight By Sound Packaging',
-      'Dan Friedman Information Poster': 'Dan Friedman Information Poster',
-      'Soap Bottles':                    'Soap Bottles',
-      'Shadow Home':                     'Shadow Home',
-      'Time Flies':                      'Time Flies',
-      '9:55':                            '9:55',
-      'Strength':                        'Strength',
-      'ArKade Mood Board & Website':     'ArKade Mood Board & Website',
-      'Coffee Infographic':              'Coffee Infographic',
-      '2024 Lunar New Year Bookmark':    '2024 Lunar New Year Bookmark',
-      'CityMD Logo':                     'CityMD Logo',
+      'The Maker':                                      'The Maker',
+      'Garden':                                         'Garden',
+      'Room Depth':                                     'Room Depth',
+      'Sight By Sound Packaging':                       'Sight By Sound Packaging',
+      'Dan Friedman Information Poster':                'Dan Friedman Information Poster',
+      'Soap Bottles':                                   'Soap Bottles',
+      'Shadow Home':                                    'Shadow Home',
+      '2024 Lunar New Year Bookmark':                   '2024 Lunar New Year Bookmark',
+      'Academic Tutoring Poster':                       'Academic Tutoring Poster',
+      'ArKade Mood Board & Website':                    'ArKade Mood Board & Website',
+      'CityMD Logo':                                    'CityMD Logo',
+      'Coffee Infographic':                             'Coffee Infographic',
+      'Star Wars: The Empire Strikes Back Movie Poster':'Star Wars: The Empire Strikes Back Movie Poster',
+      'Glow of The Road':                               'Glow of The Road',
+      'Mural':                                          'Mural',
+      'Doors':                                          'Doors',
+      'Never Ending':                                   'Never Ending',
+      'Time Flies':                                     'Time Flies',
+      '9:55':                                           '9:55',
+      'Strength':                                       'Strength',
     };
 
     heroFrame.addEventListener('click', function () {
@@ -304,10 +325,12 @@
     setInterval(function () {
       heroIndex = (heroIndex + 1) % shuffled.length;
       setHeroSlide(heroIndex);
-      // Preload the one after next so it's ready
+      // Preload next image
       var preloadIdx = (heroIndex + 1) % shuffled.length;
-      var pre = new Image();
-      pre.src = shuffled[preloadIdx].src;
+      if (!isVideo(shuffled[preloadIdx].src)) {
+        var pre = new Image();
+        pre.src = shuffled[preloadIdx].src;
+      }
     }, 4500);
   }
 
