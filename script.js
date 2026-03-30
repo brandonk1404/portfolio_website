@@ -159,7 +159,7 @@
     { src: 'images/image15.jpg',             title: 'Soap Bottles',                          medium: 'Oil Painting' },
     { src: 'images/image9.jpg',              title: 'Shadow Home',                           medium: 'Photographic Print' },
     { src: 'images/image11.jpg',             title: '2024 Lunar New Year Bookmark',          medium: 'Digital Illustration' },
-    { src: 'images/image10.png',             title: 'Academic Tutoring Poster',              medium: 'Digital Illustration' },
+    { src: 'images/image10.png',             title: 'Academic Tutoring Poster',              medium: 'Digital Illustration', position: 'center top' },
     { src: 'images/arkade_moodboard.png',    title: 'ArKade Mood Board & Website',           medium: 'Web Design' },
     { src: 'images/image5.png',              title: 'CityMD Logo',                           medium: 'Digital Illustration' },
     { src: 'images/image12.jpg',             title: 'Coffee Infographic',                    medium: 'Digital Illustration' },
@@ -220,12 +220,14 @@
         v.muted = true;
         v.playsInline = true;
         v.style.cssText = mediaStyle;
+        if (slide.position) v.style.objectPosition = slide.position;
         return v;
       } else {
         var img = document.createElement('img');
         img.src = slide.src;
         img.alt = slide.title;
         img.style.cssText = mediaStyle;
+        if (slide.position) img.style.objectPosition = slide.position;
         return img;
       }
     }
