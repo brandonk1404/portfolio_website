@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+  <meta name="theme-color" content="#315640">
+  <meta name="description" content="Terms of Service for brandonkreitsch.com — the personal portfolio of graphic designer Brandon Kreitsch.">
+  <title>Terms of Service — Brandon Kreitsch</title>
+  <link rel="icon" type="image/svg+xml" href="site-logo.svg">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
+  <style>
+    body { font-family: "Roboto", system-ui, sans-serif; }
+    .nav-group { position: relative; }
+    .nav-sub {
+      position: absolute; left: 0; top: 100%; margin-top: 0.35rem;
+      padding: 0.5rem 0.75rem; background: #ffffff; border-radius: 8px;
+      border: 1px solid rgba(229,231,230,0.9); box-shadow: 0 12px 34px rgba(49,86,64,0.2);
+      display: none; flex-direction: column; gap: 0.1rem; white-space: nowrap; min-width: 140px;
+    }
+    .nav-sub a { padding: 0.3rem 0; }
+    .nav-group.open .nav-sub { display: flex; }
+    @media (min-width: 769px) { .nav-group:hover .nav-sub { display: flex; } }
+    /* Mobile: show sub-links flat, no dropdown behavior */
+    @media (max-width: 768px) {
+      .nav-sub {
+        position: static !important; display: flex !important; flex-direction: column !important;
+        gap: 0 !important; background: transparent !important; border: none !important;
+        box-shadow: none !important; padding: 0 !important; margin: 0 !important;
+        border-radius: 0 !important; white-space: normal !important; min-width: unset !important;
+      }
+      .nav-sub a {
+        font-size: 0.75rem !important; color: #5a6b62 !important;
+        padding: 0.3rem 0 !important; justify-content: flex-end !important;
+        width: 100% !important; display: flex !important; letter-spacing: 0.04em;
+      }
+      .nav-group .nav-link-main { pointer-events: none; }
+      .nav-link-main .gallery-arrow { display: none !important; }
+    }
+    .nav-link-main { position: relative; display: inline-flex; align-items: center; }
+    .nav-link-main .gallery-label { display: inline-block; transition: opacity 0.18s ease, transform 0.18s ease; }
+    .nav-link-main .gallery-arrow {
+      position: absolute; left: 0; opacity: 0; transform: translateY(4px);
+      transition: opacity 0.18s ease, transform 0.18s ease; font-size: 1.1em; line-height: 1;
+    }
+    .nav-group:hover .nav-link-main .gallery-label,
+    .nav-group.open .nav-link-main .gallery-label { opacity: 0; transform: translateY(-4px); }
+    .nav-group:hover .nav-link-main .gallery-arrow,
+    .nav-group.open .nav-link-main .gallery-arrow { opacity: 1; transform: translateY(0); }
+    .menu-toggle span { transition: transform 0.25s ease, opacity 0.2s ease; transform-origin: center; }
+    .menu-toggle.is-active span:nth-child(1) { transform: translateY(8px) rotate(45deg); }
+    .menu-toggle.is-active span:nth-child(2) { opacity: 0; transform: scaleX(0); }
+    .menu-toggle.is-active span:nth-child(3) { transform: translateY(-8px) rotate(-45deg); }
+    .nav a.active { color: var(--text); font-weight: 700; }
+
+    .terms-content {
+      max-width: 720px;
+    }
+    .terms-content h3 {
+      font-size: 1rem;
+      font-weight: 700;
+      margin: 2rem 0 0.4rem;
+      color: var(--accent-dark);
+    }
+    .terms-content p {
+      margin: 0 0 1rem;
+      color: var(--text);
+      line-height: 1.75;
+    }
+    .terms-meta {
+      font-size: 0.8rem;
+      color: var(--text-muted);
+      margin-bottom: 2.5rem;
+    }
+  </style>
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="Brandon Kreitsch">
+  <meta property="og:title" content="Terms of Service — Brandon Kreitsch">
+  <meta property="og:description" content="Terms of Service for brandonkreitsch.com — the personal portfolio of graphic designer Brandon Kreitsch.">
+  <meta property="og:image" content="https://brandonkreitsch.com/images/image8.jpg">
+  <meta property="og:url" content="https://brandonkreitsch.com/terms.html">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Terms of Service — Brandon Kreitsch">
+  <meta name="twitter:description" content="Terms of Service for brandonkreitsch.com — the personal portfolio of graphic designer Brandon Kreitsch.">
+  <meta name="twitter:image" content="https://brandonkreitsch.com/images/image8.jpg">
+  <meta name="keywords" content="Brandon Kreitsch, graphic designer, portfolio, identity design, typography, photography, Caldwell University">
+  <script>
+    (function () {
+      var loc = window.location;
+      if (loc.pathname.endsWith(".html")) {
+        var clean = loc.pathname.replace(/\.html$/, "");
+        if (clean.endsWith("/index")) clean = clean.replace(/\/index$/, "/") || "/";
+        history.replaceState(null, "", clean + loc.search + loc.hash);
+      }
+    })();
+  </script>
+</head>
+<body>
+  <a href="#main-content" class="skip-link" style="position:absolute;left:-9999px;top:-9999px;width:1px;height:1px;overflow:hidden;opacity:0;">Skip to main content</a>
+  <header class="site-header">
+    <a href="index.html" class="logo">
+      <img src="site-logo.svg" alt="Brandon Kreitsch logo">
+      <span>Brandon Kreitsch</span>
+    </a>
+    <nav id="site-nav" class="nav" aria-label="Main">
+      <a href="index.html">Home</a>
+      <a href="about.html">About</a>
+      <div class="nav-group">
+        <a href="gallery.html" class="nav-link nav-link-main" role="button" aria-haspopup="true" aria-expanded="false"><span class="gallery-label">Gallery</span><span class="gallery-arrow" aria-hidden="true">▼</span></a>
+        <div class="nav-sub">
+          <a href="gallery.html#work-digital">Digital</a>
+          <a href="gallery.html#work-photographic">Photography</a>
+          <a href="gallery.html#work-motion">Motion</a>
+          <a href="gallery.html#work-oil">Studio Art</a>
+        </div>
+      </div>
+
+      <a href="resume.html">Resume</a>
+      <a href="contact.html">Contact</a>
+    </nav>
+    <button class="menu-toggle" aria-label="Toggle menu" aria-controls="site-nav" aria-expanded="false">
+      <span></span><span></span><span></span>
+    </button>
+  </header>
+  <div class="nav-overlay" id="nav-overlay" aria-hidden="true" tabindex="-1"></div>
+
+  <main id="main-content">
+    <section class="section">
+      <h2 class="section-title">Terms of Service</h2>
+      <div class="terms-content">
+        <p class="terms-meta">Last updated: March 2026</p>
+
+        <h3>1. Overview</h3>
+        <p>This website is the personal portfolio of Brandon Kreitsch, a graphic designer. By visiting this site you agree to these terms.</p>
+
+        <h3>2. Intellectual Property</h3>
+        <p>All work displayed on this site — including but not limited to graphic design, photography, video, illustration, and oil painting — is the exclusive property of Brandon Kreitsch. No content may be downloaded, reproduced, copied, distributed, or used in any form without prior written permission.</p>
+
+        <h3>3. No Scraping</h3>
+        <p>Automated scraping, crawling, or data extraction of any kind is strictly prohibited.</p>
+
+        <h3>4. External Links</h3>
+        <p>Links to third-party sites (YouTube, LinkedIn, Instagram, Adobe XD) are provided for convenience. Brandon Kreitsch is not responsible for the content or practices of those sites.</p>
+
+        <h3>5. Contact</h3>
+        <p>For licensing, collaboration inquiries, or permission requests, contact <a href="mailto:brandonk1404@icloud.com">brandonk1404@icloud.com</a>.</p>
+
+        <h3>6. Disclaimer</h3>
+        <p>This site is provided as-is. Brandon Kreitsch makes no warranties regarding availability or accuracy.</p>
+
+        <h3>7. Changes</h3>
+        <p>These terms may be updated at any time. Continued use of the site constitutes acceptance of any changes.</p>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <p>&copy; <span id="year"></span> Brandon Kreitsch. All Rights Reserved.</p>
+    <p>Download, scraping, or use of any material is prohibited without permission. &nbsp;|&nbsp; <a href="terms.html">Terms of Service</a></p>
+  </footer>
+
+  <script src="script.js"></script>
+</body>
+</html>
