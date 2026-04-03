@@ -150,27 +150,35 @@
   var heroTitle = document.querySelector('.hero-showcase-title');
   var heroYear  = document.querySelector('.hero-showcase-year');
 
+  // ── CAROUSEL RULE ────────────────────────────────────────────────────────
+  // Every time a new project is added to the site, add an entry here too.
+  // Images: { src: 'images/filename.jpg', title: 'Title', medium: 'Medium' }
+  // Videos: { src: 'images/filename.mp4', title: 'Title', medium: 'Medium' }
+  // Optional: add position: 'center top' to control crop on image slides.
+  // ─────────────────────────────────────────────────────────────────────────
   var heroSlides = [
-    { src: 'images/image8.jpg',              title: 'The Maker',                             medium: 'Photographic Print' },
-    { src: 'images/image17.jpg',             title: 'Garden',                                medium: 'Photographic Print' },
-    { src: 'images/image16.png',             title: 'Room Depth',                            medium: 'Digital Illustration' },
-    { src: 'images/image2.png',              title: 'Sight By Sound Packaging',              medium: 'Digital Illustration' },
-    { src: 'images/image19.png',             title: 'Dan Friedman Information Poster',       medium: 'Digital Illustration' },
-    { src: 'images/image15.jpg',             title: 'Soap Bottles',                          medium: 'Oil Painting' },
-    { src: 'images/image9.jpg',              title: 'Shadow Home',                           medium: 'Photographic Print' },
-    { src: 'images/image11.jpg',             title: '2024 Lunar New Year Bookmark',          medium: 'Digital Illustration' },
-    { src: 'images/image10.png',             title: 'Academic Tutoring Poster',              medium: 'Digital Illustration', position: 'center top' },
-    { src: 'images/arkade_moodboard.png',    title: 'ArKade Mood Board & Website',           medium: 'Web Design' },
-    { src: 'images/image5.png',              title: 'CityMD Logo',                           medium: 'Digital Illustration' },
-    { src: 'images/image12.jpg',             title: 'Coffee Infographic',                    medium: 'Digital Illustration' },
+    { src: 'images/image8.jpg',              title: 'The Maker',                                      medium: 'Photographic Print' },
+    { src: 'images/image17.jpg',             title: 'Garden',                                         medium: 'Photographic Print' },
+    { src: 'images/image16.png',             title: 'Room Depth',                                     medium: 'Digital Illustration' },
+    { src: 'images/image2.png',              title: 'Sight By Sound Packaging',                       medium: 'Digital Illustration' },
+    { src: 'images/image19.png',             title: 'Dan Friedman Information Poster',                medium: 'Digital Illustration' },
+    { src: 'images/image15.jpg',             title: 'Soap Bottles',                                   medium: 'Oil Painting' },
+    { src: 'images/image9.jpg',              title: 'Shadow Home',                                    medium: 'Photographic Print' },
+    { src: 'images/image11.jpg',             title: '2024 Lunar New Year Bookmark',                   medium: 'Digital Illustration' },
+    { src: 'images/image10.png',             title: 'Academic Tutoring Poster',                       medium: 'Digital Illustration', position: 'center top' },
+    { src: 'images/arkade_moodboard.png',    title: 'ArKade Mood Board & Website',                    medium: 'Web Design' },
+    { src: 'images/image5.png',              title: 'CityMD Logo',                                    medium: 'Digital Illustration' },
+    { src: 'images/image12.jpg',             title: 'Coffee Infographic',                             medium: 'Digital Illustration' },
     { src: 'images/image18.jpg',             title: 'Star Wars: The Empire Strikes Back Movie Poster', medium: 'Digital Illustration' },
-    { src: 'images/image14.jpg',             title: 'Glow of The Road',                      medium: 'Photographic Print' },
-    { src: 'images/mural.jpg',               title: 'Mural',                                 medium: 'Mixed Media' },
-    { src: 'images/doors_thumb.png',         title: 'Doors',                                 medium: 'Video' },
-    { src: 'images/never_ending_thumb.png',  title: 'Never Ending',                          medium: 'Video' },
-    { src: 'images/time_flies_loop.mp4',     title: 'Time Flies',                            medium: 'Wearable Sculpture' },
-    { src: 'images/955_loop.mp4',            title: '9:55',                                  medium: 'Video' },
-    { src: 'images/strength_loop.mp4',       title: 'Strength',                              medium: 'Video' }
+    { src: 'images/image14.jpg',             title: 'Glow of The Road',                               medium: 'Photographic Print' },
+    { src: 'images/mural.jpg',               title: 'Mural',                                          medium: 'Mixed Media' },
+    { src: 'images/laundry_thumb.jpg',       title: 'What Your Laundry Says About Your Life',         medium: 'Digital Illustration' },
+    { src: 'images/955_loop.mp4',            title: '9:55',                                           medium: 'Video' },
+    { src: 'images/doors_loop.mp4',          title: 'Doors',                                          medium: 'Video' },
+    { src: 'images/never_ending_loop.mp4',   title: 'Never Ending',                                   medium: 'Video' },
+    { src: 'images/strength_loop.mp4',       title: 'Strength',                                       medium: 'Video' },
+    { src: 'images/time_flies_loop.mp4',     title: 'Time Flies',                                     medium: 'Wearable Sculpture' },
+    { src: 'images/lakeside_loop.mp4',       title: 'Lakeside Tree',                                  medium: '3D Animation' },
   ];
 
   if (heroFrame && heroSlides.length) {
@@ -302,6 +310,7 @@
       'Shadow Home':                                    'Shadow Home',
       '2024 Lunar New Year Bookmark':                   '2024 Lunar New Year Bookmark',
       'Academic Tutoring Poster':                       'Academic Tutoring Poster',
+      'What Your Laundry Says About Your Life':                'What Your Laundry Says About Your Life',
       'ArKade Mood Board & Website':                    'ArKade Mood Board & Website',
       'CityMD Logo':                                    'CityMD Logo',
       'Coffee Infographic':                             'Coffee Infographic',
@@ -313,6 +322,7 @@
       'Time Flies':                                     'Time Flies',
       '9:55':                                           '9:55',
       'Strength':                                       'Strength',
+      'Lakeside Tree':                                  'Lakeside Tree',
     };
 
     heroFrame.addEventListener('click', function () {

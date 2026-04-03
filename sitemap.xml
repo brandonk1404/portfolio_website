@@ -31,6 +31,12 @@
     <changefreq>monthly</changefreq>
   </url>
   <url>
+    <loc>https://www.brandonkreitsch.com/series.html</loc>
+    <lastmod>2026-04-02</lastmod>
+    <priority>0.8</priority>
+    <changefreq>monthly</changefreq>
+  </url>
+  <url>
     <loc>https://www.brandonkreitsch.com/terms.html</loc>
     <lastmod>2026-03-25</lastmod>
     <priority>0.3</priority>
