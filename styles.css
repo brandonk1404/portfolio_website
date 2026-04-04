@@ -533,6 +533,18 @@ ul {
   overflow: hidden;
 }
 
+.lightbox-header {
+  padding: 0.9rem 1.25rem 0.6rem;
+  border-bottom: 1px solid rgba(49,86,64,0.08);
+}
+
+.lightbox-title {
+  font-size: 1rem;
+  font-weight: 700;
+  color: var(--text);
+  letter-spacing: 0.01em;
+}
+
 .lightbox-body {
   background: transparent;
 }
