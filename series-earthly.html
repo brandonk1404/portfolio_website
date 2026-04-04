@@ -70,7 +70,7 @@
     }
     .series-hero-media img,
     .series-hero-media video {
-      width: 100%; height: 100%; object-fit: cover; display: block;
+      width: 100%; height: 100%; object-fit: contain; display: block; background: var(--bg-alt);
     }
     .series-hero-info {
       display: flex;
@@ -228,8 +228,8 @@
             </a>
           </article>
           <article class="gallery-item">
-            <a href="images/mural.jpg" class="gallery-link" target="_blank" rel="noopener">
-              <div class="gallery-image-wrap"><img src="images/mural_thumb.jpg" alt="Mural"><div class="gallery-overlay"><span class="gallery-overlay-text">Mural</span></div></div>
+            <a href="images/mural_photo2.jpg" class="gallery-link" target="_blank" rel="noopener">
+              <div class="gallery-image-wrap"><img src="images/mural_photo1.jpg" alt="Mural"><div class="gallery-overlay"><span class="gallery-overlay-text">Mural</span></div></div>
               <div class="gallery-meta"><span class="gallery-category">Mixed Media</span><span class="gallery-name">Mural</span></div>
             </a>
           </article>
@@ -287,7 +287,7 @@
     // Slides: images + one video
     var slides = [
       { type: 'image', src: 'images/earthly_poster.jpg' },
-      { type: 'image', src: 'images/mural_thumb.jpg' },
+      { type: 'image', src: 'images/mural_photo1.jpg' },
       { type: 'video', src: 'images/doors_loop.mp4' },
       { type: 'image', src: 'images/image8.jpg' },
     ];
@@ -324,7 +324,14 @@
       var off = document.createElement('canvas');
       off.width = canvas.width; off.height = canvas.height;
       var oc = off.getContext('2d');
-      oc.drawImage(source, 0, 0, off.width, off.height);
+      var sw = source.videoWidth || source.naturalWidth || off.width;
+      var sh = source.videoHeight || source.naturalHeight || off.height;
+      var scale = Math.min(off.width/sw, off.height/sh);
+      var dw = sw*scale, dh = sh*scale;
+      var dx = (off.width-dw)/2, dy = (off.height-dh)/2;
+      oc.fillStyle = '#1a2e1a';
+      oc.fillRect(0, 0, off.width, off.height);
+      oc.drawImage(source, dx, dy, dw, dh);
       return off;
     }
 
@@ -402,9 +409,19 @@
       }
     }
 
+    function containDraw(ctx, source, W, H) {
+      var sw = source.videoWidth || source.naturalWidth || W;
+      var sh = source.videoHeight || source.naturalHeight || H;
+      var scale = Math.min(W/sw, H/sh);
+      var dw = sw * scale, dh = sh * scale;
+      var dx = (W - dw) / 2, dy = (H - dh) / 2;
+      ctx.fillStyle = '#1a2e1a';
+      ctx.fillRect(0, 0, W, H);
+      ctx.drawImage(source, dx, dy, dw, dh);
+    }
     function drawNormal(source) {
       ctx.clearRect(0, 0, canvas.width, canvas.height);
-      try { ctx.drawImage(source, 0, 0, canvas.width, canvas.height); } catch(e) {}
+      try { containDraw(ctx, source, canvas.width, canvas.height); } catch(e) {}
     }
 
     function tick(now) {

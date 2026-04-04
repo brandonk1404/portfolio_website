@@ -106,6 +106,10 @@
       display: block;
       transition: transform 0.6s ease;
     }
+    .series-visual-main.is-poster {
+      object-fit: contain;
+      background: var(--bg-alt);
+    }
     .series-entry:hover .series-visual-main {
       transform: scale(1.03);
     }
@@ -286,9 +290,10 @@
         <!-- ── Videoverse ── -->
         <article class="series-entry reveal">
           <div class="series-visual">
-            <video class="series-visual-main" src="images/savior_loop.mp4" autoplay loop muted playsinline></video>
+            <img class="series-visual-main is-poster" src="images/videoverse_placeholder.jpg" alt="Videoverse">
             <div class="series-visual-strip">
-              <img class="series-strip-thumb active" src="images/savior_thumb.jpg" alt="The Illustrator's Savior" data-video="images/savior_loop.mp4">
+              <img class="series-strip-thumb active" src="images/videoverse_placeholder.jpg" alt="Videoverse">
+              <img class="series-strip-thumb" src="images/savior_thumb.jpg" alt="The Illustrator's Savior" data-video="images/savior_loop.mp4">
               <img class="series-strip-thumb" src="images/strength_poster.png" alt="Strength" data-video="images/strength_loop.mp4">
               <img class="series-strip-thumb" src="images/never_ending_thumb.png" alt="Never Ending" data-video="images/never_ending_loop.mp4">
               <img class="series-strip-thumb" src="images/955_poster.png" alt="9:55" data-video="images/955_loop.mp4">
@@ -309,10 +314,10 @@
         <!-- ── Creation of the Earthly ── -->
         <article class="series-entry reveal">
           <div class="series-visual">
-            <img class="series-visual-main" src="images/earthly_poster.jpg" alt="Creation of the Earthly poster">
+            <img class="series-visual-main is-poster" src="images/earthly_poster.jpg" alt="Creation of the Earthly poster">
             <div class="series-visual-strip">
               <img class="series-strip-thumb active" src="images/earthly_poster.jpg" alt="Poster">
-              <img class="series-strip-thumb" src="images/mural_thumb.jpg" alt="Mural">
+              <img class="series-strip-thumb" src="images/mural_photo1.jpg" alt="Mural">
               <img class="series-strip-thumb" src="images/doors_thumb.png" alt="Doors" data-video="images/doors_loop.mp4">
               <img class="series-strip-thumb" src="images/image8.jpg" alt="The Maker">
             </div>
@@ -332,7 +337,7 @@
         <!-- ── Chromatic Fragments ── -->
         <article class="series-entry reveal">
           <div class="series-visual">
-            <img class="series-visual-main" src="images/chromatic_poster.jpg" alt="Chromatic Fragments poster">
+            <img class="series-visual-main is-poster" src="images/chromatic_poster.jpg" alt="Chromatic Fragments poster">
             <div class="series-visual-strip">
               <img class="series-strip-thumb active" src="images/chromatic_poster.jpg" alt="Poster">
             </div>
