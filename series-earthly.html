@@ -202,8 +202,8 @@
     <!-- ── Hero intro panel ── -->
     <section class="series-hero">
       <div class="series-hero-inner">
-        <div class="series-hero-media">
-          <img src="images/earthly_poster.jpg" alt="Creation of the Earthly poster">
+        <div class="series-hero-media" id="earthly-carousel">
+          <canvas id="earthly-canvas" style="width:100%;height:100%;display:block;"></canvas>
         </div>
         <div class="series-hero-info">
           <a href="series.html" class="series-hero-back">&#8592; All Series</a>
@@ -234,7 +234,7 @@
             </a>
           </article>
           <article class="gallery-item video-item">
-            <a href="https://youtu.be/GeSgpUysvGw" class="gallery-link" data-full="images/doors_loop.mp4" target="_blank" rel="noopener">
+            <a href="https://youtu.be/GeSgpUysvGw" class="gallery-link" target="_blank" rel="noopener">
               <div class="gallery-image-wrap"><img src="images/doors_thumb.png" alt="Doors"><div class="play-icon"></div><div class="gallery-overlay"><span class="gallery-overlay-text">Doors</span></div></div>
               <div class="gallery-meta"><span class="gallery-category">Video</span><span class="gallery-name">Doors</span></div>
             </a>
@@ -268,5 +268,167 @@
     </div>
   </div>
   <script src="script.js"></script>
+  <script>
+  // ── Creation of the Earthly — Chromatic Silhouette Carousel ──────────────
+  (function() {
+    var canvas = document.getElementById('earthly-canvas');
+    var ctx    = canvas.getContext('2d');
+    var wrap   = document.getElementById('earthly-carousel');
+
+    function resize() {
+      canvas.width  = wrap.offsetWidth  || 600;
+      canvas.height = wrap.offsetHeight || 450;
+    }
+    resize();
+    window.addEventListener('resize', resize);
+
+    // Slides: images + one video
+    var slides = [
+      { type: 'image', src: 'images/earthly_poster.jpg' },
+      { type: 'image', src: 'images/mural_thumb.jpg' },
+      { type: 'video', src: 'images/doors_loop.mp4' },
+      { type: 'image', src: 'images/image8.jpg' },
+    ];
+
+    var HOLD = 4200;
+    var TRANS_DURATION = 1100;
+
+    // Preload images
+    var loaded = [];
+    slides.forEach(function(s, i) {
+      if (s.type === 'image') {
+        var img = new Image();
+        img.src = s.src;
+        img.onload = function() { loaded[i] = img; };
+        loaded[i] = img;
+      } else {
+        var v = document.createElement('video');
+        v.src = s.src; v.loop = true; v.muted = true;
+        v.playsInline = true; v.preload = 'auto';
+        v.style.cssText = 'position:absolute;left:-9999px;width:1px;height:1px;';
+        document.body.appendChild(v);
+        v.play().catch(function(){});
+        loaded[i] = v;
+      }
+    });
+
+    var current = 0;
+    var transitioning = false;
+    var transStart = null;
+    var lastHold = performance.now();
+
+    // Draw a slide source (img or video) onto an offscreen canvas, return it
+    function makeOff(source) {
+      var off = document.createElement('canvas');
+      off.width = canvas.width; off.height = canvas.height;
+      var oc = off.getContext('2d');
+      oc.drawImage(source, 0, 0, off.width, off.height);
+      return off;
+    }
+
+    // Convert canvas to grayscale silhouette
+    function toSilhouette(offCanvas) {
+      var sil = document.createElement('canvas');
+      sil.width = offCanvas.width; sil.height = offCanvas.height;
+      var sc = sil.getContext('2d');
+      sc.drawImage(offCanvas, 0, 0);
+      var id = sc.getImageData(0, 0, sil.width, sil.height);
+      var d = id.data;
+      for (var i = 0; i < d.length; i += 4) {
+        var g = 0.299*d[i] + 0.587*d[i+1] + 0.114*d[i+2];
+        // Push toward dark silhouette: darken grays, keep contrast
+        g = Math.pow(g/255, 1.4) * 180;
+        d[i] = d[i+1] = d[i+2] = g;
+      }
+      sc.putImageData(id, 0, 0);
+      return sil;
+    }
+
+    var frameA = null, frameB = null, silA = null, silB = null;
+
+    function startTransition(now) {
+      var src = loaded[current];
+      var next = (current + 1) % slides.length;
+      var dst = loaded[next];
+      if (!src || !dst) return;
+      try {
+        frameA = makeOff(src);
+        frameB = makeOff(dst);
+        silA   = toSilhouette(frameA);
+        silB   = toSilhouette(frameB);
+      } catch(e) { return; }
+      transitioning = true;
+      transStart = now;
+      current = next;
+    }
+
+    function drawTransition(t) {
+      // Phase 1 (0→0.45): color drains away → pure silhouette A
+      // Phase 2 (0.45→0.55): silhouette A morphs to silhouette B
+      // Phase 3 (0.55→1): color bleeds back in on B
+      var W = canvas.width, H = canvas.height;
+      ctx.clearRect(0, 0, W, H);
+
+      if (t < 0.45) {
+        // Drain color from A
+        var p = t / 0.45; // 0→1
+        ctx.drawImage(frameA, 0, 0, W, H);
+        ctx.globalAlpha = p;
+        ctx.drawImage(silA, 0, 0, W, H);
+        ctx.globalAlpha = 1;
+      } else if (t < 0.55) {
+        // Cross-silhouette: blend sil A → sil B
+        var p2 = (t - 0.45) / 0.10;
+        ctx.drawImage(silA, 0, 0, W, H);
+        ctx.globalAlpha = p2;
+        ctx.drawImage(silB, 0, 0, W, H);
+        ctx.globalAlpha = 1;
+        // Chromatic color burst at midpoint
+        if (p2 > 0.3 && p2 < 0.7) {
+          ctx.globalAlpha = (0.5 - Math.abs(p2 - 0.5)) * 0.5;
+          ctx.fillStyle = 'rgba(82,175,121,1)';
+          ctx.fillRect(0, 0, W, H);
+          ctx.globalAlpha = 1;
+        }
+      } else {
+        // Bleed color back in on B
+        var p3 = (t - 0.55) / 0.45;
+        ctx.drawImage(silB, 0, 0, W, H);
+        ctx.globalAlpha = p3;
+        ctx.drawImage(frameB, 0, 0, W, H);
+        ctx.globalAlpha = 1;
+      }
+    }
+
+    function drawNormal(source) {
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+      try { ctx.drawImage(source, 0, 0, canvas.width, canvas.height); } catch(e) {}
+    }
+
+    function tick(now) {
+      requestAnimationFrame(tick);
+      if (transitioning) {
+        var elapsed = now - transStart;
+        var t = Math.min(elapsed / TRANS_DURATION, 1);
+        // Ease in-out
+        var te = t < 0.5 ? 2*t*t : -1+(4-2*t)*t;
+        drawTransition(te);
+        if (t >= 1) {
+          transitioning = false;
+          lastHold = now;
+          frameA = frameB = silA = silB = null;
+        }
+      } else {
+        var src = loaded[current];
+        if (src) drawNormal(src);
+        if (slides.length > 1 && now - lastHold > HOLD) {
+          startTransition(now);
+        }
+      }
+    }
+
+    setTimeout(function() { requestAnimationFrame(tick); }, 400);
+  })();
+  </script>
 </body>
 </html>
