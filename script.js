@@ -169,10 +169,13 @@
     { src: 'images/arkade_moodboard.png',    title: 'ArKade Mood Board & Website',                    medium: 'Web Design' },
     { src: 'images/image5.png',              title: 'CityMD Logo',                                    medium: 'Digital Illustration' },
     { src: 'images/image12.jpg',             title: 'Coffee Infographic',                             medium: 'Digital Illustration' },
+    { src: 'images/earthly_poster.jpg',     title: 'Creation of the Earthly — Exhibition Poster',    medium: 'Digital Illustration' },
+    { src: 'images/chromatic_poster.jpg',   title: 'Chromatic Fragments — Exhibition Poster',         medium: 'Digital Illustration' },
     { src: 'images/image18.jpg',             title: 'Star Wars: The Empire Strikes Back Movie Poster', medium: 'Digital Illustration' },
     { src: 'images/image14.jpg',             title: 'Glow of The Road',                               medium: 'Photographic Print' },
     { src: 'images/mural.jpg',               title: 'Mural',                                          medium: 'Mixed Media' },
     { src: 'images/laundry_thumb.jpg',       title: 'What Your Laundry Says About Your Life',         medium: 'Digital Illustration' },
+    { src: 'images/savior_loop.mp4',         title: "The Illustrator's Savior",                       medium: 'Video' },
     { src: 'images/955_loop.mp4',            title: '9:55',                                           medium: 'Video' },
     { src: 'images/doors_loop.mp4',          title: 'Doors',                                          medium: 'Video' },
     { src: 'images/never_ending_loop.mp4',   title: 'Never Ending',                                   medium: 'Video' },
@@ -227,6 +230,7 @@
         v.loop = true;
         v.muted = true;
         v.playsInline = true;
+        v.preload = 'auto';
         v.style.cssText = mediaStyle;
         if (slide.position) v.style.objectPosition = slide.position;
         return v;
@@ -288,7 +292,18 @@
       inactiveLayer.appendChild(el);
 
       if (isVideo(slide.src)) {
-        doFade();
+        el.preload = 'auto';
+        var faded = false;
+        function fadeOnce() {
+          if (!faded) { faded = true; doFade(); }
+        }
+        el.addEventListener('canplay', fadeOnce, { once: true });
+        el.addEventListener('playing', fadeOnce, { once: true });
+        el.onerror = fadeOnce;
+        // Fallback: fade in after 800ms regardless so it never stalls
+        setTimeout(fadeOnce, 800);
+        el.load();
+        el.play().catch(function(){});
       } else {
         if (el.complete && el.naturalWidth > 0) {
           doFade();
@@ -314,6 +329,8 @@
       'ArKade Mood Board & Website':                    'ArKade Mood Board & Website',
       'CityMD Logo':                                    'CityMD Logo',
       'Coffee Infographic':                             'Coffee Infographic',
+      'Creation of the Earthly — Exhibition Poster': 'Creation of the Earthly — Exhibition Poster',
+      'Chromatic Fragments — Exhibition Poster':      'Chromatic Fragments — Exhibition Poster',
       'Star Wars: The Empire Strikes Back Movie Poster':'Star Wars: The Empire Strikes Back Movie Poster',
       'Glow of The Road':                               'Glow of The Road',
       'Mural':                                          'Mural',
@@ -322,6 +339,7 @@
       'Time Flies':                                     'Time Flies',
       '9:55':                                           '9:55',
       'Strength':                                       'Strength',
+      "The Illustrator's Savior":               "The Illustrator's Savior",
       'Lakeside Tree':                                  'Lakeside Tree',
     };
 

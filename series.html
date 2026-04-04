@@ -277,16 +277,14 @@
         <!-- ── Videoverse ── -->
         <article class="series-entry reveal">
           <div class="series-visual">
-            <div class="series-placeholder">No images yet</div>
-            <!-- Replace the placeholder div above with:
-            <img class="series-visual-main" src="images/YOUR_COVER.jpg" alt="Videoverse">
+            <video class="series-visual-main" src="images/savior_loop.mp4" autoplay loop muted playsinline></video>
             <div class="series-visual-strip">
-              <img class="series-strip-thumb active" src="images/img1.jpg" alt="">
-              <img class="series-strip-thumb" src="images/img2.jpg" alt="">
-              <img class="series-strip-thumb" src="images/img3.jpg" alt="">
+              <img class="series-strip-thumb active" src="images/savior_thumb.jpg" alt="The Illustrator's Savior" data-video="images/savior_loop.mp4">
+              <img class="series-strip-thumb" src="images/strength_poster.png" alt="Strength" data-video="images/strength_loop.mp4">
+              <img class="series-strip-thumb" src="images/never_ending_thumb.png" alt="Never Ending" data-video="images/never_ending_loop.mp4">
+              <img class="series-strip-thumb" src="images/955_poster.png" alt="9:55" data-video="images/955_loop.mp4">
             </div>
-            <span class="series-count">3 works</span>
-            -->
+            <span class="series-count">4 works</span>
           </div>
           <div class="series-info">
             <span class="series-eyebrow">Series I</span>
@@ -301,7 +299,14 @@
         <!-- ── Creation of the Earthly ── -->
         <article class="series-entry reveal">
           <div class="series-visual">
-            <div class="series-placeholder">No images yet</div>
+            <img class="series-visual-main" src="images/earthly_poster.jpg" alt="Creation of the Earthly poster">
+            <div class="series-visual-strip">
+              <img class="series-strip-thumb active" src="images/earthly_poster.jpg" alt="Poster">
+              <img class="series-strip-thumb" src="images/mural_thumb.jpg" alt="Mural">
+              <img class="series-strip-thumb" src="images/doors_thumb.png" alt="Doors" data-video="images/doors_loop.mp4">
+              <img class="series-strip-thumb" src="images/image8.jpg" alt="The Maker">
+            </div>
+            <span class="series-count">4 works</span>
           </div>
           <div class="series-info">
             <span class="series-eyebrow">Series II</span>
@@ -316,7 +321,11 @@
         <!-- ── Chromatic Fragments ── -->
         <article class="series-entry reveal">
           <div class="series-visual">
-            <div class="series-placeholder">No images yet</div>
+            <img class="series-visual-main" src="images/chromatic_poster.jpg" alt="Chromatic Fragments poster">
+            <div class="series-visual-strip">
+              <img class="series-strip-thumb active" src="images/chromatic_poster.jpg" alt="Poster">
+            </div>
+            <span class="series-count">1 work</span>
           </div>
           <div class="series-info">
             <span class="series-eyebrow">Series III</span>
@@ -324,7 +333,7 @@
             <hr class="series-divider">
             <p class="series-description">Add a description of Chromatic Fragments here — what it explores, what connects the works, what drew you to this body of work.</p>
             <blockquote class="series-statement">Add your artist statement for Chromatic Fragments here.</blockquote>
-            <span class="series-year">Year — </span>
+            <span class="series-year">April 27 – May 1, 2026 &nbsp;·&nbsp; Mueller Gallery, Caldwell University</span>
           </div>
         </article>
 
@@ -366,15 +375,43 @@
     }, { threshold: 0.12 });
     entries.forEach(function(el) { observer.observe(el); });
 
-    // Thumbnail strip switcher
+    // Thumbnail strip switcher — handles image↔image, image↔video, video↔video
     document.querySelectorAll('.series-visual-strip').forEach(function(strip) {
-      var main = strip.closest('.series-visual').querySelector('.series-visual-main');
+      var visual = strip.closest('.series-visual');
       strip.querySelectorAll('.series-strip-thumb').forEach(function(thumb) {
         thumb.addEventListener('click', function() {
-          if (!main) return;
-          main.src = thumb.src;
           strip.querySelectorAll('.series-strip-thumb').forEach(function(t) { t.classList.remove('active'); });
           thumb.classList.add('active');
+          var videoSrc = thumb.getAttribute('data-video');
+          var existing = visual.querySelector('.series-visual-main');
+          if (videoSrc) {
+            // Switch to video
+            if (existing && existing.tagName === 'VIDEO') {
+              existing.src = videoSrc;
+              existing.load();
+              existing.play().catch(function(){});
+            } else {
+              // Replace img with video
+              var v = document.createElement('video');
+              v.src = videoSrc;
+              v.autoplay = true; v.loop = true; v.muted = true; v.playsInline = true;
+              v.className = 'series-visual-main';
+              v.style.cssText = existing ? existing.style.cssText : '';
+              if (existing) existing.replaceWith(v);
+              v.play().catch(function(){});
+            }
+          } else {
+            // Switch to image
+            if (existing && existing.tagName === 'IMG') {
+              existing.src = thumb.src;
+            } else {
+              // Replace video with img
+              var img = document.createElement('img');
+              img.src = thumb.src;
+              img.className = 'series-visual-main';
+              if (existing) { existing.pause && existing.pause(); existing.replaceWith(img); }
+            }
+          }
         });
       });
     });
