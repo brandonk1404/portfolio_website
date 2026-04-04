@@ -37,6 +37,24 @@
     <changefreq>monthly</changefreq>
   </url>
   <url>
+    <loc>https://www.brandonkreitsch.com/series-videoverse.html</loc>
+    <lastmod>2026-04-04</lastmod>
+    <priority>0.7</priority>
+    <changefreq>monthly</changefreq>
+  </url>
+  <url>
+    <loc>https://www.brandonkreitsch.com/series-earthly.html</loc>
+    <lastmod>2026-04-04</lastmod>
+    <priority>0.7</priority>
+    <changefreq>monthly</changefreq>
+  </url>
+  <url>
+    <loc>https://www.brandonkreitsch.com/series-chromatic.html</loc>
+    <lastmod>2026-04-04</lastmod>
+    <priority>0.7</priority>
+    <changefreq>monthly</changefreq>
+  </url>
+  <url>
     <loc>https://www.brandonkreitsch.com/terms.html</loc>
     <lastmod>2026-03-25</lastmod>
     <priority>0.3</priority>
