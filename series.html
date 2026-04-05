@@ -290,7 +290,7 @@
         <!-- ── Videoverse ── -->
         <article class="series-entry reveal">
           <div class="series-visual">
-            <img class="series-visual-main is-poster" src="images/videoverse_placeholder.jpg" alt="Videoverse">
+            <a href="images/videoverse_placeholder.jpg" class="gallery-link" style="display:contents"><img class="series-visual-main is-poster" src="images/videoverse_placeholder.jpg" alt="Videoverse"></a>
             <div class="series-visual-strip">
               <img class="series-strip-thumb active" src="images/videoverse_placeholder.jpg" alt="Videoverse">
               <img class="series-strip-thumb" src="images/savior_thumb.jpg" alt="The Illustrator's Savior" data-video="images/savior_loop.mp4">
@@ -314,7 +314,7 @@
         <!-- ── Creation of the Earthly ── -->
         <article class="series-entry reveal">
           <div class="series-visual">
-            <img class="series-visual-main is-poster" src="images/earthly_poster.jpg" alt="Creation of the Earthly poster">
+            <a href="images/earthly_poster.jpg" class="gallery-link" style="display:contents"><img class="series-visual-main is-poster" src="images/earthly_poster.jpg" alt="Creation of the Earthly poster"></a>
             <div class="series-visual-strip">
               <img class="series-strip-thumb active" src="images/earthly_poster.jpg" alt="Poster">
               <img class="series-strip-thumb" src="images/mural_photo1.jpg" alt="Mural">
@@ -337,7 +337,7 @@
         <!-- ── Chromatic Fragments ── -->
         <article class="series-entry reveal">
           <div class="series-visual">
-            <img class="series-visual-main is-poster" src="images/chromatic_poster.jpg" alt="Chromatic Fragments poster">
+            <a href="images/chromatic_poster.jpg" class="gallery-link" style="display:contents"><img class="series-visual-main is-poster" src="images/chromatic_poster.jpg" alt="Chromatic Fragments poster"></a>
             <div class="series-visual-strip">
               <img class="series-strip-thumb active" src="images/chromatic_poster.jpg" alt="Poster">
             </div>
@@ -356,7 +356,14 @@
 
       </div>
     </section>
-  </main>
+  
+  <!-- Hidden gallery items for series poster lightbox -->
+  <div style="display:none">
+    <div class="gallery-item"><a href="images/videoverse_placeholder.jpg" class="gallery-link"><span class="gallery-category">Series Poster</span><span class="gallery-name">Videoverse</span></a></div>
+    <div class="gallery-item"><a href="images/earthly_poster.jpg" class="gallery-link"><span class="gallery-category">Exhibition Poster</span><span class="gallery-name">Creation of the Earthly</span></a></div>
+    <div class="gallery-item"><a href="images/chromatic_poster.jpg" class="gallery-link"><span class="gallery-category">Exhibition Poster</span><span class="gallery-name">Chromatic Fragments</span></a></div>
+  </div>
+</main>
 
   <footer class="site-footer">
     <p>&copy; <span id="year"></span> Brandon Kreitsch. All Rights Reserved.</p>
