@@ -48,7 +48,7 @@
     /* ── Series hero ── */
     .series-hero {
       background: #0e1a14;
-      padding: calc(var(--header-height) + 4rem) var(--space) 4rem;
+      padding: calc(var(--header-height) + clamp(2rem,4vw,4rem)) var(--space) clamp(2rem,4vw,4rem);
       display: flex;
       align-items: center;
       justify-content: center;
@@ -149,8 +149,19 @@
     }
     .series-works-grid {
       display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+      grid-template-columns: repeat(auto-fill, minmax(min(260px, 100%), 1fr));
       gap: 2rem;
+    }
+    .series-works-grid .gallery-image-wrap img {
+      object-fit: cover;
+    }
+    .series-works-grid .gallery-image-wrap {
+      background: #0a0a0a;
+    }
+    @media (min-width: 769px) and (max-width: 1024px) {
+      .series-hero-inner { gap: 1.5rem; }
+      .series-hero-title { font-size: clamp(1.6rem, 3.5vw, 2.4rem); }
+      .series-hero-media { aspect-ratio: 4 / 3; }
     }
   </style>
   <meta property="og:type" content="website">
@@ -260,11 +271,9 @@
       <button class="lightbox-close" type="button" aria-label="Close preview" data-lightbox-close>&times;</button>
       <button class="lightbox-nav lightbox-prev" type="button" aria-label="Previous item" data-lightbox-prev>&#8249;</button>
       <button class="lightbox-nav lightbox-next" type="button" aria-label="Next item" data-lightbox-next>&#8250;</button>
-      <div class="lightbox-header" id="lightbox-header">
-        <div class="lightbox-title" id="lightbox-title"></div>
-      </div>
       <div class="lightbox-body" id="lightbox-body"></div>
       <div class="lightbox-caption">
+        <div class="lightbox-title" id="lightbox-title"></div>
         <div class="lightbox-category" id="lightbox-category"></div>
         <a href="#" id="lightbox-prototype-link" class="lightbox-prototype-btn" target="_blank" rel="noopener" style="display:none;">View Prototype &#8594;</a>
       </div>

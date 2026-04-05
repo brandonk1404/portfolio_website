@@ -533,27 +533,24 @@ ul {
   overflow: hidden;
 }
 
-.lightbox-header {
-  padding: 0.9rem 1.25rem 0.6rem;
-  border-bottom: 1px solid rgba(49,86,64,0.08);
+.lightbox-caption {
+  padding: 0.75rem 1.25rem 1rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.15rem;
+  border-top: 1px solid rgba(49,86,64,0.08);
 }
 
 .lightbox-title {
-  font-size: 1rem;
+  font-size: 0.95rem;
   font-weight: 700;
   color: var(--text);
   letter-spacing: 0.01em;
-}
-
-.lightbox-caption {
-  padding: 0.6rem 1.25rem 1rem;
-  display: flex;
-  flex-direction: column;
-  gap: 0.2rem;
+  line-height: 1.3;
 }
 
 .lightbox-category {
-  font-size: 0.75rem;
+  font-size: 0.72rem;
   letter-spacing: 0.1em;
   text-transform: uppercase;
   color: var(--text-muted);
@@ -592,13 +589,6 @@ ul {
   width: 100%;
   height: 100%;
   display: flex;
-}
-
-.lightbox-caption {
-  padding: 1rem 1.25rem 1.25rem;
-  display: flex;
-  flex-direction: column;
-  gap: 0.25rem;
 }
 
 .lightbox-close,
@@ -1874,12 +1864,6 @@ body, h1, h2, h3 {
   margin-bottom: 0;
 }
 
-/* Lightbox caption padding */
-.lightbox-caption {
-  padding: 1.25rem 1.5rem 1.5rem;
-  gap: 0.35rem;
-}
-
 /* Nav spacing */
 .site-header {
   padding: 1rem var(--space);
@@ -2511,4 +2495,137 @@ h1, h2, h3, h4, .cs-hero-title, .cs-hero-sub, .gallery-name,
   .featured-grid {
     grid-template-columns: 1fr 1fr !important;
   }
+}
+
+/* ══════════════════════════════════════════════════════════════════
+   RESPONSIVE CONSISTENCY FIXES
+   ══════════════════════════════════════════════════════════════════ */
+
+/* ── Lightbox: mobile tightening ────────────────────────────────── */
+@media (max-width: 768px) {
+  .lightbox-dialog {
+    width: calc(100vw - 1.5rem);
+    margin: 0 auto;
+    border-radius: var(--radius);
+  }
+  .lightbox-caption {
+    padding: 0.6rem 1rem 0.85rem;
+  }
+  .lightbox-title {
+    font-size: 0.88rem;
+  }
+  .lightbox-close {
+    top: 6px;
+    right: 8px;
+    width: 36px;
+    height: 36px;
+    font-size: 22px;
+  }
+  .lightbox-nav {
+    width: 36px;
+    height: 36px;
+  }
+}
+
+/* ── Series overview: tablet 2-col → but not too squished ───────── */
+@media (min-width: 769px) and (max-width: 1024px) {
+  .series-entry {
+    grid-template-columns: 1fr 1fr;
+    gap: 1.5rem;
+  }
+  .series-title {
+    font-size: clamp(1.4rem, 3vw, 2rem);
+  }
+}
+
+/* ── Series strip thumbs: bigger tap targets on mobile ───────────── */
+@media (max-width: 768px) {
+  .series-visual-strip {
+    gap: 4px;
+    padding: 4px;
+  }
+  .series-strip-thumb {
+    min-height: 36px;
+  }
+  .series-count {
+    font-size: 0.62rem;
+    padding: 0.25rem 0.5rem;
+  }
+}
+
+/* ── Series hero pages: tablet ───────────────────────────────────── */
+@media (min-width: 769px) and (max-width: 1024px) {
+  .series-hero-inner {
+    grid-template-columns: 1fr 1fr;
+    gap: 1.5rem;
+  }
+  .series-hero-title {
+    font-size: clamp(1.6rem, 3.5vw, 2.4rem);
+  }
+}
+
+/* ── Series hero pages: canvas height on mobile ─────────────────── */
+@media (max-width: 768px) {
+  .series-hero-media {
+    aspect-ratio: 4 / 3;
+    min-height: 220px;
+  }
+  .series-hero-media canvas {
+    width: 100% !important;
+    height: 100% !important;
+  }
+  .series-hero {
+    padding-top: calc(var(--header-height) + 2rem);
+    padding-bottom: 2.5rem;
+  }
+  .series-hero-info {
+    gap: 0.9rem;
+  }
+}
+
+/* ── Gallery grid: wrap properly on tablet (769-899px) ───────────── */
+@media (min-width: 769px) and (max-width: 899px) {
+  .gallery {
+    flex-wrap: wrap;
+    overflow-x: visible;
+    scroll-snap-type: none;
+  }
+  .gallery-item {
+    flex: 0 0 calc(33.33% - 1.4rem);
+  }
+}
+
+/* ── Gallery items: consistent hover overlay on touch ────────────── */
+@media (hover: none) {
+  .gallery-overlay {
+    opacity: 0 !important;
+  }
+}
+
+/* ── Works grid on series pages: responsive columns ─────────────── */
+@media (max-width: 768px) {
+  .series-works-grid {
+    grid-template-columns: repeat(2, 1fr) !important;
+    gap: 1rem;
+  }
+}
+@media (max-width: 480px) {
+  .series-works-grid {
+    grid-template-columns: 1fr !important;
+  }
+}
+
+/* ── Section title: consistent sizing across all pages ───────────── */
+.section-title {
+  font-size: clamp(1.4rem, 3vw, 2rem);
+}
+
+/* ── Footer: consistent padding across all pages ─────────────────── */
+.site-footer {
+  padding: 1.5rem var(--space);
+}
+
+/* ── Lightbox duplicate caption rule cleanup ─────────────────────── */
+.lightbox-caption + .lightbox-caption {
+  display: none;
 }

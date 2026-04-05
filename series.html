@@ -92,6 +92,12 @@
     }
 
     /* ── Cinematic image panel ── */
+    .series-poster-link {
+      position: absolute;
+      inset: 0;
+      z-index: 2;
+      cursor: zoom-in;
+    }
     .series-visual {
       position: relative;
       border-radius: calc(var(--radius) + 4px);
@@ -223,6 +229,15 @@
     }
 
     /* ── Mobile ── */
+    @media (min-width: 769px) and (max-width: 1024px) {
+      .series-entry {
+        grid-template-columns: 1fr 1fr;
+        gap: 1.5rem;
+      }
+      .series-title {
+        font-size: clamp(1.4rem, 3vw, 2rem);
+      }
+    }
     @media (max-width: 768px) {
       .series-entry,
       .series-entry:nth-child(even) {
@@ -290,7 +305,7 @@
         <!-- ── Videoverse ── -->
         <article class="series-entry reveal">
           <div class="series-visual">
-            <a href="images/videoverse_placeholder.jpg" class="gallery-link" style="display:contents"><img class="series-visual-main is-poster" src="images/videoverse_placeholder.jpg" alt="Videoverse"></a>
+            <img class="series-visual-main is-poster" src="images/videoverse_placeholder.jpg" alt="Videoverse"><a href="images/videoverse_placeholder.jpg" class="gallery-link series-poster-link" aria-label="View Videoverse poster"></a>
             <div class="series-visual-strip">
               <img class="series-strip-thumb active" src="images/videoverse_placeholder.jpg" alt="Videoverse">
               <img class="series-strip-thumb" src="images/savior_thumb.jpg" alt="The Illustrator's Savior" data-video="images/savior_loop.mp4">
@@ -314,7 +329,7 @@
         <!-- ── Creation of the Earthly ── -->
         <article class="series-entry reveal">
           <div class="series-visual">
-            <a href="images/earthly_poster.jpg" class="gallery-link" style="display:contents"><img class="series-visual-main is-poster" src="images/earthly_poster.jpg" alt="Creation of the Earthly poster"></a>
+            <img class="series-visual-main is-poster" src="images/earthly_poster.jpg" alt="Creation of the Earthly poster"><a href="images/earthly_poster.jpg" class="gallery-link series-poster-link" aria-label="View Creation of the Earthly poster"></a>
             <div class="series-visual-strip">
               <img class="series-strip-thumb active" src="images/earthly_poster.jpg" alt="Poster">
               <img class="series-strip-thumb" src="images/mural_photo1.jpg" alt="Mural">
@@ -337,7 +352,7 @@
         <!-- ── Chromatic Fragments ── -->
         <article class="series-entry reveal">
           <div class="series-visual">
-            <a href="images/chromatic_poster.jpg" class="gallery-link" style="display:contents"><img class="series-visual-main is-poster" src="images/chromatic_poster.jpg" alt="Chromatic Fragments poster"></a>
+            <img class="series-visual-main is-poster" src="images/chromatic_poster.jpg" alt="Chromatic Fragments poster"><a href="images/chromatic_poster.jpg" class="gallery-link series-poster-link" aria-label="View Chromatic Fragments poster"></a>
             <div class="series-visual-strip">
               <img class="series-strip-thumb active" src="images/chromatic_poster.jpg" alt="Poster">
             </div>
@@ -376,11 +391,9 @@
       <button class="lightbox-close" type="button" aria-label="Close preview" data-lightbox-close>&times;</button>
       <button class="lightbox-nav lightbox-prev" type="button" aria-label="Previous item" data-lightbox-prev>&#8249;</button>
       <button class="lightbox-nav lightbox-next" type="button" aria-label="Next item" data-lightbox-next>&#8250;</button>
-      <div class="lightbox-header" id="lightbox-header">
-        <div class="lightbox-title" id="lightbox-title"></div>
-      </div>
       <div class="lightbox-body" id="lightbox-body"></div>
       <div class="lightbox-caption">
+        <div class="lightbox-title" id="lightbox-title"></div>
         <div class="lightbox-category" id="lightbox-category"></div>
         <a href="#" id="lightbox-prototype-link" class="lightbox-prototype-btn" target="_blank" rel="noopener" style="display:none;">View Prototype &#8594;</a>
       </div>
@@ -410,31 +423,35 @@
           thumb.classList.add('active');
           var videoSrc = thumb.getAttribute('data-video');
           var existing = visual.querySelector('.series-visual-main');
+          var posterLink = visual.querySelector('.series-poster-link');
           if (videoSrc) {
-            // Switch to video
+            // Switch to video — always cover
+            if (posterLink) posterLink.style.display = 'none';
             if (existing && existing.tagName === 'VIDEO') {
               existing.src = videoSrc;
               existing.load();
               existing.play().catch(function(){});
             } else {
-              // Replace img with video
               var v = document.createElement('video');
               v.src = videoSrc;
               v.autoplay = true; v.loop = true; v.muted = true; v.playsInline = true;
               v.className = 'series-visual-main';
-              v.style.cssText = existing ? existing.style.cssText : '';
+              v.style.cssText = 'width:100%;height:100%;object-fit:cover;display:block;';
               if (existing) existing.replaceWith(v);
               v.play().catch(function(){});
             }
           } else {
             // Switch to image
+            if (posterLink) posterLink.style.display = '';
             if (existing && existing.tagName === 'IMG') {
               existing.src = thumb.src;
+              existing.classList.remove('is-poster');
+              existing.style.objectFit = 'cover';
             } else {
-              // Replace video with img
               var img = document.createElement('img');
               img.src = thumb.src;
               img.className = 'series-visual-main';
+              img.style.cssText = 'width:100%;height:100%;object-fit:cover;display:block;';
               if (existing) { existing.pause && existing.pause(); existing.replaceWith(img); }
             }
           }
