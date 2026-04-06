@@ -92,18 +92,15 @@
     }
 
     /* ── Cinematic image panel ── */
-    .series-poster-link {
-      position: absolute;
-      inset: 0;
-      z-index: 2;
-      cursor: zoom-in;
-    }
     .series-visual {
       position: relative;
       border-radius: calc(var(--radius) + 4px);
       overflow: hidden;
       background: var(--bg-alt);
       aspect-ratio: 4 / 3;
+      display: flex;
+      align-items: center;
+      justify-content: center;
     }
     .series-visual-main {
       width: 100%;
@@ -114,6 +111,8 @@
     }
     .series-visual-main.is-poster {
       object-fit: contain;
+      width: 100%;
+      height: 100%;
       background: var(--bg-alt);
     }
     .series-entry:hover .series-visual-main {
@@ -305,7 +304,7 @@
         <!-- ── Videoverse ── -->
         <article class="series-entry reveal">
           <div class="series-visual">
-            <img class="series-visual-main is-poster" src="images/videoverse_placeholder.jpg" alt="Videoverse"><a href="images/videoverse_placeholder.jpg" class="gallery-link series-poster-link" aria-label="View Videoverse poster"></a>
+            <img class="series-visual-main is-poster" src="images/earthly_poster.jpg" alt="Creation of the Earthly">
             <div class="series-visual-strip">
               <img class="series-strip-thumb active" src="images/videoverse_placeholder.jpg" alt="Videoverse">
               <img class="series-strip-thumb" src="images/savior_thumb.jpg" alt="The Illustrator's Savior" data-video="images/savior_loop.mp4">
@@ -329,7 +328,7 @@
         <!-- ── Creation of the Earthly ── -->
         <article class="series-entry reveal">
           <div class="series-visual">
-            <img class="series-visual-main is-poster" src="images/earthly_poster.jpg" alt="Creation of the Earthly poster"><a href="images/earthly_poster.jpg" class="gallery-link series-poster-link" aria-label="View Creation of the Earthly poster"></a>
+            <img class="series-visual-main is-poster" src="images/earthly_poster.jpg" alt="Creation of the Earthly poster">
             <div class="series-visual-strip">
               <img class="series-strip-thumb active" src="images/earthly_poster.jpg" alt="Poster">
               <img class="series-strip-thumb" src="images/mural_photo1.jpg" alt="Mural">
@@ -352,7 +351,7 @@
         <!-- ── Chromatic Fragments ── -->
         <article class="series-entry reveal">
           <div class="series-visual">
-            <img class="series-visual-main is-poster" src="images/chromatic_poster.jpg" alt="Chromatic Fragments poster"><a href="images/chromatic_poster.jpg" class="gallery-link series-poster-link" aria-label="View Chromatic Fragments poster"></a>
+            <img class="series-visual-main is-poster" src="images/chromatic_poster.jpg" alt="Chromatic Fragments poster">
             <div class="series-visual-strip">
               <img class="series-strip-thumb active" src="images/chromatic_poster.jpg" alt="Poster">
             </div>
@@ -372,12 +371,6 @@
       </div>
     </section>
   
-  <!-- Hidden gallery items for series poster lightbox -->
-  <div style="display:none">
-    <div class="gallery-item"><a href="images/videoverse_placeholder.jpg" class="gallery-link"><span class="gallery-category">Series Poster</span><span class="gallery-name">Videoverse</span></a></div>
-    <div class="gallery-item"><a href="images/earthly_poster.jpg" class="gallery-link"><span class="gallery-category">Exhibition Poster</span><span class="gallery-name">Creation of the Earthly</span></a></div>
-    <div class="gallery-item"><a href="images/chromatic_poster.jpg" class="gallery-link"><span class="gallery-category">Exhibition Poster</span><span class="gallery-name">Chromatic Fragments</span></a></div>
-  </div>
 </main>
 
   <footer class="site-footer">

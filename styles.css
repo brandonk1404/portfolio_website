@@ -2518,16 +2518,24 @@ h1, h2, h3, h4, .cs-hero-title, .cs-hero-sub, .gallery-name,
 
 /* Gallery hover overlays suppressed on touch — handled in MOBILE STREAMLINING block */
 
-/* ── Works grid on series pages: responsive columns ─────────────── */
+/* ── Works grid on series pages: horizontal scroll on mobile ─────── */
 @media (max-width: 768px) {
   .series-works-grid {
-    grid-template-columns: repeat(2, 1fr) !important;
-    gap: 1rem;
+    display: flex !important;
+    grid-template-columns: unset !important;
+    overflow-x: auto !important;
+    scroll-snap-type: x mandatory !important;
+    gap: 1rem !important;
+    padding-bottom: 1rem !important;
+  }
+  .series-works-grid .gallery-item {
+    flex: 0 0 min(72vw, 280px) !important;
+    scroll-snap-align: start !important;
   }
 }
 @media (max-width: 480px) {
-  .series-works-grid {
-    grid-template-columns: 1fr !important;
+  .series-works-grid .gallery-item {
+    flex: 0 0 80vw !important;
   }
 }
 
@@ -2720,30 +2728,35 @@ h1, h2, h3, h4, .cs-hero-title, .cs-hero-sub, .gallery-name,
   }
 }
 
-/* ── Mobile gallery: 2-column grid instead of horizontal scroll ───── */
+/* ── Mobile gallery: horizontal scroll carousel (not grid) ────────── */
 @media (max-width: 768px) {
   .gallery {
-    display: grid !important;
-    grid-template-columns: 1fr 1fr !important;
+    display: flex !important;
+    grid-template-columns: unset !important;
+    overflow-x: auto !important;
+    scroll-snap-type: x mandatory !important;
+    padding-bottom: 1rem !important;
     gap: 1rem !important;
-    overflow-x: visible !important;
-    scroll-snap-type: none !important;
-    padding-bottom: 0 !important;
   }
   .gallery-item {
-    flex: unset !important;
-    width: 100% !important;
-    scroll-snap-align: none !important;
+    flex: 0 0 min(72vw, 280px) !important;
+    width: unset !important;
+    scroll-snap-align: start !important;
   }
-  /* Hide horizontal scroll arrows on mobile — not needed in grid */
-  .gallery-nav {
-    display: none !important;
+  /* Hide nav arrows on touch devices — swipe is the interaction */
+  /* (desktop shrunken windows still get arrows via JS visibility logic) */
+}
+
+/* ── Very small screens: slightly narrower cards ─────────────────── */
+@media (max-width: 420px) {
+  .gallery-item {
+    flex: 0 0 80vw !important;
   }
 }
 
-/* ── Very small screens: single column ───────────────────────────── */
-@media (max-width: 420px) {
-  .gallery {
-    grid-template-columns: 1fr !important;
+/* ── Gallery arrows: hide on touch devices only, show on pointer:fine ── */
+@media (pointer: coarse) {
+  .gallery-nav {
+    display: none !important;
   }
 }

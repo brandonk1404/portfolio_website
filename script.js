@@ -92,7 +92,18 @@
     }
 
     nav.querySelectorAll('a').forEach(function (link) {
-      link.addEventListener('click', closeMenu);
+      link.addEventListener('click', function (e) {
+        // On mobile, always close the menu when any link is tapped
+        // (including nav-link-main which is the Gallery toggle)
+        if (window.matchMedia('(max-width: 768px)').matches) {
+          closeMenu();
+          // Also clear the open class on the nav-group dropdown
+          var group = document.querySelector('.nav-group');
+          if (group) group.classList.remove('open');
+        } else {
+          closeMenu();
+        }
+      });
     });
 
     document.addEventListener('keydown', function (e) {
@@ -124,7 +135,9 @@
     }
     syncArrowWidth();
     window.addEventListener('resize', syncArrowWidth);
-    galleryToggle.addEventListener('click', function () {
+    galleryToggle.addEventListener('click', function (e) {
+      // On mobile, sub-links are always visible — toggle does nothing
+      if (window.matchMedia('(max-width: 768px)').matches) return;
       var isOpen = galleryGroup.classList.toggle('open');
       galleryToggle.setAttribute('aria-expanded', isOpen ? 'true' : 'false');
     });
