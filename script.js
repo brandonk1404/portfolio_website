@@ -176,7 +176,7 @@
     { src: 'images/image2.png',              title: 'Sight By Sound Packaging',                       medium: 'Digital Illustration',  position: 'center top' },
     { src: 'images/image19.png',             title: 'Dan Friedman Information Poster',                medium: 'Digital Illustration',  position: 'center top' },
     { src: 'images/image15.jpg',             title: 'Soap Bottles',                                   medium: 'Oil Painting',          position: 'center center' },
-    { src: 'images/image9.jpg',              title: 'Shadow Home',                                    medium: 'Photographic Print',    position: 'center top' },
+    { src: 'images/shadow_home.jpg',         title: 'Shadow Home',                                    medium: 'Photographic Print',    position: 'center top' },
     { src: 'images/image11.jpg',             title: '2024 Lunar New Year Bookmark',                   medium: 'Digital Illustration',  position: 'center top' },
     { src: 'images/image10.png',             title: 'Academic Tutoring Poster',                       medium: 'Digital Illustration',  position: 'center top' },
     { src: 'images/arkade_moodboard.png',    title: 'ArKade Mood Board & Website',                    medium: 'Web Design',            position: 'center center' },

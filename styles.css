@@ -1303,8 +1303,8 @@ body.is-leaving {
 }
 
 /* ── Time Flies thumbnail: show face not obscured by play button ─── */
-.video-item .gallery-image-wrap img {
-  object-position: center top;
+.video-item .gallery-image-wrap img[alt*="Time Flies"] {
+  object-position: center 15%;
 }
 
 /* ── Body background: enable parallax scrolling ──────────────────── */
@@ -2325,7 +2325,7 @@ h1, h2, h3, h4, .cs-hero-title, .cs-hero-sub, .gallery-name,
 .video-item .gallery-image-wrap img {
   width: 100%;
   height: 100%;
-  object-fit: contain;
+  object-fit: cover;
 }
 
 /* ── Gallery: wrap on desktop, scroll on smaller screens ─────────── */
