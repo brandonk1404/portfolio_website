@@ -54,7 +54,7 @@
     /* Pattern scrolls with the page; softer color via opacity + filter */
     body::after {
       content: "";
-      position: absolute;
+      position: fixed;
       top: 0;
       left: 0;
       right: 0;
@@ -62,11 +62,12 @@
       pointer-events: none;
       z-index: 0;
       background-image: url("images/videoverse_bg_pattern.svg");
-      background-repeat: repeat;
-      background-size: 1200px 1200px;
-      background-position: center calc(50% + var(--vv-pattern-scroll, 0px));
-      opacity: var(--vv-pattern-opacity, 0.25);
-      filter: saturate(0.72) brightness(1.05);
+      background-repeat: no-repeat;
+      background-size: cover;
+      background-position: center center;
+      background-attachment: fixed;
+      opacity: var(--vv-pattern-opacity, 0.08);
+      filter: saturate(0.3) brightness(0.9);
     }
     body > * {
       position: relative;
