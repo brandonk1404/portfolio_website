@@ -59,6 +59,7 @@
     /* ── Series page layout ── */
     .series-section {
       padding: clamp(2.5rem, 5vw, 4rem) var(--space);
+      padding-top: calc(var(--header-height) + 1in);
       max-width: var(--max-width);
       margin: 0 auto;
     }
@@ -109,7 +110,7 @@
       width: 100%;
       height: auto;
       max-height: min(88vh, 1000px);
-      object-fit: contain;
+      object-fit: cover;
       object-position: center;
     }
     /* Loops: fixed cinematic frame inside the panel */
@@ -131,12 +132,11 @@
       gap: 3px;
       padding: 3px;
       background: rgba(0,0,0,0.45);
-      backdrop-filter: blur(4px);
     }
     .series-strip-thumb {
       flex: 1;
-      aspect-ratio: 1 / 1;
-      object-fit: contain;
+      aspect-ratio: 16 / 9;
+      object-fit: cover;
       object-position: center;
       border-radius: 2px;
       cursor: pointer;

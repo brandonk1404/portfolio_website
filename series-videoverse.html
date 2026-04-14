@@ -21,7 +21,7 @@
       --vv-text-muted: rgba(238, 242, 237, 0.72);
       --vv-accent: #6eb88c;
       --vv-accent-2: #b87352;
-      --vv-pattern-opacity: 0.25;
+      --vv-pattern-opacity: 0.05;
       --vv-pattern-scroll: 0px;
     }
     /* Page fill on html; body transparent so pattern (::after) is not trapped under body’s background */
@@ -109,11 +109,12 @@
     .nav-group { position: relative; }
     .nav-sub {
       position: absolute; left: 0; top: 100%; margin-top: 0.35rem;
-      padding: 0.5rem 0.75rem; background: #ffffff; border-radius: 8px;
-      border: 1px solid rgba(229,231,230,0.9); box-shadow: 0 12px 34px rgba(49,86,64,0.2);
+      padding: 0.5rem 0.75rem; background: #1c2e26; border-radius: 8px;
+      border: 1px solid rgba(110,184,140,0.2); box-shadow: 0 12px 34px rgba(0,0,0,0.5);
       display: none; flex-direction: column; gap: 0.1rem; white-space: nowrap; min-width: 140px;
     }
-    .nav-sub a { padding: 0.3rem 0; }
+    .nav-sub a { padding: 0.3rem 0; color: rgba(238,242,237,0.8) !important; }
+    .nav-sub a:hover { color: #eef2ed !important; }
     .nav-group.open .nav-sub { display: flex; }
     @media (min-width: 769px) { .nav-group:hover .nav-sub { display: flex; } }
     @media (max-width: 768px) {
@@ -149,11 +150,7 @@
     /* ── Series hero ── */
     .series-hero {
       background: linear-gradient(145deg, rgba(38, 51, 44, 0.88), rgba(28, 40, 34, 0.82));
-      padding: calc(var(--header-height) + clamp(2rem,4vw,4rem)) var(--space) clamp(2rem,4vw,4rem);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      border-bottom: 1px solid var(--vv-panel-border);
+      padding: calc(var(--header-height) + 1in) var(--space) clamp(2rem,4vw,4rem);
     }
     .series-hero-inner {
       max-width: var(--max-width);
@@ -173,7 +170,7 @@
     }
     .series-hero-media img,
     .series-hero-media video {
-      width: 100%; height: 100%; object-fit: contain; display: block; background: var(--vv-panel-bg);
+      width: 100%; height: 100%; object-fit: cover; object-position: center; display: block; background: var(--vv-panel-bg);
     }
     .series-hero-info {
       display: flex;
@@ -271,7 +268,8 @@
       object-fit: cover;
     }
     .series-works-grid .poster-item .gallery-image-wrap img {
-      object-fit: contain;
+      object-fit: cover;
+      object-position: center top;
       background: var(--vv-panel-bg);
     }
     .series-works-grid .gallery-image-wrap {
