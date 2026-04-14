@@ -108,8 +108,9 @@
     .series-visual-main:is(img) {
       display: block;
       width: 100%;
-      height: min(55vw, 520px);
-      object-fit: cover;
+      height: auto;
+      max-height: min(88vh, 1000px);
+      object-fit: contain;
       object-position: center;
     }
     /* Loops: fixed cinematic frame inside the panel */
@@ -471,13 +472,13 @@
               } else {
                 existing.classList.remove('is-poster');
               }
-              existing.style.cssText = '';
+              existing.style.cssText = 'width:100%;height:100%;object-fit:cover;object-position:center;display:block;';
             } else {
               var img = document.createElement('img');
               img.src = thumb.src;
               img.alt = thumb.alt || '';
               img.className = 'series-visual-main' + (isPoster ? ' is-poster' : '');
-              img.style.cssText = '';
+              img.style.cssText = 'width:100%;height:100%;object-fit:cover;object-position:center;display:block;';
               if (existing) { existing.pause && existing.pause(); existing.replaceWith(img); }
             }
           }
