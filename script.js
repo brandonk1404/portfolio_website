@@ -170,24 +170,24 @@
   // Optional: add position: 'center top' to control crop on image slides.
   // ─────────────────────────────────────────────────────────────────────────
   var heroSlides = [
-    { src: 'images/the_maker_thumb.jpg',              title: 'The Maker',                                      medium: 'Photographic Print',    position: 'center center' },
-    { src: 'images/garden_thumb.jpg',             title: 'Garden',                                         medium: 'Photographic Print',    position: 'center top' },
+    { src: 'images/the_maker_thumb.png',              title: 'The Maker',                                      medium: 'Photographic Print',    position: 'center center' },
+    { src: 'images/garden_thumb.png',             title: 'Garden',                                         medium: 'Photographic Print',    position: 'center top' },
     { src: 'images/room_depth_thumb.png',             title: 'Room Depth',                                     medium: 'Digital Illustration',  position: 'center center' },
     { src: 'images/sight_by_sound_thumb.png',              title: 'Sight By Sound Packaging',                       medium: 'Digital Illustration',  position: 'center top' },
     { src: 'images/dan_friedman_thumb.png',             title: 'Dan Friedman Information Poster',                medium: 'Digital Illustration',  position: 'center top' },
-    { src: 'images/soap_bottles_thumb.jpg',             title: 'Soap Bottles',                                   medium: 'Oil Painting',          position: 'center center' },
-    { src: 'images/shadow_home_thumb.jpg',         title: 'Shadow Home',                                    medium: 'Photographic Print',    position: 'center top' },
-    { src: 'images/lunar_bookmark_fullview.png',             title: '2024 Lunar New Year Bookmark',                   medium: 'Digital Illustration',  position: 'center top' },
+    { src: 'images/soap_bottles_thumb.png',             title: 'Soap Bottles',                                   medium: 'Oil Painting',          position: 'center center' },
+    { src: 'images/shadow_home_thumb.png',         title: 'Shadow Home',                                    medium: 'Photographic Print',    position: 'center top' },
+    { src: 'images/lunar_bookmark_thumb.png',             title: '2024 Lunar New Year Bookmark',                   medium: 'Digital Illustration',  position: 'center top' },
     { src: 'images/tutoring_poster_thumb.png',             title: 'Academic Tutoring Poster',                       medium: 'Digital Illustration',  position: 'center top' },
     { src: 'images/arkade_thumb.png',    title: 'ArKade Mood Board & Website',                    medium: 'Web Design',            position: 'center center' },
-    { src: 'images/image5.png',              title: 'CityMD Logo',                                    medium: 'Digital Illustration',  position: 'center center' },
-    { src: 'images/coffee_infographic_thumb.jpg',             title: 'Coffee Infographic',                             medium: 'Digital Illustration',  position: 'left top' },
-    { src: 'images/earthly_thumb.jpg',      title: 'Creation of the Earthly — Exhibition Poster',   medium: 'Digital Illustration',  position: 'center top' },
-    { src: 'images/chromatic_thumb.jpg',    title: 'Chromatic Fragments — Exhibition Poster',        medium: 'Digital Illustration',  position: 'center top' },
-    { src: 'images/starwars_fullview.jpg',             title: 'Star Wars: The Empire Strikes Back Movie Poster', medium: 'Digital Illustration', position: 'center top' },
-    { src: 'images/glow_of_the_road_fullview.png',             title: 'Glow of The Road',                               medium: 'Photographic Print',    position: 'center center' },
-    { src: 'images/mural_thumb.jpg',        title: 'Mural',                                          medium: 'Mixed Media',           position: 'center center' },
-    { src: 'images/laundry_thumb.jpg',       title: 'What Your Laundry Says About Your Life',         medium: 'Digital Illustration',  position: 'left top' },
+    { src: 'images/citymd_thumb.png',              title: 'CityMD Logo',                                    medium: 'Digital Illustration',  position: 'center center' },
+    { src: 'images/coffee_infographic_thumb.png',             title: 'Coffee Infographic',                             medium: 'Digital Illustration',  position: 'left top' },
+    { src: 'images/earthly_thumb.png',      title: 'Creation of the Earthly — Exhibition Poster',   medium: 'Digital Illustration',  position: 'center top' },
+    { src: 'images/chromatic_thumb.png',    title: 'Chromatic Fragments — Exhibition Poster',        medium: 'Digital Illustration',  position: 'center top' },
+    { src: 'images/starwars_thumb.png',             title: 'Star Wars: The Empire Strikes Back Movie Poster', medium: 'Digital Illustration', position: 'center top' },
+    { src: 'images/glow_of_the_road_thumb.png',             title: 'Glow of The Road',                               medium: 'Photographic Print',    position: 'center center' },
+    { src: 'images/mural_thumb.png',        title: 'Mural',                                          medium: 'Mixed Media',           position: 'center center' },
+    { src: 'images/laundry_thumb.png',       title: 'What Your Laundry Says About Your Life',         medium: 'Digital Illustration',  position: 'left top' },
     { src: 'images/savior_loop.mp4',         title: "The Illustrator's Savior",                       medium: 'Video' },
     { src: 'images/955_loop.mp4',            title: '9:55',                                           medium: 'Video' },
     { src: 'images/doors_loop.mp4',          title: 'Doors',                                          medium: 'Video' },
@@ -587,13 +587,6 @@
     galleryLinks.forEach(function (link, idx) {
       link.addEventListener('click', function (e) {
         if (isModifiedClick(e)) return;
-        var href = link.getAttribute('href') || '';
-        var isYoutube = href.indexOf('youtu') !== -1;
-        // Failsafe: if YouTube embeds are blocked, open directly in new tab
-        if (isYoutube && !youtubeEmbedAllowed) {
-          // Don't open lightbox — just let the link open naturally
-          return;
-        }
         e.preventDefault();
         openLightbox(idx);
       });
@@ -1049,22 +1042,17 @@
             setTimeout(function () {
               if (loaded) return;
               var src = f.src || '';
-              if (src.indexOf('youtube') !== -1 || src.indexOf('youtu') !== -1) {
-                // Close lightbox silently and open YouTube directly
-                closeLightbox();
-                var videoId = src.indexOf('/embed/') !== -1 ? src.split('/embed/')[1].split('?')[0] : '';
-                var ytUrl = videoId ? ('https://youtu.be/' + videoId) : src;
-                window.open(ytUrl, '_blank', 'noopener');
-              } else {
-                // For other iframes: show open-directly link inside lightbox
-                var link = document.createElement('a');
-                link.href = src;
-                link.target = '_blank';
-                link.rel = 'noopener';
-                link.style.cssText = 'display:block;padding:2rem;text-align:center;color:#315640;font-weight:700;';
-                link.textContent = 'Could not embed — click to open directly';
-                try { f.parentNode.replaceChild(link, f); } catch(e) {}
-              }
+              var isYt = src.indexOf('youtube') !== -1 || src.indexOf('youtu') !== -1;
+              var videoId = src.indexOf('/embed/') !== -1 ? src.split('/embed/')[1].split('?')[0] : '';
+              var fallbackUrl = isYt && videoId ? ('https://youtu.be/' + videoId) : src;
+              // Replace iframe with a fallback button — new tab is the last resort, not automatic
+              var fallback = document.createElement('div');
+              fallback.style.cssText = 'display:flex;flex-direction:column;align-items:center;justify-content:center;gap:1.2rem;width:100%;height:100%;min-height:200px;padding:2rem;box-sizing:border-box;';
+              fallback.innerHTML = '<p style="color:rgba(255,255,255,0.55);font-size:0.9rem;text-align:center;margin:0;">Video couldn\'t load inline.</p>' +
+                '<a href="' + fallbackUrl + '" target="_blank" rel="noopener" style="display:inline-flex;align-items:center;gap:0.6rem;padding:0.7rem 1.4rem;border-radius:999px;background:#52af79;color:#fff;font-weight:700;font-size:0.9rem;text-decoration:none;letter-spacing:0.06em;transition:background 0.15s;">' +
+                '<svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M10 16.5l6-4.5-6-4.5v9zM12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8z"/></svg>' +
+                'Watch on YouTube</a>';
+              try { f.parentNode.replaceChild(fallback, f); } catch(e) {}
             }, 7000);
           });
         });
