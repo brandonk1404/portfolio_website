@@ -2761,3 +2761,164 @@ h1, h2, h3, h4, .cs-hero-title, .cs-hero-sub, .gallery-name,
     display: none !important;
   }
 }
+
+/* ══════════════════════════════════════════════════════════════════
+   MOBILE / ZOOM / UX IMPROVEMENTS
+   ══════════════════════════════════════════════════════════════════ */
+
+/* ── 1. Nav zoom fix: prevent header from filling width at 175%+ ── */
+/* Root cause: justify-content:space-between + gap lets nav grow.
+   Fix: make the header a strict row that never grows beyond its items. */
+.site-header {
+  flex-wrap: nowrap !important;
+  overflow: visible;
+}
+.site-header .logo {
+  flex: 0 0 auto !important;
+  white-space: nowrap;
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-width: 50%;
+}
+.site-header .nav {
+  flex: 0 0 auto !important;
+  flex-shrink: 0 !important;
+  flex-wrap: nowrap !important;
+  width: auto !important;
+  max-width: none !important;
+  overflow: visible !important;
+}
+/* At high zoom the nav links may overflow — let them scroll horizontally
+   rather than wrapping and blowing out the header height */
+@media (min-width: 769px) {
+  .site-header .nav {
+    overflow-x: auto;
+    overflow-y: visible;
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+  }
+  .site-header .nav::-webkit-scrollbar { display: none; }
+  .site-header .nav a {
+    white-space: nowrap;
+    flex-shrink: 0;
+  }
+}
+
+/* ── 2. Hamburger hit target ────────────────────────────────────── */
+.menu-toggle {
+  min-width: 48px !important;
+  min-height: 48px !important;
+  padding: 12px !important;
+  cursor: pointer;
+  touch-action: manipulation;
+  -webkit-tap-highlight-color: transparent;
+}
+
+/* ── 3. Gallery scroll edge fade — implies more content ─────────── */
+.work-group {
+  position: relative;
+}
+/* Fade on right edge of ANY work-group that has a carousel */
+.work-group.has-carousel {
+  overflow: visible;
+}
+.work-group.has-carousel .gallery-wrap,
+.work-group.has-carousel > .gallery {
+  position: relative;
+}
+/* Use a sibling overlay element injected by JS — see script patch below.
+   Fallback: ::after on the work-group itself */
+.work-group.has-carousel::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: 100px;
+  bottom: 3rem; /* leave meta/title area clear */
+  background: linear-gradient(to right, transparent 0%, var(--bg) 100%);
+  pointer-events: none;
+  z-index: 6;
+}
+/* On mobile, narrower fade and show a sliver of the next card */
+@media (max-width: 768px) {
+  .work-group.has-carousel::after {
+    width: 64px;
+  }
+  .gallery {
+    padding-right: 2.5rem !important;
+    scroll-padding-left: var(--space);
+    -webkit-overflow-scrolling: touch;
+    overscroll-behavior-x: contain;
+  }
+  /* Narrower cards so next card peeks in */
+  .gallery-item {
+    flex: 0 0 min(75vw, 300px) !important;
+  }
+  /* Tap feedback */
+  .gallery-item {
+    -webkit-tap-highlight-color: transparent;
+  }
+  .gallery-image-wrap {
+    user-select: none;
+    -webkit-user-select: none;
+  }
+}
+
+/* ── 4. Series tab — styled as a clickable button ───────────────── */
+#work-series .work-group-title a {
+  display: inline-flex;
+  align-items: center;
+  padding: 0.55rem 1.3rem;
+  border-radius: 999px;
+  border: 1.5px solid var(--accent-dark);
+  color: var(--accent-dark) !important;
+  font-size: 1rem;
+  font-weight: 400;
+  letter-spacing: 0.06em;
+  text-decoration: none !important;
+  background: transparent;
+  transition: background 0.18s ease, color 0.18s ease, box-shadow 0.18s ease, transform 0.18s ease;
+  cursor: pointer;
+}
+#work-series .work-group-title a:hover,
+#work-series .work-group-title a:focus-visible {
+  background: var(--accent-dark);
+  color: #fff !important;
+  box-shadow: 0 8px 24px rgba(49,86,64,0.28);
+  transform: translateY(-2px);
+}
+#work-series .work-group-title {
+  margin-bottom: 0.6rem;
+}
+
+/* ── 5. General tablet improvements ────────────────────────────── */
+@media (min-width: 769px) and (max-width: 1024px) {
+  .gallery-item {
+    flex: 0 0 min(310px, 44vw);
+  }
+  .nav {
+    gap: clamp(0.5rem, 1.2vw, 1rem) !important;
+  }
+  .nav a {
+    font-size: clamp(0.76rem, 1vw, 0.88rem) !important;
+    white-space: nowrap;
+  }
+  .logo span {
+    font-size: clamp(0.85rem, 1.6vw, 1rem);
+  }
+}
+
+/* ── 6. Mobile nav tap targets ──────────────────────────────────── */
+@media (max-width: 768px) {
+  .nav a {
+    min-height: 48px;
+    display: inline-flex;
+    align-items: center;
+  }
+}
+
+/* ── Exclude series tab from fade overlay ───────────────────────── */
+#work-series::after {
+  display: none !important;
+}
