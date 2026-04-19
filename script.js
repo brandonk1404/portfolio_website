@@ -513,7 +513,7 @@
       // fs=0 removes fullscreen button; disablekb=1 removes keyboard shortcuts;
       // cc_load_policy=0 hides captions; iv_load_policy=3 hides annotations;
       // playsinline=1 prevents iOS auto-fullscreen on play
-      iframe.src = embedUrl + '?rel=0&autoplay=1&modestbranding=1&fs=0&disablekb=1&cc_load_policy=0&iv_load_policy=3&playsinline=1';
+      iframe.src = embedUrl + '?rel=0&autoplay=1&modestbranding=1&fs=0&disablekb=0&cc_load_policy=0&iv_load_policy=3&playsinline=1&color=white&controls=1&showinfo=0&loop=0';
       iframe.allow = 'accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope';
       iframe.allowFullscreen = false;
       iframe.referrerPolicy = 'strict-origin-when-cross-origin';
