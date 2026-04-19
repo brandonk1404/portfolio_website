@@ -424,10 +424,14 @@ ul {
   display: none;
   align-items: center;
   justify-content: center;
+  overflow-y: auto;
+  -webkit-overflow-scrolling: touch;
 }
 
 .lightbox.open {
   display: flex;
+  flex-direction: column;
+  padding: 1rem 0;
 }
 
 .lightbox.open .lightbox-backdrop {
@@ -2103,14 +2107,17 @@ body, h1, h2, h3 {
   object-position: center top;
 }
 
-@media (max-width: 768px) {
+@media (max-width: 1024px) {
   .about-layout {
     grid-template-columns: 1fr;
   }
 
   .about-photo {
-    max-width: 280px;
+    max-width: 200px;
+    width: 200px;
     aspect-ratio: 1 / 1;
+    margin: 0 auto;
+    display: block;
   }
 }
 
@@ -2440,8 +2447,7 @@ h1, h2, h3, h4, .cs-hero-title, .cs-hero-sub, .gallery-name,
     font-size: 22px;
   }
   .lightbox-nav {
-    width: 36px;
-    height: 36px;
+    display: none !important;
   }
 }
 

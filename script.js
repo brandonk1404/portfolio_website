@@ -614,6 +614,16 @@
       if (target === lightbox || target.matches('.lightbox-backdrop')) closeLightbox();
     });
 
+    // Mobile: touchend on backdrop also closes (tap-off)
+    lightbox.addEventListener('touchend', function (e) {
+      var target = e.target;
+      if (!target) return;
+      if (target === lightbox || target.matches('.lightbox-backdrop')) {
+        e.preventDefault();
+        closeLightbox();
+      }
+    });
+
     document.addEventListener('keydown', function (e) {
       if (!lightbox.classList.contains('open')) return;
       if (e.key === 'Escape') closeLightbox();
