@@ -2985,3 +2985,9 @@ h1, h2, h3, h4, .cs-hero-title, .cs-hero-sub, .gallery-name,
     min-height: 44px;
   }
 }
+
+/* ── YouTube bare player overlay ───────────────────────────────── */
+/* The overlay intercepts all interaction — iframe gets pointer-events:none */
+.lightbox-media-frame iframe {
+  pointer-events: none;
+}

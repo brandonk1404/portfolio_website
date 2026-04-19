@@ -500,25 +500,95 @@
       img.alt = (captionTitle && captionTitle.textContent) ? captionTitle.textContent : 'Work preview';
       frame.appendChild(img);
     } else if (mediaType === 'youtube') {
-      var embedUrl = '';
+      var videoId = '';
       if (href.indexOf('watch?v=') !== -1) {
-        var videoId = href.split('watch?v=')[1].split('&')[0];
-        embedUrl = 'https://www.youtube-nocookie.com/embed/' + videoId;
+        videoId = href.split('watch?v=')[1].split('&')[0];
       } else if (href.indexOf('youtu.be/') !== -1) {
-        var shortId = href.split('youtu.be/')[1].split(/[?&]/)[0];
-        embedUrl = 'https://www.youtube-nocookie.com/embed/' + shortId;
+        videoId = href.split('youtu.be/')[1].split(/[?&]/)[0];
       }
 
-      var iframe = document.createElement('iframe');
-      // fs=0 removes fullscreen button; disablekb=1 removes keyboard shortcuts;
-      // cc_load_policy=0 hides captions; iv_load_policy=3 hides annotations;
-      // playsinline=1 prevents iOS auto-fullscreen on play
-      iframe.src = embedUrl + '?rel=0&autoplay=1&modestbranding=1&fs=0&disablekb=0&cc_load_policy=0&iv_load_policy=3&playsinline=1&color=white&controls=1&showinfo=0&loop=0';
-      iframe.allow = 'accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope';
-      iframe.allowFullscreen = false;
-      iframe.referrerPolicy = 'strict-origin-when-cross-origin';
-      iframe.title = (captionTitle && captionTitle.textContent) ? captionTitle.textContent : 'YouTube video';
-      frame.appendChild(iframe);
+      // Wrapper keeps 16/9 ratio and acts as the click target
+      var ytWrap = document.createElement('div');
+      ytWrap.style.cssText = 'position:relative;width:100%;aspect-ratio:16/9;background:#000;overflow:hidden;cursor:pointer;';
+
+      // Placeholder div the YT API will replace with an iframe
+      var ytDiv = document.createElement('div');
+      var ytDivId = 'yt-player-' + Date.now();
+      ytDiv.id = ytDivId;
+      ytDiv.style.cssText = 'width:100%;height:100%;';
+      ytWrap.appendChild(ytDiv);
+
+      // Transparent overlay — intercepts all mouse/touch events
+      var ytOverlay = document.createElement('div');
+      ytOverlay.style.cssText = 'position:absolute;inset:0;z-index:10;cursor:pointer;background:transparent;-webkit-tap-highlight-color:transparent;';
+      ytWrap.appendChild(ytOverlay);
+
+      frame.appendChild(ytWrap);
+
+      // Load YT IFrame API if not already loaded, then init player
+      function initYTPlayer() {
+        var player = new YT.Player(ytDivId, {
+          videoId: videoId,
+          playerVars: {
+            autoplay: 1,
+            controls: 0,
+            rel: 0,
+            modestbranding: 1,
+            showinfo: 0,
+            iv_load_policy: 3,
+            cc_load_policy: 0,
+            playsinline: 1,
+            disablekb: 1,
+            fs: 0,
+            color: 'white',
+            origin: window.location.origin || 'https://brandonkreitsch.com',
+          },
+          events: {
+            onReady: function(e) {
+              e.target.playVideo();
+              // Size iframe to fill container
+              var iframeEl = ytWrap.querySelector('iframe');
+              if (iframeEl) {
+                iframeEl.style.cssText = 'width:100%;height:100%;border:0;display:block;pointer-events:none;';
+              }
+            }
+          }
+        });
+
+        // Tap/click overlay → toggle play/pause
+        function handleToggle(e) {
+          e.preventDefault();
+          e.stopPropagation();
+          try {
+            var state = player.getPlayerState();
+            if (state === YT.PlayerState.PLAYING) {
+              player.pauseVideo();
+            } else {
+              player.playVideo();
+            }
+          } catch(err) {}
+        }
+        ytOverlay.addEventListener('click', handleToggle);
+        ytOverlay.addEventListener('touchend', handleToggle);
+      }
+
+      if (window.YT && window.YT.Player) {
+        initYTPlayer();
+      } else {
+        // Load API script once
+        if (!document.getElementById('yt-api-script')) {
+          var tag = document.createElement('script');
+          tag.id = 'yt-api-script';
+          tag.src = 'https://www.youtube.com/iframe_api';
+          document.head.appendChild(tag);
+        }
+        // Queue init until API ready
+        var prevOnReady = window.onYouTubeIframeAPIReady;
+        window.onYouTubeIframeAPIReady = function() {
+          if (typeof prevOnReady === 'function') prevOnReady();
+          initYTPlayer();
+        };
+      }
     } else if (mediaType === 'video') {
       var vwrap = document.createElement('div');
       vwrap.className = 'video-embed-wrap';
