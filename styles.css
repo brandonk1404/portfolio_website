@@ -549,6 +549,18 @@ ul {
   color: var(--text-muted);
 }
 
+.lightbox-desc {
+  font-size: 0.85rem;
+  color: var(--text-muted);
+  line-height: 1.55;
+  margin: 0.35rem 0 0;
+  padding-top: 0.35rem;
+  border-top: 1px solid rgba(49,86,64,0.08);
+}
+.lightbox-desc:empty {
+  display: none;
+}
+
 .lightbox-body {
   background: transparent;
 }
@@ -609,23 +621,7 @@ ul {
 }
 
 .lightbox-nav {
-  position: absolute;
-  top: 50%;
-  transform: translateY(-50%);
-  width: 46px;
-  height: 46px;
-  border-radius: 999px;
-  border: 1px solid rgba(255, 255, 255, 0.14);
-  background: rgba(0, 0, 0, 0.45);
-  color: #fff;
-  font-size: 28px;
-  cursor: pointer;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  line-height: 1;
-  padding: 0;
-  z-index: 10;
+  display: none !important;
 }
 
 .lightbox-prev {
@@ -2766,43 +2762,138 @@ h1, h2, h3, h4, .cs-hero-title, .cs-hero-sub, .gallery-name,
    MOBILE / ZOOM / UX IMPROVEMENTS
    ══════════════════════════════════════════════════════════════════ */
 
-/* ── 1. Nav zoom fix: prevent header from filling width at 175%+ ── */
-/* Root cause: justify-content:space-between + gap lets nav grow.
-   Fix: make the header a strict row that never grows beyond its items. */
-.site-header {
-  flex-wrap: nowrap !important;
-  overflow: visible;
-}
-.site-header .logo {
-  flex: 0 0 auto !important;
-  white-space: nowrap;
-  min-width: 0;
-  overflow: hidden;
-  text-overflow: ellipsis;
-  max-width: 50%;
-}
-.site-header .nav {
-  flex: 0 0 auto !important;
-  flex-shrink: 0 !important;
-  flex-wrap: nowrap !important;
-  width: auto !important;
-  max-width: none !important;
-  overflow: visible !important;
-}
-/* At high zoom the nav links may overflow — let them scroll horizontally
-   rather than wrapping and blowing out the header height */
-@media (min-width: 769px) {
-  .site-header .nav {
-    overflow-x: auto;
-    overflow-y: visible;
-    scrollbar-width: none;
-    -ms-overflow-style: none;
+/* ── 1. THE CORE NAV FIX ────────────────────────────────────────────
+   Problem: hamburger only shows ≤768px. But landscape mobile (~900px)
+   and desktop at 175% zoom both have too little space for the full nav,
+   causing it to wrap and fill the header.
+   Solution: raise the hamburger breakpoint to 1024px and switch the
+   desktop nav to show only above 1024px. This catches landscape phones
+   AND high-zoom desktop in one clean cut.                            */
+
+/* Hide desktop nav and show hamburger below 1024px */
+@media (max-width: 1024px) {
+  .menu-toggle {
+    display: flex !important;
   }
-  .site-header .nav::-webkit-scrollbar { display: none; }
-  .site-header .nav a {
-    white-space: nowrap;
-    flex-shrink: 0;
+  .nav {
+    position: fixed !important;
+    top: 0 !important;
+    right: 0 !important;
+    width: min(85vw, 300px) !important;
+    height: 100dvh !important;
+    margin: 0 !important;
+    padding: calc(var(--header-height) + 1.5rem) 1.5rem 2rem !important;
+    flex-direction: column !important;
+    align-items: flex-end !important;
+    gap: 0.25rem !important;
+    background: #fff !important;
+    border-left: 1px solid var(--border) !important;
+    box-shadow: -12px 0 40px rgba(0,0,0,0.12) !important;
+    transform: translateX(100%) !important;
+    transition: transform 0.28s cubic-bezier(0.4,0,0.2,1) !important;
+    z-index: 99 !important;
+    overflow-y: auto !important;
+    flex-wrap: nowrap !important;
   }
+  .nav.is-open {
+    transform: translateX(0) !important;
+  }
+  .nav a {
+    font-size: 0.95rem !important;
+    min-height: 44px !important;
+    display: inline-flex !important;
+    align-items: center !important;
+    padding: 0.4rem 0 !important;
+    width: 100% !important;
+    justify-content: flex-end !important;
+  }
+  /* Nav sub-menu stays flat (already mobile-styled) */
+  .nav-sub {
+    position: static !important;
+    display: flex !important;
+    flex-direction: column !important;
+    gap: 0 !important;
+    background: transparent !important;
+    border: none !important;
+    box-shadow: none !important;
+    padding: 0 !important;
+    margin: 0 !important;
+    border-radius: 0 !important;
+    white-space: normal !important;
+    min-width: unset !important;
+  }
+  .nav-sub a {
+    font-size: 0.78rem !important;
+    color: #5a6b62 !important;
+    padding: 0.25rem 0 !important;
+    justify-content: flex-end !important;
+    width: 100% !important;
+    display: flex !important;
+    letter-spacing: 0.04em !important;
+  }
+  .nav-group .nav-link-main {
+    pointer-events: none !important;
+  }
+  .nav-link-main .gallery-arrow {
+    display: none !important;
+  }
+}
+
+/* Keep desktop nav above 1024px */
+@media (min-width: 1025px) {
+  .menu-toggle {
+    display: none !important;
+  }
+  .nav {
+    position: static !important;
+    width: auto !important;
+    height: auto !important;
+    flex-direction: row !important;
+    background: transparent !important;
+    border: none !important;
+    box-shadow: none !important;
+    transform: none !important;
+    padding: 0 !important;
+    overflow: visible !important;
+    flex: 0 0 auto !important;
+    flex-shrink: 0 !important;
+    flex-wrap: nowrap !important;
+    gap: clamp(0.75rem, 1.5vw, 1.75rem) !important;
+    align-items: center !important;
+  }
+  .nav a {
+    font-size: clamp(0.78rem, 0.9vw, 0.9rem) !important;
+    white-space: nowrap !important;
+    min-height: unset !important;
+    padding: 0 !important;
+    width: auto !important;
+    justify-content: flex-start !important;
+    display: inline-flex !important;
+    align-items: center !important;
+  }
+  .nav-sub {
+    position: absolute !important;
+    display: none !important;
+    flex-direction: column !important;
+    background: #fff !important;
+    border: 1px solid rgba(229,231,230,0.9) !important;
+    box-shadow: 0 12px 34px rgba(49,86,64,0.2) !important;
+    border-radius: 8px !important;
+    padding: 0.5rem 0.75rem !important;
+    min-width: 140px !important;
+    white-space: nowrap !important;
+    gap: 0.1rem !important;
+  }
+  .nav-group:hover .nav-sub { display: flex !important; }
+  .nav-sub a {
+    font-size: 0.85rem !important;
+    color: var(--text-muted) !important;
+    padding: 0.3rem 0 !important;
+    width: auto !important;
+    justify-content: flex-start !important;
+  }
+  .nav-link-main .gallery-arrow { display: inline !important; }
+  .nav-group .nav-link-main { pointer-events: auto !important; }
 }
 
 /* ── 2. Hamburger hit target ────────────────────────────────────── */
@@ -2810,7 +2901,7 @@ h1, h2, h3, h4, .cs-hero-title, .cs-hero-sub, .gallery-name,
   min-width: 48px !important;
   min-height: 48px !important;
   padding: 12px !important;
-  cursor: pointer;
+  cursor: pointer !important;
   touch-action: manipulation;
   -webkit-tap-highlight-color: transparent;
 }
@@ -2819,29 +2910,21 @@ h1, h2, h3, h4, .cs-hero-title, .cs-hero-sub, .gallery-name,
 .work-group {
   position: relative;
 }
-/* Fade on right edge of ANY work-group that has a carousel */
-.work-group.has-carousel {
-  overflow: visible;
-}
-.work-group.has-carousel .gallery-wrap,
-.work-group.has-carousel > .gallery {
-  position: relative;
-}
-/* Use a sibling overlay element injected by JS — see script patch below.
-   Fallback: ::after on the work-group itself */
 .work-group.has-carousel::after {
   content: "";
   position: absolute;
   top: 0;
   right: 0;
   width: 100px;
-  bottom: 3rem; /* leave meta/title area clear */
+  bottom: 3rem;
   background: linear-gradient(to right, transparent 0%, var(--bg) 100%);
   pointer-events: none;
   z-index: 6;
 }
-/* On mobile, narrower fade and show a sliver of the next card */
-@media (max-width: 768px) {
+#work-series::after {
+  display: none !important;
+}
+@media (max-width: 1024px) {
   .work-group.has-carousel::after {
     width: 64px;
   }
@@ -2851,11 +2934,9 @@ h1, h2, h3, h4, .cs-hero-title, .cs-hero-sub, .gallery-name,
     -webkit-overflow-scrolling: touch;
     overscroll-behavior-x: contain;
   }
-  /* Narrower cards so next card peeks in */
   .gallery-item {
     flex: 0 0 min(75vw, 300px) !important;
   }
-  /* Tap feedback */
   .gallery-item {
     -webkit-tap-highlight-color: transparent;
   }
@@ -2892,33 +2973,9 @@ h1, h2, h3, h4, .cs-hero-title, .cs-hero-sub, .gallery-name,
   margin-bottom: 0.6rem;
 }
 
-/* ── 5. General tablet improvements ────────────────────────────── */
-@media (min-width: 769px) and (max-width: 1024px) {
-  .gallery-item {
-    flex: 0 0 min(310px, 44vw);
-  }
-  .nav {
-    gap: clamp(0.5rem, 1.2vw, 1rem) !important;
-  }
+/* ── 5. General mobile/tablet polish ────────────────────────────── */
+@media (max-width: 1024px) {
   .nav a {
-    font-size: clamp(0.76rem, 1vw, 0.88rem) !important;
-    white-space: nowrap;
+    min-height: 44px;
   }
-  .logo span {
-    font-size: clamp(0.85rem, 1.6vw, 1rem);
-  }
-}
-
-/* ── 6. Mobile nav tap targets ──────────────────────────────────── */
-@media (max-width: 768px) {
-  .nav a {
-    min-height: 48px;
-    display: inline-flex;
-    align-items: center;
-  }
-}
-
-/* ── Exclude series tab from fade overlay ───────────────────────── */
-#work-series::after {
-  display: none !important;
 }

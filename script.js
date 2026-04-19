@@ -95,7 +95,7 @@
       link.addEventListener('click', function (e) {
         // On mobile, always close the menu when any link is tapped
         // (including nav-link-main which is the Gallery toggle)
-        if (window.matchMedia('(max-width: 768px)').matches) {
+        if (window.matchMedia('(max-width: 1024px)').matches) {
           closeMenu();
           // Also clear the open class on the nav-group dropdown
           var group = document.querySelector('.nav-group');
@@ -111,7 +111,7 @@
     });
 
     window.addEventListener('resize', function () {
-      if (window.matchMedia('(min-width: 769px)').matches) closeMenu();
+      if (window.matchMedia('(min-width: 1025px)').matches) closeMenu();
     });
   })();
 
@@ -137,7 +137,7 @@
     window.addEventListener('resize', syncArrowWidth);
     galleryToggle.addEventListener('click', function (e) {
       // On mobile, sub-links are always visible — toggle does nothing
-      if (window.matchMedia('(max-width: 768px)').matches) return;
+      if (window.matchMedia('(max-width: 1024px)').matches) return;
       var isOpen = galleryGroup.classList.toggle('open');
       galleryToggle.setAttribute('aria-expanded', isOpen ? 'true' : 'false');
     });
@@ -152,7 +152,7 @@
     // Wider hitbox: keep open while mouse is anywhere over group or sub-menu
     galleryGroup.addEventListener('mouseleave', function (e) {
       // Only close on desktop hover-close if not already toggled open by click
-      if (window.matchMedia('(min-width: 769px)').matches) {
+      if (window.matchMedia('(min-width: 1025px)').matches) {
         // Let CSS :hover handle it; nothing extra needed
       }
     });
@@ -383,6 +383,7 @@
   var lightboxBody = document.getElementById('lightbox-body');
   var captionCategory = document.getElementById('lightbox-category');
   var captionTitle = document.getElementById('lightbox-title');
+  var captionDesc = document.getElementById('lightbox-desc');
   var galleryLinks = Array.prototype.slice.call(document.querySelectorAll('.gallery-link'));
   var activeIndex = -1;
   var lastFocused = null;
@@ -408,6 +409,9 @@
     var nameEl = item.querySelector('.gallery-name');
     if (captionCategory) captionCategory.textContent = categoryEl ? categoryEl.textContent : '';
     if (captionTitle) captionTitle.textContent = nameEl ? nameEl.textContent : '';
+    // Populate description from overlay text
+    var descEl = item.querySelector('.gallery-overlay-text');
+    if (captionDesc) captionDesc.textContent = descEl ? descEl.textContent : '';
     // Show prototype link only for ArKade
     var protoLink = document.getElementById('lightbox-prototype-link');
     if (protoLink) {
