@@ -488,12 +488,8 @@
       loadPdfPage(1);
 
     } else if (isExternalPrototype) {
-      var protoIframe = document.createElement('iframe');
-      protoIframe.src = href;
-      protoIframe.allow = 'fullscreen';
-      protoIframe.allowFullscreen = true;
-      protoIframe.title = (captionTitle && captionTitle.textContent) ? captionTitle.textContent : 'Prototype';
-      frame.appendChild(protoIframe);
+      window.open(href, '_blank', 'noopener');
+      return;
     } else if (mediaType === 'image') {
       var img = document.createElement('img');
       img.src = href;
