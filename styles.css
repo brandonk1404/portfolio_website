@@ -527,7 +527,12 @@ ul {
   background: var(--bg);
   border-radius: calc(var(--radius) + 6px);
   box-shadow: 0 28px 80px rgba(0, 0, 0, 0.55);
+  overflow: visible;
+}
+.lightbox-body,
+.lightbox-media-frame {
   overflow: hidden;
+  border-radius: calc(var(--radius) + 6px) calc(var(--radius) + 6px) 0 0;
 }
 
 .lightbox-caption {
@@ -607,21 +612,27 @@ ul {
 
 .lightbox-close {
   position: absolute;
-  top: 10px;
-  right: 12px;
-  width: 42px;
-  height: 42px;
+  top: -52px;
+  right: 0;
+  width: 44px;
+  height: 44px;
   border-radius: 999px;
-  border: 1px solid rgba(255, 255, 255, 0.14);
-  background: rgba(0, 0, 0, 0.55);
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  background: rgba(0, 0, 0, 0.65);
   color: #fff;
-  font-size: 26px;
+  font-size: 24px;
   cursor: pointer;
-  z-index: 10;
+  z-index: 20;
   display: flex;
   align-items: center;
   justify-content: center;
   line-height: 1;
+  backdrop-filter: blur(4px);
+  transition: background 0.18s ease, transform 0.18s ease;
+}
+.lightbox-close:hover {
+  background: rgba(0,0,0,0.85);
+  transform: scale(1.08);
 }
 
 .lightbox-nav {
@@ -2185,11 +2196,11 @@ h1, h2, h3, h4, .cs-hero-title, .cs-hero-sub, .gallery-name,
 /* ── Mobile hero — consolidated ─────────────────────────────────── */
 @media (max-width: 768px) {
   .section {
-    padding-top: calc(var(--header-height) + 2rem);
+    padding-top: calc(var(--header-height) + 1in);
   }
 
   .hero {
-    padding-top: calc(var(--header-height) + 3rem);
+    padding-top: calc(var(--header-height) + 1in);
     padding-left: 1rem;
     padding-right: 1rem;
     padding-bottom: 2.5rem;
@@ -2990,4 +3001,89 @@ h1, h2, h3, h4, .cs-hero-title, .cs-hero-sub, .gallery-name,
 /* The overlay intercepts all interaction — iframe gets pointer-events:none */
 .lightbox-media-frame iframe {
   pointer-events: none;
+}
+
+/* ── Hamburger & nav drawer hit target improvements ─────────────── */
+
+/* Bigger hamburger button */
+.menu-toggle {
+  min-width: 56px !important;
+  min-height: 56px !important;
+  padding: 16px !important;
+  gap: 7px !important;
+}
+.menu-toggle span {
+  width: 26px !important;
+  height: 2.5px !important;
+}
+
+/* Nav drawer — full-width tap targets with generous padding */
+@media (max-width: 1024px) {
+  .nav a {
+    min-height: 52px !important;
+    padding: 0.65rem 1rem !important;
+    width: 100% !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: flex-end !important;
+    /* Extend tap area to full row width, not just text width */
+    margin: 0 -1rem !important;
+    padding-left: 1rem !important;
+    padding-right: 1rem !important;
+    box-sizing: border-box !important;
+  }
+
+  /* Sub-links (Digital, Photography, etc.) */
+  .nav-sub a {
+    min-height: 44px !important;
+    padding: 0.5rem 1rem !important;
+    margin: 0 -1rem !important;
+    width: calc(100% + 2rem) !important;
+    box-sizing: border-box !important;
+    font-size: 0.82rem !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: flex-end !important;
+  }
+
+  /* Visual separator between main nav items */
+  .nav > a,
+  .nav > .nav-group {
+    border-bottom: 1px solid rgba(49,86,64,0.07) !important;
+  }
+  .nav > a:last-child,
+  .nav > .nav-group:last-child {
+    border-bottom: none !important;
+  }
+}
+
+/* ── Play/pause tap animation ───────────────────────────────────── */
+@keyframes yt-tap-pulse {
+  0%   { opacity: 0; transform: translate(-50%, -50%) scale(0.6); }
+  20%  { opacity: 1; transform: translate(-50%, -50%) scale(1); }
+  70%  { opacity: 1; transform: translate(-50%, -50%) scale(1); }
+  100% { opacity: 0; transform: translate(-50%, -50%) scale(1.2); }
+}
+.yt-tap-indicator {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%) scale(0.6);
+  width: 72px;
+  height: 72px;
+  border-radius: 999px;
+  background: rgba(0,0,0,0.55);
+  backdrop-filter: blur(4px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  pointer-events: none;
+  opacity: 0;
+  z-index: 20;
+  animation: yt-tap-pulse 0.65s ease forwards;
+}
+.yt-tap-indicator svg {
+  width: 28px;
+  height: 28px;
+  fill: #fff;
 }

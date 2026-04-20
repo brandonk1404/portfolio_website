@@ -556,6 +556,23 @@
         });
 
         // Tap/click overlay → toggle play/pause
+        function showTapIndicator(isPlaying) {
+          // Remove any existing indicator
+          var old = ytWrap.querySelector('.yt-tap-indicator');
+          if (old) old.remove();
+          var ind = document.createElement('div');
+          ind.className = 'yt-tap-indicator';
+          // Play icon (triangle) or pause icon (two bars)
+          if (isPlaying) {
+            ind.innerHTML = '<svg viewBox="0 0 24 24"><path d="M6 4h4v16H6V4zm8 0h4v16h-4V4z"/></svg>';
+          } else {
+            ind.innerHTML = '<svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>';
+          }
+          ytWrap.appendChild(ind);
+          // Remove after animation completes
+          setTimeout(function() { if (ind.parentNode) ind.remove(); }, 700);
+        }
+
         function handleToggle(e) {
           e.preventDefault();
           e.stopPropagation();
@@ -563,8 +580,10 @@
             var state = player.getPlayerState();
             if (state === YT.PlayerState.PLAYING) {
               player.pauseVideo();
+              showTapIndicator(false);
             } else {
               player.playVideo();
+              showTapIndicator(true);
             }
           } catch(err) {}
         }
