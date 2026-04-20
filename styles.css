@@ -527,12 +527,7 @@ ul {
   background: var(--bg);
   border-radius: calc(var(--radius) + 6px);
   box-shadow: 0 28px 80px rgba(0, 0, 0, 0.55);
-  overflow: visible;
-}
-.lightbox-body,
-.lightbox-media-frame {
   overflow: hidden;
-  border-radius: calc(var(--radius) + 6px) calc(var(--radius) + 6px) 0 0;
 }
 
 .lightbox-caption {
@@ -611,9 +606,9 @@ ul {
 }
 
 .lightbox-close {
-  position: absolute;
-  top: -52px;
-  right: 0;
+  position: fixed;
+  top: 1rem;
+  right: 1rem;
   width: 44px;
   height: 44px;
   border-radius: 999px;
@@ -622,13 +617,16 @@ ul {
   color: #fff;
   font-size: 24px;
   cursor: pointer;
-  z-index: 20;
-  display: flex;
+  z-index: 300;
+  display: none;
   align-items: center;
   justify-content: center;
   line-height: 1;
   backdrop-filter: blur(4px);
   transition: background 0.18s ease, transform 0.18s ease;
+}
+.lightbox.open .lightbox-close {
+  display: flex;
 }
 .lightbox-close:hover {
   background: rgba(0,0,0,0.85);
@@ -3086,4 +3084,17 @@ h1, h2, h3, h4, .cs-hero-title, .cs-hero-sub, .gallery-name,
   width: 28px;
   height: 28px;
   fill: #fff;
+}
+
+/* ── Gallery meta: more breathing room, slightly smaller text ─── */
+.gallery-meta {
+  padding: 0.75rem 0.9rem 0.8rem !important;
+  gap: 0.25rem !important;
+}
+.gallery-name {
+  font-size: clamp(0.78rem, 1vw, 0.88rem) !important;
+  line-height: 1.35 !important;
+}
+.gallery-category {
+  font-size: clamp(0.62rem, 0.8vw, 0.68rem) !important;
 }
