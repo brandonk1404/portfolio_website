@@ -60,7 +60,7 @@
     /* ── Series hero ── */
     .series-hero {
       background: var(--series-panel-bg);
-      padding: calc(var(--header-height) + 1.5in) var(--space) clamp(2rem,4vw,4rem);
+      padding: calc(var(--header-height) + clamp(2rem,4vw,4rem)) var(--space) clamp(2rem,4vw,4rem);
       display: flex;
       align-items: center;
       justify-content: center;
@@ -84,7 +84,7 @@
     }
     .series-hero-media img,
     .series-hero-media video {
-      width: 100%; height: 100%; object-fit: cover; object-position: center; display: block; background: var(--bg-alt);
+      width: 100%; height: 100%; object-fit: contain; display: block; background: var(--bg-alt);
     }
     .series-hero-info {
       display: flex;
@@ -252,21 +252,21 @@
       <h2 class="section-title">Works</h2>
       <div class="series-works-grid gallery">
           <article class="gallery-item">
-<a href="images/mural_fullview.jpg" class="gallery-link" target="_blank" rel="noopener">
-              <div class="gallery-image-wrap"><img src="images/mural_thumb.jpg" alt="Mural"><div class="gallery-overlay"><span class="gallery-overlay-text">Mixed media work combining photography, cardboard, and acrylic.</span></div></div>
-              <div class="gallery-meta"><span class="gallery-category">Mixed Media</span><span class="gallery-name">Mixed media work combining photography, cardboard, and acrylic.</span></div>
+<a href="images/mural_photo2.jpg" class="gallery-link" target="_blank" rel="noopener">
+              <div class="gallery-image-wrap"><img src="images/mural_photo1.jpg" alt="Mural"><div class="gallery-overlay"><span class="gallery-overlay-text">Mural</span></div></div>
+              <div class="gallery-meta"><span class="gallery-category">Mixed Media</span><span class="gallery-name">Mural</span></div>
             </a>
           </article>
           <article class="gallery-item video-item">
-            <a href="https://www.youtube.com/watch?v=i_XuSBJxKuA" class="gallery-link" target="_blank" rel="noopener">
-              <div class="gallery-image-wrap"><img src="images/doors_thumb.png" alt="Doors"><div class="play-icon"></div><div class="gallery-overlay"><span class="gallery-overlay-text">Live action mystery horror short. A man stranded in an endless dimension must confront a god and help build a treehouse.</span></div></div>
-              <div class="gallery-meta"><span class="gallery-category">Video</span><span class="gallery-name">Live action mystery horror short. A man stranded in an endless dimension must confront a god and help build a treehouse.</span></div>
+            <a href="https://youtu.be/GeSgpUysvGw" class="gallery-link" target="_blank" rel="noopener">
+              <div class="gallery-image-wrap"><img src="images/doors_thumb.png" alt="Doors"><div class="play-icon"></div><div class="gallery-overlay"><span class="gallery-overlay-text">Doors</span></div></div>
+              <div class="gallery-meta"><span class="gallery-category">Video</span><span class="gallery-name">Doors</span></div>
             </a>
           </article>
           <article class="gallery-item">
-            <a href="images/the_maker_thumb.jpg" class="gallery-link" target="_blank" rel="noopener">
-              <div class="gallery-image-wrap"><img src="images/the_maker_thumb.jpg" alt="The Maker"><div class="gallery-overlay"><span class="gallery-overlay-text">Conceptual photographic study reimagining a craftsman&#8217;s tools as digital desktop windows.</span></div></div>
-              <div class="gallery-meta"><span class="gallery-category">Photographic Print</span><span class="gallery-name">Conceptual photographic study reimagining a craftsman&#8217;s tools as digital desktop windows.</span></div>
+            <a href="images/image8.jpg" class="gallery-link" target="_blank" rel="noopener">
+              <div class="gallery-image-wrap"><img src="images/image8.jpg" alt="The Maker"><div class="gallery-overlay"><span class="gallery-overlay-text">The Maker</span></div></div>
+              <div class="gallery-meta"><span class="gallery-category">Photographic Print</span><span class="gallery-name">The Maker</span></div>
             </a>
           </article>
       </div>
@@ -279,15 +279,14 @@
   </footer>
   <div class="lightbox" id="lightbox" aria-hidden="true">
     <div class="lightbox-backdrop" data-lightbox-close></div>
-    <button class="lightbox-close" type="button" aria-label="Close preview" data-lightbox-close>&times;</button>
     <div class="lightbox-dialog" role="dialog" aria-modal="true" aria-label="Work preview">
+      <button class="lightbox-close" type="button" aria-label="Close preview" data-lightbox-close>&times;</button>
       <button class="lightbox-nav lightbox-prev" type="button" aria-label="Previous item" data-lightbox-prev>&#8249;</button>
       <button class="lightbox-nav lightbox-next" type="button" aria-label="Next item" data-lightbox-next>&#8250;</button>
       <div class="lightbox-body" id="lightbox-body"></div>
       <div class="lightbox-caption">
         <div class="lightbox-title" id="lightbox-title"></div>
         <div class="lightbox-category" id="lightbox-category"></div>
-        <p class="lightbox-desc" id="lightbox-desc"></p>
         <a href="#" id="lightbox-prototype-link" class="lightbox-prototype-btn" target="_blank" rel="noopener" style="display:none;">View Prototype &#8594;</a>
       </div>
     </div>
@@ -303,10 +302,10 @@
     holdMs: 4200,
     transMs: 1250,
     items: [
-      { type: 'image', src: 'images/earthly_thumb.jpg' },
-      { type: 'image', src: 'images/mural_thumb.jpg' },
+      { type: 'image', src: 'images/earthly_poster.jpg' },
+      { type: 'image', src: 'images/mural_photo1.jpg' },
       { type: 'video', src: 'images/doors_loop.mp4' },
-      { type: 'image', src: 'images/the_maker_thumb.jpg' }
+      { type: 'image', src: 'images/image8.jpg' }
     ]
   });
   </script>

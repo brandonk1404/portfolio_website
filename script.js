@@ -95,7 +95,7 @@
       link.addEventListener('click', function (e) {
         // On mobile, always close the menu when any link is tapped
         // (including nav-link-main which is the Gallery toggle)
-        if (window.matchMedia('(max-width: 1024px)').matches) {
+        if (window.matchMedia('(max-width: 768px)').matches) {
           closeMenu();
           // Also clear the open class on the nav-group dropdown
           var group = document.querySelector('.nav-group');
@@ -111,7 +111,7 @@
     });
 
     window.addEventListener('resize', function () {
-      if (window.matchMedia('(min-width: 1025px)').matches) closeMenu();
+      if (window.matchMedia('(min-width: 769px)').matches) closeMenu();
     });
   })();
 
@@ -137,7 +137,7 @@
     window.addEventListener('resize', syncArrowWidth);
     galleryToggle.addEventListener('click', function (e) {
       // On mobile, sub-links are always visible — toggle does nothing
-      if (window.matchMedia('(max-width: 1024px)').matches) return;
+      if (window.matchMedia('(max-width: 768px)').matches) return;
       var isOpen = galleryGroup.classList.toggle('open');
       galleryToggle.setAttribute('aria-expanded', isOpen ? 'true' : 'false');
     });
@@ -152,7 +152,7 @@
     // Wider hitbox: keep open while mouse is anywhere over group or sub-menu
     galleryGroup.addEventListener('mouseleave', function (e) {
       // Only close on desktop hover-close if not already toggled open by click
-      if (window.matchMedia('(min-width: 1025px)').matches) {
+      if (window.matchMedia('(min-width: 769px)').matches) {
         // Let CSS :hover handle it; nothing extra needed
       }
     });
@@ -170,24 +170,23 @@
   // Optional: add position: 'center top' to control crop on image slides.
   // ─────────────────────────────────────────────────────────────────────────
   var heroSlides = [
-    { src: 'images/the_maker_thumb.jpg',              title: 'The Maker',                                      medium: 'Photographic Print',    position: 'center center' },
-    { src: 'images/garden_thumb.jpg',             title: 'Garden',                                         medium: 'Photographic Print',    position: 'center top' },
-    { src: 'images/room_depth_thumb.png',             title: 'Room Depth',                                     medium: 'Digital Illustration',  position: 'center center' },
-    { src: 'images/sight_by_sound_thumb.png',              title: 'Sight By Sound Packaging',                       medium: 'Digital Illustration',  position: 'center top' },
-    { src: 'images/dan_friedman_thumb.png',             title: 'Dan Friedman Information Poster',                medium: 'Digital Illustration',  position: 'center top' },
-    { src: 'images/soap_bottles_thumb.jpg',             title: 'Soap Bottles',                                   medium: 'Oil Painting',          position: 'center center' },
-    { src: 'images/vessels_thumb.jpg',                   title: 'Vessels',                                        medium: 'Oil Painting',          position: 'center center' },
-    { src: 'images/shadow_home_thumb.jpg',         title: 'Shadow Home',                                    medium: 'Photographic Print',    position: 'center top' },
-    { src: 'images/lunar_bookmark_fullview.png',             title: '2024 Lunar New Year Bookmark',                   medium: 'Digital Illustration',  position: 'center top' },
-    { src: 'images/tutoring_poster_thumb.png',             title: 'Academic Tutoring Poster',                       medium: 'Digital Illustration',  position: 'center top' },
-    { src: 'images/arkade_thumb.png',    title: 'ArKade Mood Board & Website',                    medium: 'Web Design',            position: 'center center' },
+    { src: 'images/image8.jpg',              title: 'The Maker',                                      medium: 'Photographic Print',    position: 'center center' },
+    { src: 'images/image17.jpg',             title: 'Garden',                                         medium: 'Photographic Print',    position: 'center top' },
+    { src: 'images/image16.png',             title: 'Room Depth',                                     medium: 'Digital Illustration',  position: 'center center' },
+    { src: 'images/image2.png',              title: 'Sight By Sound Packaging',                       medium: 'Digital Illustration',  position: 'center top' },
+    { src: 'images/image19.png',             title: 'Dan Friedman Information Poster',                medium: 'Digital Illustration',  position: 'center top' },
+    { src: 'images/image15.jpg',             title: 'Soap Bottles',                                   medium: 'Oil Painting',          position: 'center center' },
+    { src: 'images/shadow_home.jpg',         title: 'Shadow Home',                                    medium: 'Photographic Print',    position: 'center top' },
+    { src: 'images/image11.jpg',             title: '2024 Lunar New Year Bookmark',                   medium: 'Digital Illustration',  position: 'center top' },
+    { src: 'images/image10.png',             title: 'Academic Tutoring Poster',                       medium: 'Digital Illustration',  position: 'center top' },
+    { src: 'images/arkade_moodboard.png',    title: 'ArKade Mood Board & Website',                    medium: 'Web Design',            position: 'center center' },
     { src: 'images/image5.png',              title: 'CityMD Logo',                                    medium: 'Digital Illustration',  position: 'center center' },
-    { src: 'images/coffee_infographic_thumb.jpg',             title: 'Coffee Infographic',                             medium: 'Digital Illustration',  position: 'left top' },
-    { src: 'images/earthly_thumb.jpg',      title: 'Creation of the Earthly — Exhibition Poster',   medium: 'Digital Illustration',  position: 'center top' },
-    { src: 'images/chromatic_thumb.jpg',    title: 'Chromatic Fragments — Exhibition Poster',        medium: 'Digital Illustration',  position: 'center top' },
-    { src: 'images/starwars_fullview.jpg',             title: 'Star Wars: The Empire Strikes Back Movie Poster', medium: 'Digital Illustration', position: 'center top' },
-    { src: 'images/glow_of_the_road_fullview.png',             title: 'Glow of The Road',                               medium: 'Photographic Print',    position: 'center center' },
-    { src: 'images/mural_thumb.jpg',        title: 'Mural',                                          medium: 'Mixed Media',           position: 'center center' },
+    { src: 'images/image12.jpg',             title: 'Coffee Infographic',                             medium: 'Digital Illustration',  position: 'left top' },
+    { src: 'images/earthly_poster.jpg',      title: 'Creation of the Earthly — Exhibition Poster',   medium: 'Digital Illustration',  position: 'center top' },
+    { src: 'images/chromatic_poster.jpg',    title: 'Chromatic Fragments — Exhibition Poster',        medium: 'Digital Illustration',  position: 'center top' },
+    { src: 'images/image18.jpg',             title: 'Star Wars: The Empire Strikes Back Movie Poster', medium: 'Digital Illustration', position: 'center top' },
+    { src: 'images/image14.jpg',             title: 'Glow of The Road',                               medium: 'Photographic Print',    position: 'center center' },
+    { src: 'images/mural_photo1.jpg',        title: 'Mural',                                          medium: 'Mixed Media',           position: 'center center' },
     { src: 'images/laundry_thumb.jpg',       title: 'What Your Laundry Says About Your Life',         medium: 'Digital Illustration',  position: 'left top' },
     { src: 'images/savior_loop.mp4',         title: "The Illustrator's Savior",                       medium: 'Video' },
     { src: 'images/955_loop.mp4',            title: '9:55',                                           medium: 'Video' },
@@ -383,7 +382,6 @@
   var lightboxBody = document.getElementById('lightbox-body');
   var captionCategory = document.getElementById('lightbox-category');
   var captionTitle = document.getElementById('lightbox-title');
-  var captionDesc = document.getElementById('lightbox-desc');
   var galleryLinks = Array.prototype.slice.call(document.querySelectorAll('.gallery-link'));
   var activeIndex = -1;
   var lastFocused = null;
@@ -409,9 +407,6 @@
     var nameEl = item.querySelector('.gallery-name');
     if (captionCategory) captionCategory.textContent = categoryEl ? categoryEl.textContent : '';
     if (captionTitle) captionTitle.textContent = nameEl ? nameEl.textContent : '';
-    // Populate description from overlay text
-    var descEl = item.querySelector('.gallery-overlay-text');
-    if (captionDesc) captionDesc.textContent = descEl ? descEl.textContent : '';
     // Show prototype link only for ArKade
     var protoLink = document.getElementById('lightbox-prototype-link');
     if (protoLink) {
@@ -488,122 +483,37 @@
       loadPdfPage(1);
 
     } else if (isExternalPrototype) {
-      window.open(href, '_blank', 'noopener');
-      return;
+      var protoIframe = document.createElement('iframe');
+      protoIframe.src = href;
+      protoIframe.allow = 'fullscreen';
+      protoIframe.allowFullscreen = true;
+      protoIframe.title = (captionTitle && captionTitle.textContent) ? captionTitle.textContent : 'Prototype';
+      frame.appendChild(protoIframe);
     } else if (mediaType === 'image') {
       var img = document.createElement('img');
       img.src = href;
       img.alt = (captionTitle && captionTitle.textContent) ? captionTitle.textContent : 'Work preview';
       frame.appendChild(img);
     } else if (mediaType === 'youtube') {
-      var videoId = '';
+      var embedUrl = '';
       if (href.indexOf('watch?v=') !== -1) {
-        videoId = href.split('watch?v=')[1].split('&')[0];
+        var videoId = href.split('watch?v=')[1].split('&')[0];
+        embedUrl = 'https://www.youtube-nocookie.com/embed/' + videoId;
       } else if (href.indexOf('youtu.be/') !== -1) {
-        videoId = href.split('youtu.be/')[1].split(/[?&]/)[0];
+        var shortId = href.split('youtu.be/')[1].split(/[?&]/)[0];
+        embedUrl = 'https://www.youtube-nocookie.com/embed/' + shortId;
       }
 
-      // Wrapper keeps 16/9 ratio and acts as the click target
-      var ytWrap = document.createElement('div');
-      ytWrap.style.cssText = 'position:relative;width:100%;aspect-ratio:16/9;background:#000;overflow:hidden;cursor:pointer;';
-
-      // Placeholder div the YT API will replace with an iframe
-      var ytDiv = document.createElement('div');
-      var ytDivId = 'yt-player-' + Date.now();
-      ytDiv.id = ytDivId;
-      ytDiv.style.cssText = 'width:100%;height:100%;';
-      ytWrap.appendChild(ytDiv);
-
-      // Transparent overlay — intercepts all mouse/touch events
-      var ytOverlay = document.createElement('div');
-      ytOverlay.style.cssText = 'position:absolute;inset:0;z-index:10;cursor:pointer;background:transparent;-webkit-tap-highlight-color:transparent;';
-      ytWrap.appendChild(ytOverlay);
-
-      frame.appendChild(ytWrap);
-
-      // Load YT IFrame API if not already loaded, then init player
-      function initYTPlayer() {
-        var player = new YT.Player(ytDivId, {
-          videoId: videoId,
-          playerVars: {
-            autoplay: 1,
-            controls: 0,
-            rel: 0,
-            modestbranding: 1,
-            showinfo: 0,
-            iv_load_policy: 3,
-            cc_load_policy: 0,
-            playsinline: 1,
-            disablekb: 1,
-            fs: 0,
-            color: 'white',
-            origin: window.location.origin || 'https://brandonkreitsch.com',
-          },
-          events: {
-            onReady: function(e) {
-              e.target.playVideo();
-              // Size iframe to fill container
-              var iframeEl = ytWrap.querySelector('iframe');
-              if (iframeEl) {
-                iframeEl.style.cssText = 'width:100%;height:100%;border:0;display:block;pointer-events:none;';
-              }
-            }
-          }
-        });
-
-        // Tap/click overlay → toggle play/pause
-        function showTapIndicator(isPlaying) {
-          // Remove any existing indicator
-          var old = ytWrap.querySelector('.yt-tap-indicator');
-          if (old) old.remove();
-          var ind = document.createElement('div');
-          ind.className = 'yt-tap-indicator';
-          // Play icon (triangle) or pause icon (two bars)
-          if (isPlaying) {
-            ind.innerHTML = '<svg viewBox="0 0 24 24"><path d="M6 4h4v16H6V4zm8 0h4v16h-4V4z"/></svg>';
-          } else {
-            ind.innerHTML = '<svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>';
-          }
-          ytWrap.appendChild(ind);
-          // Remove after animation completes
-          setTimeout(function() { if (ind.parentNode) ind.remove(); }, 700);
-        }
-
-        function handleToggle(e) {
-          e.preventDefault();
-          e.stopPropagation();
-          try {
-            var state = player.getPlayerState();
-            if (state === YT.PlayerState.PLAYING) {
-              player.pauseVideo();
-              showTapIndicator(false);
-            } else {
-              player.playVideo();
-              showTapIndicator(true);
-            }
-          } catch(err) {}
-        }
-        ytOverlay.addEventListener('click', handleToggle);
-        ytOverlay.addEventListener('touchend', handleToggle);
-      }
-
-      if (window.YT && window.YT.Player) {
-        initYTPlayer();
-      } else {
-        // Load API script once
-        if (!document.getElementById('yt-api-script')) {
-          var tag = document.createElement('script');
-          tag.id = 'yt-api-script';
-          tag.src = 'https://www.youtube.com/iframe_api';
-          document.head.appendChild(tag);
-        }
-        // Queue init until API ready
-        var prevOnReady = window.onYouTubeIframeAPIReady;
-        window.onYouTubeIframeAPIReady = function() {
-          if (typeof prevOnReady === 'function') prevOnReady();
-          initYTPlayer();
-        };
-      }
+      var iframe = document.createElement('iframe');
+      // fs=0 removes fullscreen button; disablekb=1 removes keyboard shortcuts;
+      // cc_load_policy=0 hides captions; iv_load_policy=3 hides annotations;
+      // playsinline=1 prevents iOS auto-fullscreen on play
+      iframe.src = embedUrl + '?rel=0&autoplay=1&modestbranding=1&fs=0&disablekb=1&cc_load_policy=0&iv_load_policy=3&playsinline=1';
+      iframe.allow = 'accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope';
+      iframe.allowFullscreen = false;
+      iframe.referrerPolicy = 'strict-origin-when-cross-origin';
+      iframe.title = (captionTitle && captionTitle.textContent) ? captionTitle.textContent : 'YouTube video';
+      frame.appendChild(iframe);
     } else if (mediaType === 'video') {
       var vwrap = document.createElement('div');
       vwrap.className = 'video-embed-wrap';
@@ -695,18 +605,6 @@
       if (target.matches('[data-lightbox-close]')) closeLightbox();
       if (target.matches('[data-lightbox-prev]')) go(-1);
       if (target.matches('[data-lightbox-next]')) go(1);
-      // Close when clicking the backdrop area (outside the dialog)
-      if (target === lightbox || target.matches('.lightbox-backdrop')) closeLightbox();
-    });
-
-    // Mobile: touchend on backdrop also closes (tap-off)
-    lightbox.addEventListener('touchend', function (e) {
-      var target = e.target;
-      if (!target) return;
-      if (target === lightbox || target.matches('.lightbox-backdrop')) {
-        e.preventDefault();
-        closeLightbox();
-      }
     });
 
     document.addEventListener('keydown', function (e) {
