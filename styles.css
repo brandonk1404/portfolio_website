@@ -2109,11 +2109,15 @@ body, h1, h2, h3 {
 @media (max-width: 768px) {
   .about-layout {
     grid-template-columns: 1fr;
+    justify-items: center;
   }
 
   .about-photo {
-    max-width: 280px;
+    max-width: 200px;
+    width: 200px;
     aspect-ratio: 1 / 1;
+    display: block;
+    margin: 0 auto;
   }
 }
 
