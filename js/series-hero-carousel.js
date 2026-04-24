@@ -34,8 +34,9 @@
   }
 
   function captureFrame(canvas, ctx, source, bg) {
-    var w = canvas.width;
-    var h = canvas.height;
+    var dpr = window.devicePixelRatio || 1;
+    var w = Math.round(canvas.width / dpr);
+    var h = Math.round(canvas.height / dpr);
     var off = document.createElement('canvas');
     off.width = w;
     off.height = h;
@@ -56,8 +57,14 @@
     var HOLD_MS = options.holdMs || 4200;
 
     function resize() {
-      canvas.width = wrap.offsetWidth || 640;
-      canvas.height = wrap.offsetHeight || 480;
+      var dpr = window.devicePixelRatio || 1;
+      var w = wrap.offsetWidth || 640;
+      var h = wrap.offsetHeight || 480;
+      canvas.width = Math.round(w * dpr);
+      canvas.height = Math.round(h * dpr);
+      canvas.style.width = w + 'px';
+      canvas.style.height = h + 'px';
+      ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
     }
     resize();
     window.addEventListener('resize', resize);
@@ -90,12 +97,15 @@
     var lastSwitch = performance.now();
 
     function grabFrame(vid) {
+      var dpr = window.devicePixelRatio || 1;
+      var lw = Math.round(canvas.width / dpr);
+      var lh = Math.round(canvas.height / dpr);
       var off = document.createElement('canvas');
-      off.width = canvas.width;
-      off.height = canvas.height;
+      off.width = lw;
+      off.height = lh;
       var octx = off.getContext('2d');
-      drawContain(octx, vid, off.width, off.height, '#0a0a0a');
-      return octx.getImageData(0, 0, off.width, off.height);
+      drawContain(octx, vid, lw, lh, '#0a0a0a');
+      return octx.getImageData(0, 0, lw, lh);
     }
 
     function buildGlitchPlan(W, H, seed) {
@@ -183,12 +193,15 @@
     }
 
     function drawNormal(vid) {
-      ctx.clearRect(0, 0, canvas.width, canvas.height);
-      drawContain(ctx, vid, canvas.width, canvas.height, '#0a0a0a');
+      var dpr = window.devicePixelRatio || 1;
+      var lw = Math.round(canvas.width / dpr);
+      var lh = Math.round(canvas.height / dpr);
+      ctx.clearRect(0, 0, lw, lh);
+      drawContain(ctx, vid, lw, lh, '#0a0a0a');
       ctx.globalAlpha = 0.055;
       ctx.fillStyle = '#000';
-      for (var s = 0; s < canvas.height; s += 3) {
-        ctx.fillRect(0, s, canvas.width, 1);
+      for (var s = 0; s < lh; s += 3) {
+        ctx.fillRect(0, s, lw, 1);
       }
       ctx.globalAlpha = 1;
     }
@@ -245,7 +258,8 @@
             glitchStart = null;
             frameA = grabFrame(activeVid);
             frameB = grabFrame(inactiveVid);
-            glitchPlan = buildGlitchPlan(canvas.width, canvas.height, (now + current * 777) | 0);
+            var _dpr = window.devicePixelRatio || 1;
+            glitchPlan = buildGlitchPlan(Math.round(canvas.width / _dpr), Math.round(canvas.height / _dpr), (now + current * 777) | 0);
           }
         }
       }
@@ -277,8 +291,14 @@
     var bg = options.bg || '#1a2e1a';
 
     function resize() {
-      canvas.width = wrap.offsetWidth || 640;
-      canvas.height = wrap.offsetHeight || 480;
+      var dpr = window.devicePixelRatio || 1;
+      var w = wrap.offsetWidth || 640;
+      var h = wrap.offsetHeight || 480;
+      canvas.width = Math.round(w * dpr);
+      canvas.height = Math.round(h * dpr);
+      canvas.style.width = w + 'px';
+      canvas.style.height = h + 'px';
+      ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
     }
     resize();
     window.addEventListener('resize', resize);
@@ -416,8 +436,8 @@
 
     function tick(now) {
       requestAnimationFrame(tick);
-      var cw = canvas.width;
-      var ch = canvas.height;
+      var cw = Math.round(canvas.width / (window.devicePixelRatio || 1));
+      var ch = Math.round(canvas.height / (window.devicePixelRatio || 1));
       if (transitioning) {
         var elapsed = now - transStart;
         var t = Math.min(elapsed / TRANS, 1);
