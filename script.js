@@ -179,7 +179,7 @@
     { src: 'images/vessels_thumb.png',                   title: 'Vessels',                                        medium: 'Oil Painting',          position: 'center center' },
     { src: 'images/shadow_home_thumb.png',         title: 'Shadow Home',                                    medium: 'Photographic Print',    position: 'center top' },
     { src: 'images/lunar_bookmark_thumb.png',             title: '2024 Lunar New Year Bookmark',                   medium: 'Digital Illustration',  position: 'center top' },
-    { src: 'images/tutoring_poster_thumb.png',             title: 'Academic Tutoring Poster',                       medium: 'Digital Illustration',  position: 'center top' },
+    { src: 'images/tutoring_thumb.png',             title: 'Academic Tutoring Poster',                       medium: 'Digital Illustration',  position: 'center top' },
     { src: 'images/arkade_thumb.png',    title: 'ArKade Mood Board & Website',                    medium: 'Web Design',            position: 'center center' },
     { src: 'images/citymd_thumb.png',              title: 'CityMD Logo',                                    medium: 'Digital Illustration',  position: 'center center' },
     { src: 'images/coffee_infographic_thumb.png',             title: 'Coffee Infographic',                             medium: 'Digital Illustration',  position: 'left top' },
