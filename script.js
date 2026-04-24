@@ -184,7 +184,7 @@
     { src: 'images/citymd_thumb.png',              title: 'CityMD Logo',                                    medium: 'Digital Illustration',  position: 'center center' },
     { src: 'images/coffee_infographic_thumb.png',             title: 'Coffee Infographic',                             medium: 'Digital Illustration',  position: 'left top' },
     { src: 'images/earthly_thumb.png',      title: 'Creation of the Earthly — Exhibition Poster',   medium: 'Digital Illustration',  position: 'center top' },
-    { src: 'images/chromatic_thumb.png',    title: 'Chromatic Fragments — Exhibition Poster',        medium: 'Digital Illustration',  position: 'center top' },
+    { src: 'images/chromatic_thumb.jpg',    title: 'Chromatic Fragments — Exhibition Poster',        medium: 'Digital Illustration',  position: 'center top' },
     { src: 'images/starwars_thumb.png',             title: 'Star Wars: The Empire Strikes Back Movie Poster', medium: 'Digital Illustration', position: 'center top' },
     { src: 'images/glow_of_the_road_thumb.png',             title: 'Glow of The Road',                               medium: 'Photographic Print',    position: 'center center' },
     { src: 'images/mural_thumb.png',        title: 'Mural',                                          medium: 'Mixed Media',           position: 'center center' },
@@ -383,6 +383,7 @@
   var lightboxBody = document.getElementById('lightbox-body');
   var captionCategory = document.getElementById('lightbox-category');
   var captionTitle = document.getElementById('lightbox-title');
+  var captionDesc = document.getElementById('lightbox-desc');
   var galleryLinks = Array.prototype.slice.call(document.querySelectorAll('.gallery-link'));
   var activeIndex = -1;
   var lastFocused = null;
@@ -408,6 +409,8 @@
     var nameEl = item.querySelector('.gallery-name');
     if (captionCategory) captionCategory.textContent = categoryEl ? categoryEl.textContent : '';
     if (captionTitle) captionTitle.textContent = nameEl ? nameEl.textContent : '';
+    var descEl = link.querySelector('.gallery-overlay-text');
+    if (captionDesc) captionDesc.textContent = descEl ? descEl.textContent : '';
     // Show prototype link only for ArKade
     var protoLink = document.getElementById('lightbox-prototype-link');
     if (protoLink) {
@@ -496,25 +499,85 @@
       img.alt = (captionTitle && captionTitle.textContent) ? captionTitle.textContent : 'Work preview';
       frame.appendChild(img);
     } else if (mediaType === 'youtube') {
-      var embedUrl = '';
+      var videoId = '';
       if (href.indexOf('watch?v=') !== -1) {
-        var videoId = href.split('watch?v=')[1].split('&')[0];
-        embedUrl = 'https://www.youtube-nocookie.com/embed/' + videoId;
+        videoId = href.split('watch?v=')[1].split('&')[0];
       } else if (href.indexOf('youtu.be/') !== -1) {
-        var shortId = href.split('youtu.be/')[1].split(/[?&]/)[0];
-        embedUrl = 'https://www.youtube-nocookie.com/embed/' + shortId;
+        videoId = href.split('youtu.be/')[1].split(/[?&]/)[0];
       }
 
-      var iframe = document.createElement('iframe');
-      // fs=0 removes fullscreen button; disablekb=1 removes keyboard shortcuts;
-      // cc_load_policy=0 hides captions; iv_load_policy=3 hides annotations;
-      // playsinline=1 prevents iOS auto-fullscreen on play
-      iframe.src = embedUrl + '?rel=0&autoplay=1&modestbranding=1&fs=0&disablekb=1&cc_load_policy=0&iv_load_policy=3&playsinline=1';
-      iframe.allow = 'accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope';
-      iframe.allowFullscreen = false;
-      iframe.referrerPolicy = 'strict-origin-when-cross-origin';
-      iframe.title = (captionTitle && captionTitle.textContent) ? captionTitle.textContent : 'YouTube video';
-      frame.appendChild(iframe);
+      var ytWrap = document.createElement('div');
+      ytWrap.style.cssText = 'position:relative;width:100%;aspect-ratio:16/9;background:#000;overflow:hidden;cursor:pointer;';
+
+      var ytDiv = document.createElement('div');
+      var ytDivId = 'yt-player-' + Date.now();
+      ytDiv.id = ytDivId;
+      ytDiv.style.cssText = 'width:100%;height:100%;';
+      ytWrap.appendChild(ytDiv);
+
+      var ytOverlay = document.createElement('div');
+      ytOverlay.style.cssText = 'position:absolute;inset:0;z-index:10;cursor:pointer;background:transparent;-webkit-tap-highlight-color:transparent;';
+      ytWrap.appendChild(ytOverlay);
+
+      frame.appendChild(ytWrap);
+
+      function showTapIndicator(playing) {
+        var old = ytWrap.querySelector('.yt-tap-indicator');
+        if (old) old.remove();
+        var ind = document.createElement('div');
+        ind.className = 'yt-tap-indicator';
+        ind.innerHTML = playing
+          ? '<svg viewBox="0 0 24 24" fill="#fff" width="28" height="28"><path d="M8 5v14l11-7z"/></svg>'
+          : '<svg viewBox="0 0 24 24" fill="#fff" width="28" height="28"><path d="M6 4h4v16H6V4zm8 0h4v16h-4V4z"/></svg>';
+        ytWrap.appendChild(ind);
+        setTimeout(function() { if (ind.parentNode) ind.remove(); }, 700);
+      }
+
+      function initYTPlayer() {
+        var player = new YT.Player(ytDivId, {
+          videoId: videoId,
+          playerVars: {
+            autoplay: 1, controls: 0, rel: 0, modestbranding: 1,
+            showinfo: 0, iv_load_policy: 3, cc_load_policy: 0,
+            playsinline: 1, disablekb: 1, fs: 0, color: 'white',
+            origin: window.location.origin || 'https://brandonkreitsch.com',
+          },
+          events: {
+            onReady: function(e) {
+              e.target.playVideo();
+              var iframeEl = ytWrap.querySelector('iframe');
+              if (iframeEl) iframeEl.style.cssText = 'width:100%;height:100%;border:0;display:block;pointer-events:none;';
+            }
+          }
+        });
+
+        function handleToggle(e) {
+          e.preventDefault(); e.stopPropagation();
+          try {
+            var state = player.getPlayerState();
+            if (state === YT.PlayerState.PLAYING) { player.pauseVideo(); showTapIndicator(false); }
+            else { player.playVideo(); showTapIndicator(true); }
+          } catch(err) {}
+        }
+        ytOverlay.addEventListener('click', handleToggle);
+        ytOverlay.addEventListener('touchend', handleToggle);
+      }
+
+      if (window.YT && window.YT.Player) {
+        initYTPlayer();
+      } else {
+        if (!document.getElementById('yt-api-script')) {
+          var tag = document.createElement('script');
+          tag.id = 'yt-api-script';
+          tag.src = 'https://www.youtube.com/iframe_api';
+          document.head.appendChild(tag);
+        }
+        var prevOnReady = window.onYouTubeIframeAPIReady;
+        window.onYouTubeIframeAPIReady = function() {
+          if (typeof prevOnReady === 'function') prevOnReady();
+          initYTPlayer();
+        };
+      }
     } else if (mediaType === 'video') {
       var vwrap = document.createElement('div');
       vwrap.className = 'video-embed-wrap';
@@ -599,6 +662,16 @@
       if (target.matches('[data-lightbox-close]')) closeLightbox();
       if (target.matches('[data-lightbox-prev]')) go(-1);
       if (target.matches('[data-lightbox-next]')) go(1);
+      if (target === lightbox || target.matches('.lightbox-backdrop')) closeLightbox();
+    });
+
+    lightbox.addEventListener('touchend', function (e) {
+      var target = e.target;
+      if (!target) return;
+      if (target === lightbox || target.matches('.lightbox-backdrop')) {
+        e.preventDefault();
+        closeLightbox();
+      }
     });
 
     document.addEventListener('keydown', function (e) {
