@@ -183,7 +183,7 @@
     { src: 'images/arkade_thumb.png',    title: 'ArKade Mood Board & Website',                    medium: 'Web Design',            position: 'center center' },
     { src: 'images/citymd_thumb.png',              title: 'CityMD Logo',                                    medium: 'Digital Illustration',  position: 'center center' },
     { src: 'images/coffee_infographic_thumb.png',             title: 'Coffee Infographic',                             medium: 'Digital Illustration',  position: 'left top' },
-    { src: 'images/earthly_thumb.png',      title: 'Creation of the Earthly — Exhibition Poster',   medium: 'Digital Illustration',  position: 'center top' },
+    { src: 'images/earthly_thumb.jpg',      title: 'Creation of the Earthly — Exhibition Poster',   medium: 'Digital Illustration',  position: 'center top' },
     { src: 'images/chromatic_thumb.jpg',    title: 'Chromatic Fragments — Exhibition Poster',        medium: 'Digital Illustration',  position: 'center top' },
     { src: 'images/starwars_thumb.png',             title: 'Star Wars: The Empire Strikes Back Movie Poster', medium: 'Digital Illustration', position: 'center top' },
     { src: 'images/glow_of_the_road_thumb.png',             title: 'Glow of The Road',                               medium: 'Photographic Print',    position: 'center center' },

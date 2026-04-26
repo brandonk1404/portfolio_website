@@ -22,7 +22,10 @@
       --vv-accent: #6eb88c;
       --vv-accent-2: #b87352;
       --vv-pattern-opacity: 0.12;
-      --vv-pattern-scroll: 0px;
+      --vv-scroll-slow: 0px;
+      --vv-scroll-mid: 0px;
+      --vv-scroll-fast: 0px;
+      --vv-color: rgba(110, 184, 140, 0.18);
     }
     /* Page fill on html; body transparent so pattern (::after) is not trapped under body’s background */
     html {
@@ -52,22 +55,76 @@
       background-position: left top, right top, center bottom, center;
     }
     /* Pattern scrolls with the page; softer color via opacity + filter */
-    body::after {
+
+    /* ── Parallax geometry layer ─────────────────────────── */
+    #vv-geo {
+      position: fixed;
+      inset: 0;
+      z-index: 0;
+      pointer-events: none;
+      overflow: hidden;
+    }
+    .vv-layer {
+      position: absolute;
+      inset: -20%;
+      will-change: transform;
+    }
+    .vv-shape {
+      position: absolute;
+      border-color: var(--vv-color);
+      border-style: solid;
+    }
+    /* Rings */
+    .vv-ring {
+      border-radius: 50%;
+      border-width: 1.5px;
+      background: transparent;
+    }
+    /* Squares */
+    .vv-sq {
+      border-width: 1.5px;
+      background: transparent;
+    }
+    /* Filled small dots */
+    .vv-dot {
+      border-radius: 50%;
+      border: none;
+      background: var(--vv-color);
+    }
+    /* Thin lines (rects) */
+    .vv-line {
+      border: none;
+      background: var(--vv-color);
+    }
+    /* Crosshair: done via two lines in a wrapper */
+    .vv-cross {
+      position: absolute;
+    }
+    .vv-cross::before,
+    .vv-cross::after {
       content: "";
       position: absolute;
-      top: 0;
-      left: 0;
-      right: 0;
-      bottom: 0;
-      pointer-events: none;
-      z-index: 0;
-      background-image: url("images/videoverse_bg_pattern.svg");
-      background-repeat: repeat;
-      background-size: 1200px 1200px;
-      background-position: center calc(50% + var(--vv-pattern-scroll, 0px));
-      opacity: var(--vv-pattern-opacity, 0.25);
-      filter: saturate(0.5) brightness(0.6);
+      background: var(--vv-color);
     }
+    .vv-cross::before { width: 1px; height: 100%; left: 50%; top: 0; }
+    .vv-cross::after  { height: 1px; width: 100%; top: 50%; left: 0; }
+    /* Ring with inner dot (like a film reel hub) */
+    .vv-target {
+      border-radius: 50%;
+      border-width: 1.5px;
+      background: transparent;
+    }
+    .vv-target::after {
+      content: "";
+      position: absolute;
+      border-radius: 50%;
+      background: var(--vv-color);
+      width: 25%;
+      height: 25%;
+      top: 37.5%;
+      left: 37.5%;
+    }
+
     body > * {
       position: relative;
       z-index: 1;
@@ -301,6 +358,79 @@
   </script>
 </head>
 <body>
+
+<!-- Parallax geometry background -->
+<div id="vv-geo" aria-hidden="true">
+
+  <!-- Layer 1: large shapes, slowest scroll -->
+  <div class="vv-layer" id="vv-l1">
+    <!-- rings -->
+    <div class="vv-shape vv-ring"  style="width:120px;height:120px;top:5%;left:8%"></div>
+    <div class="vv-shape vv-ring"  style="width:80px;height:80px;top:18%;left:52%"></div>
+    <div class="vv-shape vv-ring"  style="width:160px;height:160px;top:38%;left:75%"></div>
+    <div class="vv-shape vv-ring"  style="width:60px;height:60px;top:55%;left:22%"></div>
+    <div class="vv-shape vv-ring"  style="width:100px;height:100px;top:72%;left:62%"></div>
+    <div class="vv-shape vv-ring"  style="width:140px;height:140px;top:85%;left:35%"></div>
+    <!-- squares -->
+    <div class="vv-shape vv-sq"    style="width:90px;height:90px;top:12%;left:30%"></div>
+    <div class="vv-shape vv-sq"    style="width:140px;height:140px;top:45%;left:5%"></div>
+    <div class="vv-shape vv-sq"    style="width:70px;height:70px;top:68%;left:82%"></div>
+    <div class="vv-shape vv-sq"    style="width:110px;height:110px;top:82%;left:15%"></div>
+    <!-- targets -->
+    <div class="vv-shape vv-target" style="width:70px;height:70px;top:28%;left:88%"></div>
+    <div class="vv-shape vv-target" style="width:50px;height:50px;top:60%;left:48%"></div>
+    <!-- lines -->
+    <div class="vv-shape vv-line"  style="width:80px;height:1px;top:32%;left:60%"></div>
+    <div class="vv-shape vv-line"  style="width:1px;height:60px;top:50%;left:40%"></div>
+    <div class="vv-shape vv-line"  style="width:120px;height:1px;top:75%;left:70%"></div>
+  </div>
+
+  <!-- Layer 2: medium shapes, medium scroll -->
+  <div class="vv-layer" id="vv-l2">
+    <div class="vv-shape vv-ring"  style="width:50px;height:50px;top:8%;left:42%"></div>
+    <div class="vv-shape vv-ring"  style="width:90px;height:90px;top:25%;left:15%"></div>
+    <div class="vv-shape vv-ring"  style="width:40px;height:40px;top:48%;left:68%"></div>
+    <div class="vv-shape vv-ring"  style="width:70px;height:70px;top:65%;left:90%"></div>
+    <div class="vv-shape vv-ring"  style="width:55px;height:55px;top:80%;left:50%"></div>
+    <div class="vv-shape vv-sq"    style="width:50px;height:50px;top:15%;left:72%"></div>
+    <div class="vv-shape vv-sq"    style="width:80px;height:80px;top:35%;left:38%"></div>
+    <div class="vv-shape vv-sq"    style="width:45px;height:45px;top:58%;left:10%"></div>
+    <div class="vv-shape vv-sq"    style="width:65px;height:65px;top:90%;left:78%"></div>
+    <div class="vv-shape vv-cross" style="width:30px;height:30px;top:22%;left:55%"></div>
+    <div class="vv-shape vv-cross" style="width:24px;height:24px;top:52%;left:28%"></div>
+    <div class="vv-shape vv-cross" style="width:36px;height:36px;top:77%;left:62%"></div>
+    <div class="vv-shape vv-dot"   style="width:6px;height:6px;top:10%;left:85%"></div>
+    <div class="vv-shape vv-dot"   style="width:4px;height:4px;top:33%;left:5%"></div>
+    <div class="vv-shape vv-dot"   style="width:5px;height:5px;top:62%;left:45%"></div>
+    <div class="vv-shape vv-dot"   style="width:8px;height:8px;top:88%;left:22%"></div>
+    <div class="vv-shape vv-line"  style="width:60px;height:1px;top:42%;left:80%"></div>
+    <div class="vv-shape vv-line"  style="width:1px;height:45px;top:18%;left:95%"></div>
+  </div>
+
+  <!-- Layer 3: small shapes, fastest scroll -->
+  <div class="vv-layer" id="vv-l3">
+    <div class="vv-shape vv-ring"  style="width:24px;height:24px;top:6%;left:20%"></div>
+    <div class="vv-shape vv-ring"  style="width:32px;height:32px;top:20%;left:78%"></div>
+    <div class="vv-shape vv-ring"  style="width:20px;height:20px;top:44%;left:55%"></div>
+    <div class="vv-shape vv-ring"  style="width:28px;height:28px;top:70%;left:8%"></div>
+    <div class="vv-shape vv-ring"  style="width:18px;height:18px;top:88%;left:65%"></div>
+    <div class="vv-shape vv-sq"    style="width:28px;height:28px;top:14%;left:62%"></div>
+    <div class="vv-shape vv-sq"    style="width:20px;height:20px;top:36%;left:92%"></div>
+    <div class="vv-shape vv-sq"    style="width:32px;height:32px;top:54%;left:32%"></div>
+    <div class="vv-shape vv-sq"    style="width:22px;height:22px;top:78%;left:75%"></div>
+    <div class="vv-shape vv-dot"   style="width:4px;height:4px;top:9%;left:48%"></div>
+    <div class="vv-shape vv-dot"   style="width:3px;height:3px;top:28%;left:33%"></div>
+    <div class="vv-shape vv-dot"   style="width:5px;height:5px;top:50%;left:18%"></div>
+    <div class="vv-shape vv-dot"   style="width:4px;height:4px;top:67%;left:85%"></div>
+    <div class="vv-shape vv-dot"   style="width:3px;height:3px;top:84%;left:42%"></div>
+    <div class="vv-shape vv-cross" style="width:16px;height:16px;top:16%;left:4%"></div>
+    <div class="vv-shape vv-cross" style="width:14px;height:14px;top:40%;left:72%"></div>
+    <div class="vv-shape vv-cross" style="width:18px;height:18px;top:74%;left:48%"></div>
+    <div class="vv-shape vv-line"  style="width:40px;height:1px;top:30%;left:25%"></div>
+    <div class="vv-shape vv-line"  style="width:1px;height:30px;top:58%;left:58%"></div>
+  </div>
+
+</div>
   <a href="#main-content" class="skip-link" style="position:absolute;left:-9999px;top:-9999px;width:1px;height:1px;overflow:hidden;opacity:0;">Skip to main content</a>
   <header class="site-header">
     <a href="index.html" class="logo">
@@ -404,10 +534,22 @@
   <script>
   (function () {
     function syncPatternScroll() {
-      document.documentElement.style.setProperty('--vv-pattern-scroll', (window.scrollY * 0.22) + 'px');
+      var vvL1 = document.getElementById('vv-l1');
+      var vvL2 = document.getElementById('vv-l2');
+      var vvL3 = document.getElementById('vv-l3');
+      var vvTick = false;
+      function vvUpdate() {
+        var s = window.scrollY;
+        if (vvL1) vvL1.style.transform = 'translateY(' + (s * 0.08) + 'px)';
+        if (vvL2) vvL2.style.transform = 'translateY(' + (s * 0.18) + 'px)';
+        if (vvL3) vvL3.style.transform = 'translateY(' + (s * 0.32) + 'px)';
+        vvTick = false;
+      }
+      window.addEventListener('scroll', function() {
+        if (!vvTick) { requestAnimationFrame(vvUpdate); vvTick = true; }
+      }, { passive: true });
+      vvUpdate();
     }
-    window.addEventListener('scroll', syncPatternScroll, { passive: true });
-    syncPatternScroll();
   })();
   </script>
   <script src="js/series-hero-carousel.js"></script>
