@@ -435,7 +435,6 @@ ul {
   justify-content: center;
   min-height: 100%;
 }
-}
 
 .lightbox.open .lightbox-backdrop {
   animation: lb-backdrop-in 0.35s ease forwards;
