@@ -991,43 +991,12 @@
     updateBg();
   })();
 
-  // ── Prototype links: external URLs open in lightbox; case study pages navigate normally ──
+  // ── Prototype links: always open in a new tab ──
   (function () {
     document.querySelectorAll('.gallery-prototype-link').forEach(function (link) {
-      link.addEventListener('click', function (e) {
-        var href = link.getAttribute('href');
-        if (!href) return;
-
-        // Case study pages (.html or clean URL paths) — let them navigate normally
-        var isExternal = href.indexOf('xd.adobe.com') !== -1 || href.indexOf('figma.com') !== -1;
-        if (!isExternal) return; // fall through to normal navigation
-
-        e.preventDefault();
-        if (!lightbox || !lightboxBody) return;
-
-        lightboxBody.innerHTML = '';
-        if (captionCategory) captionCategory.textContent = 'Web Design';
-        if (captionTitle) captionTitle.textContent = 'ArKade Mood Board & Website — Prototype';
-
-        var frame = document.createElement('div');
-        frame.className = 'lightbox-media-frame';
-        var protoIframe = document.createElement('iframe');
-        protoIframe.src = href;
-        protoIframe.allow = 'fullscreen';
-        protoIframe.allowFullscreen = true;
-        protoIframe.title = 'ArKade Prototype';
-        frame.appendChild(protoIframe);
-        lightboxBody.appendChild(frame);
-
-        var dialog = lightbox.querySelector('.lightbox-dialog');
-        if (dialog) dialog.style.transformOrigin = 'center center';
-
-        lastFocused = document.activeElement;
-        lightbox.classList.add('open');
-        lightbox.setAttribute('aria-hidden', 'false');
-        document.body.style.overflow = 'hidden';
-        document.documentElement.style.overflow = 'hidden';
-      });
+      link.setAttribute('target', '_blank');
+      link.setAttribute('rel', 'noopener');
+      // No click override — let the browser handle the new-tab navigation naturally
     });
   })();
 
