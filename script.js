@@ -111,7 +111,16 @@
     });
 
     window.addEventListener('resize', function () {
-      if (window.matchMedia('(min-width: 769px)').matches) closeMenu();
+      if (window.matchMedia('(min-width: 1024px)').matches) closeMenu();
+    });
+
+    window.addEventListener('orientationchange', function() {
+      // Close nav on any orientation change and restore scroll
+      closeMenu();
+      setTimeout(function() {
+        document.body.style.overflow = '';
+        document.documentElement.style.overflow = '';
+      }, 350);
     });
   })();
 

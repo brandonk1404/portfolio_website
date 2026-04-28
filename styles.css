@@ -820,7 +820,9 @@ ul {
     top: 0;
     right: 0;
     width: min(85vw, 300px);
+    height: 100%;
     height: 100dvh;
+    height: -webkit-fill-available;
     margin: 0;
     padding: calc(var(--header-height) + 1.5rem) 1.5rem 2rem;
     flex-direction: column;
@@ -833,6 +835,8 @@ ul {
     transition: transform 0.28s cubic-bezier(0.4, 0, 0.2, 1);
     z-index: 99;
     overflow-y: auto;
+    overflow-x: hidden;
+    overscroll-behavior: contain;
   }
 
   .nav.is-open {
@@ -2619,11 +2623,13 @@ h1, h2, h3, h4, .cs-hero-title, .cs-hero-sub, .gallery-name,
    guard that only applies on short screens (phones in landscape). */
 @media (max-height: 500px) and (orientation: landscape) {
   .nav {
-    padding-top: calc(var(--header-height) + 1in) !important;
-    padding-bottom: 0.75rem !important;
+    padding-top: calc(var(--header-height) + 0.5rem) !important;
+    padding-bottom: env(safe-area-inset-bottom, 0.75rem) !important;
     gap: 0 !important;
     overflow-y: auto !important;
+    height: 100% !important;
     height: 100dvh !important;
+    height: -webkit-fill-available !important;
   }
   .nav a {
     font-size: 0.82rem !important;
@@ -3365,7 +3371,39 @@ h1, h2, h3, h4, .cs-hero-title, .cs-hero-sub, .gallery-name,
     max-width: 45% !important;
   }
   .lightbox.open {
-    padding-top: 0.5rem !important;
+    padding: 0.25rem !important;
+    padding-top: calc(var(--header-height) + 0.25rem) !important;
+    align-items: flex-start !important;
+    justify-content: flex-start !important;
+  }
+  .lightbox-dialog {
+    width: 100% !important;
+    max-height: calc(100dvh - 0.5rem) !important;
+    overflow-y: auto !important;
+    display: flex !important;
+    flex-direction: row !important;
+    align-items: stretch !important;
+  }
+  .lightbox-media-frame {
+    flex: 1 1 auto !important;
+    aspect-ratio: auto !important;
+    height: min(56vw, calc(100dvh - 1rem)) !important;
+    min-height: unset !important;
+    border-radius: 8px 0 0 8px !important;
+  }
+  .lightbox-caption {
+    flex: 0 0 auto !important;
+    width: min(200px, 40vw) !important;
+    overflow-y: auto !important;
+    border-top: none !important;
+    border-left: 1px solid var(--border) !important;
+    padding: 0.75rem !important;
+  }
+  .lightbox-title {
+    font-size: 0.85rem !important;
+  }
+  .lightbox-category, .lightbox-desc {
+    font-size: 0.72rem !important;
   }
 }
 
@@ -3483,5 +3521,138 @@ h1, h2, h3, h4, .cs-hero-title, .cs-hero-sub, .gallery-name,
   .not-found-ghost path,
   .not-found-ghost svg {
     fill: rgba(232,237,233,0.15) !important;
+  }
+}
+
+/* ══════════════════════════════════════════════════════════════════
+   LANDSCAPE MOBILE — NAV + LIGHTBOX
+   ══════════════════════════════════════════════════════════════════ */
+
+/* ── Nav drawer: fix Safari landscape overflow ───────────────────── */
+@media (max-width: 1024px) {
+  .nav {
+    /* Use svh (small viewport height) so Safari's chrome doesn't cause overflow */
+    height: 100svh !important;
+    /* Fallback for browsers without svh support */
+    max-height: 100vh;
+    overflow-y: auto !important;
+    -webkit-overflow-scrolling: touch !important;
+    overscroll-behavior: contain !important;
+    /* Keep it pinned to top-right — no stretching */
+    top: 0 !important;
+    bottom: auto !important;
+  }
+}
+
+/* ── Landscape phone: compact nav + lightbox ─────────────────────── */
+@media (max-width: 900px) and (orientation: landscape) and (max-height: 500px) {
+
+  /* Nav: slim padding so links fit without scrolling */
+  .nav {
+    padding-top: calc(var(--header-height) + 0.5rem) !important;
+    padding-bottom: 1rem !important;
+    gap: 0 !important;
+    width: min(60vw, 260px) !important;
+  }
+  .nav a {
+    min-height: 36px !important;
+    padding: 0.35rem 0.75rem !important;
+    font-size: 0.85rem !important;
+  }
+  .nav-sub a {
+    min-height: 30px !important;
+    font-size: 0.75rem !important;
+    padding: 0.25rem 0.75rem !important;
+  }
+
+  /* Lightbox: side-by-side media + caption in landscape */
+  .lightbox.open {
+    padding: 0.4rem !important;
+    align-items: center !important;
+    justify-content: center !important;
+    flex-direction: row !important;
+    overflow: hidden !important;
+  }
+  .lightbox-dialog {
+    display: flex !important;
+    flex-direction: row !important;
+    width: 100% !important;
+    max-width: 100% !important;
+    max-height: 100svh !important;
+    overflow: hidden !important;
+    border-radius: 8px !important;
+    margin: 0 !important;
+  }
+  .lightbox-body {
+    flex: 1 1 60% !important;
+    min-width: 0 !important;
+    overflow: hidden !important;
+  }
+  .lightbox-media-frame {
+    width: 100% !important;
+    height: 100% !important;
+    aspect-ratio: unset !important;
+    border-radius: 8px 0 0 8px !important;
+  }
+  .lightbox-caption {
+    flex: 0 0 auto !important;
+    width: clamp(140px, 35%, 220px) !important;
+    max-height: 100svh !important;
+    overflow-y: auto !important;
+    padding: 0.75rem !important;
+    display: flex !important;
+    flex-direction: column !important;
+    justify-content: center !important;
+    border-top: none !important;
+    border-left: 1px solid var(--border) !important;
+  }
+  .lightbox-title {
+    font-size: 0.8rem !important;
+    margin-bottom: 0.2rem !important;
+  }
+  .lightbox-category {
+    font-size: 0.65rem !important;
+  }
+  .lightbox-desc {
+    font-size: 0.72rem !important;
+    margin-top: 0.3rem !important;
+  }
+  .lightbox-close {
+    top: 0.4rem !important;
+    right: 0.4rem !important;
+    width: 34px !important;
+    height: 34px !important;
+    font-size: 18px !important;
+  }
+  /* Hide nav arrows in landscape too */
+  .lightbox-nav {
+    display: none !important;
+  }
+}
+
+/* ── Portrait restore: ensure clean snap-back ────────────────────── */
+@media (orientation: portrait) {
+  .lightbox-dialog {
+    flex-direction: column !important;
+    width: min(860px, calc(100vw - 2 * var(--space))) !important;
+    max-height: none !important;
+  }
+  .lightbox-body {
+    flex: unset !important;
+    width: 100% !important;
+  }
+  .lightbox-media-frame {
+    width: 100% !important;
+    height: 100% !important;
+    aspect-ratio: 16 / 9 !important;
+    border-radius: inherit !important;
+  }
+  .lightbox-caption {
+    flex: unset !important;
+    width: auto !important;
+    max-height: none !important;
+    border-left: none !important;
+    border-top: 1px solid var(--border) !important;
+    padding: 1rem 1.25rem 1.25rem !important;
   }
 }
