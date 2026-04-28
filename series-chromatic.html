@@ -1,0 +1,374 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+  <meta name="theme-color" content="#315640">
+  <meta name="description" content="Chromatic Fragments — a series by Brandon Kreitsch.">
+  <title>Chromatic Fragments — Brandon Kreitsch</title>
+  <link rel="icon" type="image/svg+xml" href="site-logo.svg">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
+  <style>
+    :root {
+      --series-page-bg: #ffffff;
+      --series-panel-bg: #f7f3ee;
+      --series-panel-border: rgba(49, 86, 64, 0.2);
+      --series-text-main: #315640;
+      --series-text-muted: rgba(49, 86, 64, 0.78);
+      --series-accent: #315640;
+    }
+    body {
+      font-family: "Roboto", system-ui, sans-serif;
+      background: var(--series-page-bg);
+      color: var(--text);
+    }
+    .nav-group { position: relative; }
+    .nav-sub {
+      position: absolute; left: 0; top: 100%; margin-top: 0.35rem;
+      padding: 0.5rem 0.75rem; background: var(--bg, #ffffff); border-radius: 8px;
+      border: 1px solid rgba(229,231,230,0.9); box-shadow: 0 12px 34px rgba(49,86,64,0.2);
+      display: none; flex-direction: column; gap: 0.1rem; white-space: nowrap; min-width: 140px;
+    }
+    .nav-sub a { padding: 0.3rem 0; }
+    .nav-group.open .nav-sub { display: flex; }
+    @media (min-width: 769px) { .nav-group:hover .nav-sub { display: flex; } }
+    @media (max-width: 768px) {
+      .nav-sub {
+        position: static !important; display: flex !important; flex-direction: column !important;
+        gap: 0 !important; background: transparent !important; border: none !important;
+        box-shadow: none !important; padding: 0 !important; margin: 0 !important;
+        border-radius: 0 !important; white-space: normal !important; min-width: unset !important;
+      }
+      .nav-sub a { font-size: 0.75rem !important; color: #5a6b62 !important; padding: 0.3rem 0 !important; justify-content: flex-end !important; width: 100% !important; display: flex !important; letter-spacing: 0.04em; }
+      .nav-group .nav-link-main { pointer-events: none; }
+      .nav-link-main .gallery-arrow { display: none !important; }
+    }
+    .nav-link-main { position: relative; display: inline-flex; align-items: center; }
+    .nav-link-main .gallery-label { display: inline-block; transition: opacity 0.18s ease, transform 0.18s ease; }
+    .nav-link-main .gallery-arrow { position: absolute; left: 0; opacity: 0; transform: translateY(4px); transition: opacity 0.18s ease, transform 0.18s ease; font-size: 1.1em; line-height: 1; }
+    .nav-group:hover .nav-link-main .gallery-label, .nav-group.open .nav-link-main .gallery-label { opacity: 0; transform: translateY(-4px); }
+    .nav-group:hover .nav-link-main .gallery-arrow, .nav-group.open .nav-link-main .gallery-arrow { opacity: 1; transform: translateY(0); }
+    .menu-toggle span { transition: transform 0.25s ease, opacity 0.2s ease; transform-origin: center; }
+    .menu-toggle.is-active span:nth-child(1) { transform: translateY(8px) rotate(45deg); }
+    .menu-toggle.is-active span:nth-child(2) { opacity: 0; transform: scaleX(0); }
+    .menu-toggle.is-active span:nth-child(3) { transform: translateY(-8px) rotate(-45deg); }
+    .nav a.active { color: var(--text); font-weight: 700; }
+
+    /* ── Series hero ── */
+    .series-hero {
+      background: var(--series-panel-bg);
+      padding: calc(var(--header-height) + 1in) var(--space) clamp(2rem,4vw,4rem);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border-bottom: 1px solid var(--series-panel-border);
+    }
+    .series-hero-inner {
+      max-width: var(--max-width);
+      width: 100%;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: clamp(2rem, 4vw, 4rem);
+      align-items: center;
+    }
+    .series-hero-media {
+      position: relative;
+      border-radius: calc(var(--radius) + 4px);
+      overflow: hidden;
+      aspect-ratio: 4 / 3;
+      background: rgba(255,255,255,0.5);
+      border: 1px solid var(--series-panel-border);
+    }
+    .series-hero-media img,
+    .series-hero-media video {
+      width: 100%; height: 100%; object-fit: contain; display: block; background: var(--bg-alt);
+    }
+    .series-hero-info {
+      display: flex;
+      flex-direction: column;
+      gap: 1.2rem;
+    }
+    .series-hero-back {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.4rem;
+      font-size: 0.78rem;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--series-text-muted);
+      opacity: 0.7;
+      text-decoration: none;
+      transition: opacity 0.18s;
+      margin-bottom: 0.5rem;
+    }
+    .series-hero-back:hover { opacity: 1; }
+    .series-hero-eyebrow {
+      font-size: 0.72rem;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--series-text-muted);
+      opacity: 0.6;
+    }
+    .series-hero-title {
+      font-size: clamp(2rem, 5vw, 3.5rem);
+      font-weight: 700;
+      color: var(--series-text-main);
+      line-height: 1.05;
+      margin: 0;
+    }
+    .series-hero-divider {
+      width: 2.5rem; height: 2px;
+      background: var(--series-accent);
+      border: none; margin: 0;
+    }
+    .series-hero-desc {
+      font-size: clamp(0.9rem, 1.4vw, 1rem);
+      color: var(--series-text-muted);
+      opacity: 0.75;
+      line-height: 1.7;
+      margin: 0;
+    }
+    .series-hero-statement {
+      border-left: 2px solid var(--series-accent);
+      padding-left: 1rem;
+      font-size: 0.9rem;
+      color: var(--series-text-muted);
+      opacity: 0.65;
+      font-style: italic;
+      line-height: 1.65;
+      margin: 0;
+    }
+    .series-hero-year {
+      font-size: 0.78rem;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--series-text-muted);
+      opacity: 0.5;
+    }
+    @media (max-width: 768px) {
+      .series-hero-inner { grid-template-columns: 1fr; }
+    }
+
+    /* ── Works grid ── */
+    .series-works-section {
+      padding: clamp(2.5rem, 5vw, 4rem) var(--space);
+      max-width: var(--max-width);
+      margin: 0 auto;
+      background: var(--bg);
+      border-radius: 12px;
+      border: 1px solid rgba(49, 86, 64, 0.12);
+      margin-top: clamp(1.2rem, 2vw, 2rem);
+      margin-bottom: clamp(2rem, 4vw, 3rem);
+    }
+    .series-works-section .section-title {
+      margin-bottom: 2rem;
+    }
+    .series-works-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(min(340px, 100%), 1fr));
+      gap: 2rem;
+    }
+    .series-works-grid .gallery-image-wrap img {
+      object-fit: cover;
+    }
+    .series-works-grid .poster-item .gallery-image-wrap img {
+      object-fit: contain;
+      background: #f7f3ee;
+    }
+    .series-works-grid .gallery-image-wrap {
+      background: #0a0a0a;
+    }
+    @media (min-width: 769px) and (max-width: 1024px) {
+      .series-hero-inner { gap: 1.5rem; }
+      .series-hero-title { font-size: clamp(1.6rem, 3.5vw, 2.4rem); }
+      .series-hero-media { aspect-ratio: 4 / 3; }
+    }
+  </style>
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="Brandon Kreitsch">
+  <meta property="og:title" content="Chromatic Fragments — Brandon Kreitsch">
+  <meta property="og:description" content="An exhibition exploring the relationship between simple color palettes and negative space — inviting viewers to form meaning from what is absent as much as what is&nbsp;present.">
+  <meta property="og:url" content="https://brandonkreitsch.com/series-chromatic.html">
+  <script>
+    (function () {
+      var loc = window.location;
+      if (loc.pathname.endsWith(".html")) {
+        var clean = loc.pathname.replace(/\.html$/, "");
+        if (clean.endsWith("/index")) clean = clean.replace(/\/index$/, "/") || "/";
+        history.replaceState(null, "", clean + loc.search + loc.hash);
+      }
+    })();
+  </script>
+</head>
+<body>
+  <a href="#main-content" class="skip-link" style="position:absolute;left:-9999px;top:-9999px;width:1px;height:1px;overflow:hidden;opacity:0;">Skip to main content</a>
+  <header class="site-header">
+    <a href="index.html" class="logo">
+      <img src="site-logo.svg" alt="Brandon Kreitsch logo">
+      <span>Brandon Kreitsch</span>
+    </a>
+        <nav id="site-nav" class="nav" aria-label="Main">
+      <a href="index.html">Home</a>
+      <a href="about.html">About</a>
+      <div class="nav-group">
+        <a href="gallery.html" class="nav-link nav-link-main" role="button" aria-haspopup="true" aria-expanded="false"><span class="gallery-label">Gallery</span><span class="gallery-arrow" aria-hidden="true">▼</span></a>
+        <div class="nav-sub">
+          <a href="gallery.html#work-digital">Digital</a>
+          <a href="gallery.html#work-photographic">Photography</a>
+          <a href="gallery.html#work-motion">Motion</a>
+          <a href="gallery.html#work-oil">Studio Art</a>
+          <a href="series.html">Series</a>
+        </div>
+      </div>
+      <a href="resume.html">Resume</a>
+      <a href="contact.html">Contact</a>
+    </nav>
+    <button class="menu-toggle" aria-label="Toggle menu" aria-controls="site-nav" aria-expanded="false">
+      <span></span><span></span><span></span>
+    </button>
+  </header>
+  <div class="nav-overlay" id="nav-overlay" aria-hidden="true" tabindex="-1"></div>
+  <main id="main-content">
+
+    <!-- ── Hero intro panel ── -->
+    <section class="series-hero">
+      <div class="series-hero-inner">
+        <div class="series-hero-media" id="chromatic-carousel">
+          <canvas id="chromatic-canvas" style="width:100%;height:100%;display:block;"></canvas>
+        </div>
+        <div class="series-hero-info">
+          <a href="series.html" class="series-hero-back">&#8592; All Series</a>
+          <span class="series-hero-eyebrow">Series III</span>
+          <h1 class="series-hero-title">Chromatic Fragments</h1>
+          <hr class="series-hero-divider">
+          <p class="series-hero-desc">An exhibition exploring the relationship between simple color palettes and negative space — inviting viewers to form meaning from what is absent as much as what is&nbsp;present.</p>
+          <blockquote class="series-hero-statement">I want viewers to embrace the abstract nature of the work, as well as the varying scale and sense of movement throughout the pieces.</blockquote>
+          <span class="series-hero-year">April 27 – May 1, 2026 &nbsp;·&nbsp; Mueller Gallery, Caldwell University</span>
+        </div>
+      </div>
+    </section>
+
+    <!-- ── Works grid ── -->
+    <section class="series-works-section">
+      <h2 class="section-title">Works</h2>
+      <div class="series-works-grid gallery">
+          <article class="gallery-item poster-item">
+            <a href="images/chromatic_fullview.jpg" class="gallery-link" data-full="images/chromatic_thumb.jpg" target="_blank" rel="noopener">
+              <div class="gallery-image-wrap"><img src="images/chromatic_thumb.jpg" alt="Chromatic Fragments poster mockup"><div class="gallery-overlay"><span class="gallery-overlay-text">Exhibition poster for Chromatic Fragments — Mueller Gallery, April 27–May 1</span></div></div>
+              <div class="gallery-meta"><span class="gallery-category">Digital Illustration</span><span class="gallery-name">Chromatic Fragments — Exhibition Poster</span></div>
+            </a>
+          </article>
+          <article class="gallery-item">
+            <a href="images/confrontation_fullview.jpg" class="gallery-link" data-full="images/confrontation_thumb.jpg" target="_blank" rel="noopener">
+              <div class="gallery-image-wrap"><img src="images/confrontation_thumb.jpg" alt="Confrontation — Digital illustration on foamcore"><div class="gallery-overlay"><span class="gallery-overlay-text">Digital illustration on foamcore, exhibited at Chromatic Fragments</span></div></div>
+              <div class="gallery-meta"><span class="gallery-category">Digital Illustration</span><span class="gallery-name">Confrontation</span></div>
+            </a>
+          </article>
+          <article class="gallery-item">
+            <a href="images/passthrough_fullview.jpg" class="gallery-link" data-full="images/passthrough_thumb.jpg" target="_blank" rel="noopener">
+              <div class="gallery-image-wrap"><img src="images/passthrough_thumb.jpg" alt="Passthrough — Digital illustration, soft foam, foam core"><div class="gallery-overlay"><span class="gallery-overlay-text">Digital illustration on soft foam and foam core, exhibited at Chromatic Fragments</span></div></div>
+              <div class="gallery-meta"><span class="gallery-category">Digital Illustration</span><span class="gallery-name">Passthrough</span></div>
+            </a>
+          </article>
+          <article class="gallery-item">
+            <a href="images/branches_fullview.jpg" class="gallery-link" data-full="images/branches_thumb.jpg" target="_blank" rel="noopener">
+              <div class="gallery-image-wrap"><img src="images/branches_thumb.jpg" alt="Branches — Digital illustration, foamcore, plexiglass"><div class="gallery-overlay"><span class="gallery-overlay-text">Digital illustration on foamcore and plexiglass, exhibited at Chromatic Fragments</span></div></div>
+              <div class="gallery-meta"><span class="gallery-category">Digital Illustration</span><span class="gallery-name">Branches</span></div>
+            </a>
+          </article>
+          <article class="gallery-item">
+            <a href="images/reach_fullview.jpg" class="gallery-link" data-full="images/reach_thumb.jpg" target="_blank" rel="noopener">
+              <div class="gallery-image-wrap"><img src="images/reach_thumb.jpg" alt="Reach — Cardboard, digital illustration"><div class="gallery-overlay"><span class="gallery-overlay-text">Cardboard and digital illustration, exhibited at Chromatic Fragments</span></div></div>
+              <div class="gallery-meta"><span class="gallery-category">Digital Illustration</span><span class="gallery-name">Reach</span></div>
+            </a>
+          </article>
+          <article class="gallery-item">
+            <a href="images/free_flow_fullview.jpg" class="gallery-link" data-full="images/free_flow_thumb.jpg" target="_blank" rel="noopener">
+              <div class="gallery-image-wrap"><img src="images/free_flow_thumb.jpg" alt="Free Flow — Digital illustration, foamcore, plexiglass"><div class="gallery-overlay"><span class="gallery-overlay-text">Digital illustration on foamcore and plexiglass, exhibited at Chromatic Fragments</span></div></div>
+              <div class="gallery-meta"><span class="gallery-category">Digital Illustration</span><span class="gallery-name">Free Flow</span></div>
+            </a>
+          </article>
+          <article class="gallery-item">
+            <a href="images/temperature_scale_fullview.jpg" class="gallery-link" data-full="images/temperature_scale_thumb.jpg" target="_blank" rel="noopener">
+              <div class="gallery-image-wrap"><img src="images/temperature_scale_thumb.jpg" alt="Temperature Scale — Digital illustration, foamcore"><div class="gallery-overlay"><span class="gallery-overlay-text">Digital illustration on foamcore, exhibited at Chromatic Fragments</span></div></div>
+              <div class="gallery-meta"><span class="gallery-category">Digital Illustration</span><span class="gallery-name">Temperature Scale</span></div>
+            </a>
+          </article>
+          <article class="gallery-item">
+            <a href="images/pathway_fullview.jpg" class="gallery-link" data-full="images/pathway_thumb.jpg" target="_blank" rel="noopener">
+              <div class="gallery-image-wrap"><img src="images/pathway_thumb.jpg" alt="Pathway — Digital illustration, foamcore, plexiglass"><div class="gallery-overlay"><span class="gallery-overlay-text">Digital illustration on foamcore and plexiglass, exhibited at Chromatic Fragments</span></div></div>
+              <div class="gallery-meta"><span class="gallery-category">Digital Illustration</span><span class="gallery-name">Pathway</span></div>
+            </a>
+          </article>
+          <article class="gallery-item">
+            <a href="images/chains_fullview.jpg" class="gallery-link" data-full="images/chains_thumb.jpg" target="_blank" rel="noopener">
+              <div class="gallery-image-wrap"><img src="images/chains_thumb.jpg" alt="Chains — Digital illustration, foamcore"><div class="gallery-overlay"><span class="gallery-overlay-text">Digital illustration on foamcore, exhibited at Chromatic Fragments</span></div></div>
+              <div class="gallery-meta"><span class="gallery-category">Digital Illustration</span><span class="gallery-name">Chains</span></div>
+            </a>
+          </article>
+          <article class="gallery-item">
+            <a href="images/circuits_fullview.jpg" class="gallery-link" data-full="images/circuits_thumb.jpg" target="_blank" rel="noopener">
+              <div class="gallery-image-wrap"><img src="images/circuits_thumb.jpg" alt="Circuits — Digital illustration, foamcore, plexiglass, fishing wire"><div class="gallery-overlay"><span class="gallery-overlay-text">Digital illustration on foamcore and plexiglass with fishing wire, exhibited at Chromatic Fragments</span></div></div>
+              <div class="gallery-meta"><span class="gallery-category">Digital Illustration</span><span class="gallery-name">Circuits</span></div>
+            </a>
+          </article>
+          <article class="gallery-item video-item">
+            <a href="https://www.youtube.com/watch?v=31V2p2QEiEk" class="gallery-link" target="_blank" rel="noopener">
+              <div class="gallery-image-wrap"><img src="images/doors_thumb.png" alt="Doors"><div class="play-icon"></div><div class="gallery-overlay"><span class="gallery-overlay-text">A man stranded in an endless dimension must confront a god and help build a treehouse.</span></div></div>
+              <div class="gallery-meta"><span class="gallery-category">Video</span><span class="gallery-name">Doors</span></div>
+            </a>
+          </article>
+      </div>
+    </section>
+
+  </main>
+  <footer class="site-footer">
+    <p>&copy; <span id="year"></span> Brandon Kreitsch. All Rights Reserved.</p>
+    <p>Download, scraping, or use of any material is prohibited without permission. &nbsp;|&nbsp; <a href="terms.html">Terms of Service</a></p>
+  </footer>
+  <div class="lightbox" id="lightbox" aria-hidden="true">
+    <div class="lightbox-backdrop" data-lightbox-close></div>
+    <button class="lightbox-close" type="button" aria-label="Close preview" data-lightbox-close>&times;</button>
+    <div class="lightbox-dialog" role="dialog" aria-modal="true" aria-label="Work preview">
+      <button class="lightbox-nav lightbox-prev" type="button" aria-label="Previous item" data-lightbox-prev>&#8249;</button>
+      <button class="lightbox-nav lightbox-next" type="button" aria-label="Next item" data-lightbox-next>&#8250;</button>
+      <div class="lightbox-body" id="lightbox-body"></div>
+      <div class="lightbox-caption">
+        <div class="lightbox-title" id="lightbox-title"></div>
+        <div class="lightbox-category" id="lightbox-category"></div>
+        <p class="lightbox-desc" id="lightbox-desc"></p>
+        <a href="#" id="lightbox-prototype-link" class="lightbox-prototype-btn" target="_blank" rel="noopener" style="display:none;">View Prototype &#8594;</a>
+      </div>
+    </div>
+  </div>
+    <section style="padding: clamp(2.5rem, 5vw, 4rem) var(--space); max-width: var(--max-width); margin: 0 auto;">
+      <h2 class="section-title" style="color:#eef2ed;">Artist Statement</h2>
+      <div style="max-width: 720px; color: rgba(238,242,237,0.7); font-size: clamp(0.9rem, 1.4vw, 1rem); line-height: 1.8; display: flex; flex-direction: column; gap: 1.2rem;">
+        <p>My senior exhibition, "Chromatic Fragments," explores the relationship between simple color palettes and negative space. The basic elements of design — line, shape, and color — can create meaning through layout and movement with the use of negative space. Applied to design, elements can function in a way that invites viewers to actively create meaning from what is absent as much as what is&nbsp;present.</p>
+        <p>Instead of drawing every form that the design would fill, gaps are placed between to allow the viewer's eye to connect and finish the shape. Negative space becomes important in this process because it allows us to recognize lines and shapes even when they are not physically drawn. Our eyes naturally fill in these missing parts. Regardless of the medium, there remains a sense that the unrecognized borders of each piece shape and heighten the experience of the work. To me, it creates a wondrous sense of infinity, as there is no telling where the boundaries of each art piece lie.</p>
+        <p>Working with mixed media is always a challenge, but it captures what makes this art style unique. My main influence stems from Piet Mondrian's simplified palettes, grid-based structures, and his use of negative space. While my work adopts a more free-flowing and organic approach, the division of compositions into square segments reflects Mondrian's grid philosophy of Neoplasticism. I was particularly inspired by his transition into abstraction through tree studies that became increasingly unrecognizable over time. Like Mondrian, I have tried to limit most of my work to set palettes.</p>
+        <p>Along with Mondrian, Henri Matisse's movements and bold palette have influenced my style. There is a certain dynamic effect movement can have when applied to a piece, along with Joseph Binder's abstract but coherent subjects in his posters and simplified pieces, often with a flat look to them. Another source of inspiration also came from nature, as I tended to favor leaves, branches, and grass, and the linear qualities they possess.</p>
+        <p>Thus, in a world surrounded by color and shading, we rely on our eyes to complete what is not fully visible, forming meaning from scattered chromatic fragments.</p>
+      </div>
+    </section>
+    <script src="script.js"></script>
+  <script src="js/series-hero-carousel.js"></script>
+  <script>
+  window.SeriesHeroCarousel.runMixed({
+    canvasId: 'chromatic-canvas',
+    wrapId: 'chromatic-carousel',
+    transition: 'chromatic',
+    bg: '#f7f3ee',
+    holdMs: 4000,
+    transMs: 1150,
+    items: [
+      { type: 'image', src: 'images/chromatic_thumb.jpg' },
+      { type: 'image', src: 'images/chromatic_fullview.jpg' }
+    ]
+  });
+  </script>
+</body>
+</html>
