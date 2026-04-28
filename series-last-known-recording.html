@@ -12,125 +12,21 @@
   <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="styles.css">
   <style>
-    /* Blend: site forest (#315640 / #52af79) + muted Template warmth (not full orange) */
     :root {
-      --lkr-page-bg: #1e2a24;
-      --lkr-panel-bg: #26332c;
-      --lkr-panel-border: rgba(110, 184, 140, 0.22);
-      --lkr-text-main: #eef2ed;
-      --lkr-text-muted: rgba(238, 242, 237, 0.72);
-      --lkr-accent: #6eb88c;
-      --lkr-accent-2: #b87352;
-      --lkr-pattern-opacity: 0.12;
-      --lkr-scroll-slow: 0px;
-      --lkr-scroll-mid: 0px;
-      --lkr-scroll-fast: 0px;
-      --lkr-color: rgba(110, 184, 140, 0.18);
-    }
-    /* Page fill on html; body transparent so pattern (::after) is not trapped under body’s background */
-    html {
-      background: var(--lkr-page-bg);
+      --lkr-page-bg: #ffffff;
+      --lkr-panel-bg: #352a4d;
+      --lkr-panel-border: rgba(167, 131, 230, 0.32);
+      --lkr-text-main: #eee8ff;
+      --lkr-text-muted: rgba(238, 232, 255, 0.78);
+      --lkr-accent: #a783e6;
     }
     body {
       font-family: "Roboto", system-ui, sans-serif;
-      background: transparent;
+      background: var(--lkr-page-bg);
       color: var(--lkr-text-main);
-      position: relative;
-      min-height: 100%;
-    }
-    /* Wash + glows — fixed so atmosphere stays while content scrolls */
-    body::before {
-      content: "";
-      position: fixed;
-      inset: 0;
-      pointer-events: none;
-      z-index: -1;
-      background-image:
-        radial-gradient(1000px 620px at 8% 0%, rgba(82, 175, 121, 0.16), transparent 54%),
-        radial-gradient(820px 520px at 92% 18%, rgba(184, 115, 82, 0.08), transparent 56%),
-        radial-gradient(720px 480px at 48% 100%, rgba(49, 86, 64, 0.22), transparent 52%),
-        linear-gradient(180deg, rgba(26, 38, 32, 0.97) 0%, rgba(30, 42, 36, 0.98) 50%, rgba(28, 40, 34, 0.99) 100%);
-      background-repeat: no-repeat, no-repeat, no-repeat, no-repeat;
-      background-size: auto, auto, auto, auto;
-      background-position: left top, right top, center bottom, center;
-    }
-    /* Pattern scrolls with the page; softer color via opacity + filter */
-
-    /* ── Parallax geometry layer ─────────────────────────── */
-    #lkr-geo {
-      position: fixed;
-      inset: 0;
-      z-index: 0;
-      pointer-events: none;
-      overflow: hidden;
-    }
-    .lkr-layer {
-      position: absolute;
-      inset: -20%;
-      will-change: transform;
-    }
-    .lkr-shape {
-      position: absolute;
-      border-color: var(--lkr-color);
-      border-style: solid;
-    }
-    /* Rings */
-    .lkr-ring {
-      border-radius: 50%;
-      border-width: 1.5px;
-      background: transparent;
-    }
-    /* Squares */
-    .lkr-sq {
-      border-width: 1.5px;
-      background: transparent;
-    }
-    /* Filled small dots */
-    .lkr-dot {
-      border-radius: 50%;
-      border: none;
-      background: var(--lkr-color);
-    }
-    /* Thin lines (rects) */
-    .lkr-line {
-      border: none;
-      background: var(--lkr-color);
-    }
-    /* Crosshair: done via two lines in a wrapper */
-    .lkr-cross {
-      position: absolute;
-    }
-    .lkr-cross::before,
-    .lkr-cross::after {
-      content: "";
-      position: absolute;
-      background: var(--lkr-color);
-    }
-    .lkr-cross::before { width: 1px; height: 100%; left: 50%; top: 0; }
-    .lkr-cross::after  { height: 1px; width: 100%; top: 50%; left: 0; }
-    /* Ring with inner dot (like a film reel hub) */
-    .lkr-target {
-      border-radius: 50%;
-      border-width: 1.5px;
-      background: transparent;
-    }
-    .lkr-target::after {
-      content: "";
-      position: absolute;
-      border-radius: 50%;
-      background: var(--lkr-color);
-      width: 25%;
-      height: 25%;
-      top: 37.5%;
-      left: 37.5%;
-    }
-
-    body > * {
-      position: relative;
-      z-index: 1;
     }
     .site-header {
-      background: rgba(30, 42, 36, 0.9) !important;
+      background: rgba(53, 42, 77, 0.92) !important;
       backdrop-filter: blur(12px);
       -webkit-backdrop-filter: blur(12px);
       border-bottom: 1px solid var(--lkr-panel-border) !important;
@@ -152,12 +48,12 @@
       background: var(--lkr-text-main) !important;
     }
     .site-footer {
-      background: #2a3830 !important;
+      background: #352a4d !important;
       border-top: 1px solid var(--lkr-panel-border);
-      color: rgba(238, 242, 237, 0.52) !important;
+      color: rgba(238, 232, 255, 0.58) !important;
     }
     .site-footer a {
-      color: rgba(238, 242, 237, 0.52) !important;
+      color: rgba(238, 232, 255, 0.58) !important;
     }
     .site-footer a:hover {
       color: var(--lkr-accent) !important;
@@ -165,8 +61,8 @@
     .nav-group { position: relative; }
     .nav-sub {
       position: absolute; left: 0; top: 100%; margin-top: 0.35rem;
-      padding: 0.5rem 0.75rem; background: #1c2e26; border-radius: 8px;
-      border: 1px solid rgba(110,184,140,0.2); box-shadow: 0 12px 34px rgba(0,0,0,0.5);
+      padding: 0.5rem 0.75rem; background: #2d2342; border-radius: 8px;
+      border: 1px solid rgba(167,131,230,0.25); box-shadow: 0 12px 34px rgba(25,16,36,0.45);
       display: none; flex-direction: column; gap: 0.1rem; white-space: nowrap; min-width: 140px;
     }
     .nav-sub a { padding: 0.3rem 0; color: rgba(238,242,237,0.85) !important; }
@@ -205,7 +101,7 @@
 
     /* ── Series hero ── */
     .series-hero {
-      background: linear-gradient(145deg, rgba(38, 51, 44, 0.88), rgba(28, 40, 34, 0.82));
+      background: var(--lkr-panel-bg);
       padding: calc(var(--header-height) + 1in) var(--space) clamp(2rem,4vw,4rem);
       display: flex;
       align-items: center;
@@ -225,7 +121,7 @@
       border-radius: calc(var(--radius) + 4px);
       overflow: hidden;
       aspect-ratio: 4 / 3;
-      background: rgba(255,255,255,0.04);
+      background: rgba(255,255,255,0.05);
       border: 1px solid var(--lkr-panel-border);
     }
     .series-hero-media img,
@@ -267,7 +163,7 @@
     }
     .series-hero-divider {
       width: 2.5rem; height: 2px;
-      background: linear-gradient(90deg, var(--lkr-accent), var(--lkr-accent-2));
+      background: var(--lkr-accent);
       border: none; margin: 0;
     }
     .series-hero-desc {
@@ -278,7 +174,7 @@
       margin: 0;
     }
     .series-hero-statement {
-      border-left: 2px solid var(--lkr-accent-2);
+      border-left: 2px solid var(--lkr-accent);
       padding-left: 1rem;
       font-size: 0.9rem;
       color: var(--lkr-text-muted);
@@ -303,21 +199,21 @@
       padding: clamp(2.5rem, 5vw, 4rem) var(--space);
       max-width: var(--max-width);
       margin: 0 auto;
-      background: linear-gradient(180deg, rgba(38, 51, 44, 0.5), rgba(30, 42, 36, 0.38));
+      background: var(--bg);
       border-radius: 12px;
-      border: 1px solid var(--lkr-panel-border);
+      border: 1px solid rgba(53, 42, 77, 0.14);
       margin-top: clamp(1.2rem, 2vw, 2rem);
       margin-bottom: clamp(2rem, 4vw, 3rem);
     }
     .series-works-section .section-title {
       margin-bottom: 2rem;
-      color: var(--lkr-text-main);
+      color: #352a4d;
     }
     .series-works-section .gallery-category {
-      color: rgba(238, 242, 237, 0.48) !important;
+      color: rgba(53, 42, 77, 0.52) !important;
     }
     .series-works-section .gallery-name {
-      color: var(--lkr-text-main) !important;
+      color: #352a4d !important;
     }
     .series-works-grid {
       display: grid;
@@ -332,8 +228,8 @@
       background: var(--lkr-panel-bg);
     }
     .series-works-grid .gallery-image-wrap {
-      background: #1c2622;
-      border: 1px solid var(--lkr-panel-border);
+      background: #0a0a0a;
+      border: 1px solid rgba(53, 42, 77, 0.16);
     }
     @media (min-width: 769px) and (max-width: 1024px) {
       .series-hero-inner { gap: 1.5rem; }
@@ -359,78 +255,6 @@
 </head>
 <body>
 
-<!-- Parallax geometry background -->
-<div id="lkr-geo" aria-hidden="true">
-
-  <!-- Layer 1: large shapes, slowest scroll -->
-  <div class="lkr-layer" id="lkr-l1">
-    <!-- rings -->
-    <div class="lkr-shape lkr-ring"  style="width:120px;height:120px;top:5%;left:8%"></div>
-    <div class="lkr-shape lkr-ring"  style="width:80px;height:80px;top:18%;left:52%"></div>
-    <div class="lkr-shape lkr-ring"  style="width:160px;height:160px;top:38%;left:75%"></div>
-    <div class="lkr-shape lkr-ring"  style="width:60px;height:60px;top:55%;left:22%"></div>
-    <div class="lkr-shape lkr-ring"  style="width:100px;height:100px;top:72%;left:62%"></div>
-    <div class="lkr-shape lkr-ring"  style="width:140px;height:140px;top:85%;left:35%"></div>
-    <!-- squares -->
-    <div class="lkr-shape lkr-sq"    style="width:90px;height:90px;top:12%;left:30%"></div>
-    <div class="lkr-shape lkr-sq"    style="width:140px;height:140px;top:45%;left:5%"></div>
-    <div class="lkr-shape lkr-sq"    style="width:70px;height:70px;top:68%;left:82%"></div>
-    <div class="lkr-shape lkr-sq"    style="width:110px;height:110px;top:82%;left:15%"></div>
-    <!-- targets -->
-    <div class="lkr-shape lkr-target" style="width:70px;height:70px;top:28%;left:88%"></div>
-    <div class="lkr-shape lkr-target" style="width:50px;height:50px;top:60%;left:48%"></div>
-    <!-- lines -->
-    <div class="lkr-shape lkr-line"  style="width:80px;height:1px;top:32%;left:60%"></div>
-    <div class="lkr-shape lkr-line"  style="width:1px;height:60px;top:50%;left:40%"></div>
-    <div class="lkr-shape lkr-line"  style="width:120px;height:1px;top:75%;left:70%"></div>
-  </div>
-
-  <!-- Layer 2: medium shapes, medium scroll -->
-  <div class="lkr-layer" id="lkr-l2">
-    <div class="lkr-shape lkr-ring"  style="width:50px;height:50px;top:8%;left:42%"></div>
-    <div class="lkr-shape lkr-ring"  style="width:90px;height:90px;top:25%;left:15%"></div>
-    <div class="lkr-shape lkr-ring"  style="width:40px;height:40px;top:48%;left:68%"></div>
-    <div class="lkr-shape lkr-ring"  style="width:70px;height:70px;top:65%;left:90%"></div>
-    <div class="lkr-shape lkr-ring"  style="width:55px;height:55px;top:80%;left:50%"></div>
-    <div class="lkr-shape lkr-sq"    style="width:50px;height:50px;top:15%;left:72%"></div>
-    <div class="lkr-shape lkr-sq"    style="width:80px;height:80px;top:35%;left:38%"></div>
-    <div class="lkr-shape lkr-sq"    style="width:45px;height:45px;top:58%;left:10%"></div>
-    <div class="lkr-shape lkr-sq"    style="width:65px;height:65px;top:90%;left:78%"></div>
-    <div class="lkr-shape lkr-cross" style="width:30px;height:30px;top:22%;left:55%"></div>
-    <div class="lkr-shape lkr-cross" style="width:24px;height:24px;top:52%;left:28%"></div>
-    <div class="lkr-shape lkr-cross" style="width:36px;height:36px;top:77%;left:62%"></div>
-    <div class="lkr-shape lkr-dot"   style="width:6px;height:6px;top:10%;left:85%"></div>
-    <div class="lkr-shape lkr-dot"   style="width:4px;height:4px;top:33%;left:5%"></div>
-    <div class="lkr-shape lkr-dot"   style="width:5px;height:5px;top:62%;left:45%"></div>
-    <div class="lkr-shape lkr-dot"   style="width:8px;height:8px;top:88%;left:22%"></div>
-    <div class="lkr-shape lkr-line"  style="width:60px;height:1px;top:42%;left:80%"></div>
-    <div class="lkr-shape lkr-line"  style="width:1px;height:45px;top:18%;left:95%"></div>
-  </div>
-
-  <!-- Layer 3: small shapes, fastest scroll -->
-  <div class="lkr-layer" id="lkr-l3">
-    <div class="lkr-shape lkr-ring"  style="width:24px;height:24px;top:6%;left:20%"></div>
-    <div class="lkr-shape lkr-ring"  style="width:32px;height:32px;top:20%;left:78%"></div>
-    <div class="lkr-shape lkr-ring"  style="width:20px;height:20px;top:44%;left:55%"></div>
-    <div class="lkr-shape lkr-ring"  style="width:28px;height:28px;top:70%;left:8%"></div>
-    <div class="lkr-shape lkr-ring"  style="width:18px;height:18px;top:88%;left:65%"></div>
-    <div class="lkr-shape lkr-sq"    style="width:28px;height:28px;top:14%;left:62%"></div>
-    <div class="lkr-shape lkr-sq"    style="width:20px;height:20px;top:36%;left:92%"></div>
-    <div class="lkr-shape lkr-sq"    style="width:32px;height:32px;top:54%;left:32%"></div>
-    <div class="lkr-shape lkr-sq"    style="width:22px;height:22px;top:78%;left:75%"></div>
-    <div class="lkr-shape lkr-dot"   style="width:4px;height:4px;top:9%;left:48%"></div>
-    <div class="lkr-shape lkr-dot"   style="width:3px;height:3px;top:28%;left:33%"></div>
-    <div class="lkr-shape lkr-dot"   style="width:5px;height:5px;top:50%;left:18%"></div>
-    <div class="lkr-shape lkr-dot"   style="width:4px;height:4px;top:67%;left:85%"></div>
-    <div class="lkr-shape lkr-dot"   style="width:3px;height:3px;top:84%;left:42%"></div>
-    <div class="lkr-shape lkr-cross" style="width:16px;height:16px;top:16%;left:4%"></div>
-    <div class="lkr-shape lkr-cross" style="width:14px;height:14px;top:40%;left:72%"></div>
-    <div class="lkr-shape lkr-cross" style="width:18px;height:18px;top:74%;left:48%"></div>
-    <div class="lkr-shape lkr-line"  style="width:40px;height:1px;top:30%;left:25%"></div>
-    <div class="lkr-shape lkr-line"  style="width:1px;height:30px;top:58%;left:58%"></div>
-  </div>
-
-</div>
   <a href="#main-content" class="skip-link" style="position:absolute;left:-9999px;top:-9999px;width:1px;height:1px;overflow:hidden;opacity:0;">Skip to main content</a>
   <header class="site-header">
     <a href="index.html" class="logo">
@@ -526,32 +350,11 @@
         <div class="lightbox-title" id="lightbox-title"></div>
         <div class="lightbox-category" id="lightbox-category"></div>
         <p class="lightbox-desc" id="lightbox-desc"></p>
-        <a href="#" id="lightbox-prototype-link" class="lightbox-prototype-btn" target="_blank" rel="noopener" style="display:none;">View Prototype &#8594;</a>
+        <a href="https://xd.adobe.com/view/7e13c877-b002-478d-97a0-552efbed5e7d-2b40/" id="lightbox-prototype-link" class="lightbox-prototype-btn" target="_blank" rel="noopener" style="display:none;">View Prototype &#8594;</a>
       </div>
     </div>
   </div>
   <script src="script.js"></script>
-  <script>
-  (function () {
-    function syncPatternScroll() {
-      var lkrL1 = document.getElementById('lkr-l1');
-      var lkrL2 = document.getElementById('lkr-l2');
-      var lkrL3 = document.getElementById('lkr-l3');
-      var lkrTick = false;
-      function lkrUpdate() {
-        var s = window.scrollY;
-        if (lkrL1) lkrL1.style.transform = 'translateY(' + (s * 0.08) + 'px)';
-        if (lkrL2) lkrL2.style.transform = 'translateY(' + (s * 0.18) + 'px)';
-        if (lkrL3) lkrL3.style.transform = 'translateY(' + (s * 0.32) + 'px)';
-        lkrTick = false;
-      }
-      window.addEventListener('scroll', function() {
-        if (!lkrTick) { requestAnimationFrame(lkrUpdate); lkrTick = true; }
-      }, { passive: true });
-      lkrUpdate();
-    }
-  })();
-  </script>
   <script src="js/series-hero-carousel.js"></script>
   <script>
   window.SeriesHeroCarousel.runLKRGlitch({

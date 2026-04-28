@@ -2793,159 +2793,22 @@ h1, h2, h3, h4, .cs-hero-title, .cs-hero-sub, .gallery-name,
 }
 
 /* ══════════════════════════════════════════════════════════════════
-   DARK MODE (via prefers-color-scheme)
+   DARK MODE (from scratch: global invert)
    ══════════════════════════════════════════════════════════════════ */
 @media (prefers-color-scheme: dark) {
-  :root {
-    --bg: #141a17;
-    --bg-alt: #1c2520;
-    --text: #e8ede9;
-    --text-muted: rgba(232,237,233,0.62);
-    --border: rgba(232,237,233,0.1);
-    --accent-dark: #6eb88c;
+  html {
+    background: #ffffff !important;
+    filter: invert(1) hue-rotate(180deg) !important;
   }
 
-  /* ── Page base ── */
-  html, body {
-    background-color: #141a17 !important;
-    color: #e8ede9 !important;
-  }
-
-  /* ── All text elements ── */
-  h1, h2, h3, h4, h5, h6,
-  p, li, span, a, label,
-  .section-title, .work-group-title,
-  .hero-title, .hero-desc, .hero-label,
-  .about-lead, .about-content p,
-  .contact-availability,
-  .series-hero-title, .series-hero-desc,
-  .series-title, .series-desc,
-  .gallery-name, .gallery-category,
-  .resume-role, .resume-org, .resume-date,
-  .lightbox-title, .lightbox-category, .lightbox-desc {
-    color: #e8ede9 !important;
-  }
-  .text-muted, [class*="muted"],
-  .gallery-category, .resume-date, .lightbox-category {
-    color: rgba(232,237,233,0.62) !important;
-  }
-
-  /* ── Header & nav ── */
-  .site-header {
-    background: rgba(20,26,23,0.95) !important;
-    border-bottom-color: rgba(232,237,233,0.08) !important;
-  }
-  .nav {
-    background: #141a17 !important;
-  }
-  .nav a {
-    color: #e8ede9 !important;
-  }
-  .nav-overlay {
-    background: rgba(0,0,0,0.6) !important;
-  }
-  .nav-sub {
-    background: #1c2520 !important;
-    border-color: rgba(110,184,140,0.2) !important;
-    box-shadow: 0 12px 34px rgba(0,0,0,0.5) !important;
-  }
-  .nav-sub a {
-    color: rgba(232,237,233,0.8) !important;
-  }
-  .menu-toggle span {
-    background: #e8ede9 !important;
-  }
-
-  /* ── Sections & cards ── */
-  .section, .hero, main {
-    background-color: transparent !important;
-  }
-  .about-inner,
-  .resume-card,
-  .contact-card,
-  .series-entry,
-  .featured-card {
-    background: #1c2520 !important;
-    border-color: rgba(232,237,233,0.08) !important;
-  }
-
-  /* ── Gallery ── */
-  .gallery-item {
-    background: #1c2520 !important;
-  }
-  .gallery-image-wrap {
-    background: #1c2520 !important;
-  }
-  .gallery-image-wrap-white {
-    background: #2a302d !important;
-  }
-  .gallery-meta {
-    background: #1c2520 !important;
-    border-top-color: rgba(232,237,233,0.06) !important;
-  }
-
-  /* ── Lightbox ── */
-  .lightbox-dialog {
-    background: #1c2520 !important;
-  }
-  .lightbox-caption {
-    border-top-color: rgba(232,237,233,0.08) !important;
-    background: #1c2520 !important;
-  }
-  .lightbox-body {
-    background: #141a17 !important;
-  }
-
-  /* ── Footer ── */
-  .site-footer {
-    background: #0e1310 !important;
-    border-top-color: rgba(232,237,233,0.08) !important;
-    color: rgba(232,237,233,0.6) !important;
-  }
-  .site-footer p, .site-footer a {
-    color: rgba(232,237,233,0.6) !important;
-  }
-
-  /* ── Decorative ── */
-  .section-title::after {
-    background: var(--accent-dark) !important;
-  }
-  .work-group-title {
-    color: #e8ede9 !important;
-  }
-
-  /* ── Forms ── */
-  input, textarea, select {
-    background: #1c2520 !important;
-    color: #e8ede9 !important;
-    border-color: rgba(232,237,233,0.15) !important;
-  }
-  ::placeholder {
-    color: rgba(232,237,233,0.4) !important;
-  }
-
-  /* ── Series pages ── */
-  .series-section,
-  .series-works-section {
-    background: transparent !important;
-  }
-  .series-hero {
-    background: transparent !important;
-  }
-
-  /* ── Resume ── */
-  .resume-grid,
-  .awards-list {
-    color: #e8ede9 !important;
-  }
-  .resume-card-label,
-  .resume-heading {
-    color: rgba(232,237,233,0.62) !important;
-  }
-
-  /* ── Contact ── */
-  .contact-list .contact-row a {
-    color: #e8ede9 !important;
+  /* Keep media normal (not inverted), including the site logo. */
+  img,
+  video,
+  iframe,
+  canvas,
+  svg,
+  .logo img {
+    filter: invert(1) hue-rotate(180deg) !important;
   }
 }
 
@@ -3425,104 +3288,6 @@ h1, h2, h3, h4, .cs-hero-title, .cs-hero-sub, .gallery-name,
   background: #f7f3ee;
 }
 
-/* ── Dark mode: comprehensive cleanup pass ────────────────────────── */
-@media (prefers-color-scheme: dark) {
-  /* Poster image backgrounds */
-  .gallery-img-poster {
-    background: #2a302d !important;
-  }
-
-  /* Page background — belt and suspenders */
-  body, html {
-    background-color: #141a17 !important;
-  }
-  main, .section, .hero, .page-wrap {
-    background-color: transparent !important;
-  }
-
-  /* Nav drawer background (inline style override) */
-  .nav {
-    background: #141a17 !important;
-  }
-
-  /* Series page inline backgrounds */
-  .series-hero,
-  .series-section,
-  .series-works-section {
-    background: transparent !important;
-    color: #e8ede9 !important;
-  }
-
-  /* Gallery card full dark */
-  .gallery-item,
-  .gallery-link {
-    background: #1c2520 !important;
-  }
-  .gallery-overlay {
-    background: rgba(20,26,23,0.82) !important;
-  }
-
-  /* Buttons */
-  .btn-secondary,
-  .btn-outline {
-    background: transparent !important;
-    border-color: var(--accent-dark) !important;
-    color: var(--accent-dark) !important;
-  }
-
-  /* Series listing cards */
-  .series-card,
-  .series-visual-wrap {
-    background: #1c2520 !important;
-    border-color: rgba(232,237,233,0.08) !important;
-  }
-
-  /* Index hero showcase */
-  .hero-showcase-frame,
-  .featured-img-wrap {
-    background: #1c2520 !important;
-  }
-
-  /* Work group section label */
-  .work-group-header,
-  .gallery-year {
-    color: rgba(232,237,233,0.5) !important;
-  }
-
-  /* Scrollbar */
-  ::-webkit-scrollbar-track {
-    background: #141a17 !important;
-  }
-  ::-webkit-scrollbar-thumb {
-    background: #2a302d !important;
-  }
-
-  /* Links */
-  a:not(.btn):not(.gallery-link):not(.nav a):not(.logo) {
-    color: var(--accent-dark) !important;
-  }
-  .site-footer a {
-    color: rgba(232,237,233,0.5) !important;
-  }
-
-  /* Series pill tab */
-  #work-series .work-group-title a {
-    border-color: var(--accent-dark) !important;
-    color: var(--accent-dark) !important;
-  }
-
-  /* Resume preview */
-  .resume-preview-wrap {
-    background: #1c2520 !important;
-    border-color: rgba(232,237,233,0.08) !important;
-  }
-
-  /* 404 page */
-  .not-found-ghost path,
-  .not-found-ghost svg {
-    fill: rgba(232,237,233,0.15) !important;
-  }
-}
 
 /* ══════════════════════════════════════════════════════════════════
    LANDSCAPE MOBILE — NAV + LIGHTBOX
