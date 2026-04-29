@@ -1203,7 +1203,8 @@ body.is-leaving {
 /* ── Prototype link under gallery card ─────────────────────────── */
 .gallery-prototype-link {
   display: inline-block;
-  margin-top: 0.5rem;
+  margin-top: 0.75rem;
+  margin-left: 0.1rem;
   font-size: 0.8rem;
   font-weight: 700;
   letter-spacing: 0.06em;
@@ -1211,6 +1212,7 @@ body.is-leaving {
   text-decoration: none;
   border-bottom: 1px solid rgba(82,175,121,0.4);
   transition: color 0.18s ease, border-color 0.18s ease;
+  padding-bottom: 0.1rem;
 }
 .gallery-prototype-link:hover {
   color: var(--accent);
@@ -3406,6 +3408,71 @@ h1, h2, h3, h4, .cs-hero-title, .cs-hero-sub, .gallery-name,
     border-left: none !important;
     border-top: 1px solid var(--border) !important;
     padding: 1rem 1.25rem 1.25rem !important;
+  }
+}
+
+/* ── Portrait phone: maximize lightbox image, compress caption ────── */
+@media (orientation: portrait) and (max-width: 768px) {
+  .lightbox.open {
+    padding: 0 !important;
+    align-items: flex-end !important;
+  }
+  .lightbox-dialog {
+    width: 100vw !important;
+    max-width: 100vw !important;
+    max-height: calc(100dvh - 3.5rem) !important;
+    border-radius: 18px 18px 0 0 !important;
+    display: flex !important;
+    flex-direction: column !important;
+    overflow: hidden !important;
+    margin: 0 !important;
+  }
+  .lightbox-body {
+    flex: 1 1 auto !important;
+    min-height: 0 !important;
+    display: flex !important;
+    flex-direction: column !important;
+  }
+  .lightbox-media-frame {
+    flex: 1 1 auto !important;
+    width: 100% !important;
+    height: 100% !important;
+    aspect-ratio: unset !important;
+    border-radius: 0 !important;
+    min-height: 0 !important;
+  }
+  .lightbox-media-frame img {
+    width: 100% !important;
+    height: 100% !important;
+    object-fit: contain !important;
+  }
+  .lightbox-caption {
+    flex: 0 0 auto !important;
+    padding: 0.6rem 1rem 0.8rem !important;
+    gap: 0.1rem !important;
+  }
+  .lightbox-title {
+    font-size: 0.9rem !important;
+  }
+  .lightbox-category {
+    font-size: 0.65rem !important;
+  }
+  .lightbox-desc {
+    font-size: 0.78rem !important;
+    margin-top: 0.25rem !important;
+    padding-top: 0.25rem !important;
+    display: -webkit-box !important;
+    -webkit-line-clamp: 2 !important;
+    -webkit-box-orient: vertical !important;
+    overflow: hidden !important;
+  }
+  .lightbox-close {
+    top: 0.6rem !important;
+    right: 0.7rem !important;
+    width: 36px !important;
+    height: 36px !important;
+    font-size: 1.3rem !important;
+    z-index: 10 !important;
   }
 }
 
