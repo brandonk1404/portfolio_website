@@ -135,21 +135,25 @@
     .series-strip-thumb {
       flex: 1;
       aspect-ratio: 1 / 1;
-      object-fit: contain;
+      object-fit: cover;
       object-position: center;
-      border-radius: 2px;
+      border-radius: 3px;
       cursor: pointer;
-      opacity: 0.65;
+      opacity: 0.6;
       transition: opacity 0.18s ease, transform 0.18s ease;
-      background: rgba(10, 10, 10, 0.12);
+      background: none;
+      border: none;
+      outline: none;
     }
     .series-strip-thumb.poster-thumb {
-      background: rgba(10, 10, 10, 0.15);
+      background: none;
     }
     .series-strip-thumb:hover,
     .series-strip-thumb.active {
       opacity: 1;
       transform: scaleY(1.04);
+      border: none;
+      outline: none;
     }
     .series-count {
       position: absolute;

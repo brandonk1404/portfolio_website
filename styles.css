@@ -1116,17 +1116,18 @@ body {
   display: inline-flex;
   align-items: center;
   gap: 0.5rem;
-  font-size: 0.8rem;
+  font-size: 0.72rem;
   font-weight: 700;
-  letter-spacing: 0.12em;
+  letter-spacing: 0.16em;
   text-transform: uppercase;
   color: var(--accent-dark);
-  background: rgba(82,175,121,0.12);
-  border: 1px solid rgba(82,175,121,0.3);
-  border-radius: 999px;
-  padding: 0.3rem 0.9rem;
-  margin-bottom: 1.25rem;
-  transition: background 0.22s ease, border-color 0.22s ease, transform 0.22s ease;
+  background: none;
+  border: none;
+  border-bottom: 2px solid rgba(82,175,121,0.4);
+  border-radius: 0;
+  padding: 0 0 0.3rem;
+  margin-bottom: 1.5rem;
+  transition: border-color 0.22s ease, color 0.22s ease;
 }
 
 /* ── Carousel arrows: pulse ring on hover ───────────────────────── */
@@ -3414,3 +3415,82 @@ h1, h2, h3, h4, .cs-hero-title, .cs-hero-sub, .gallery-name,
    Images, videos, logos, and SVG artwork are excluded.
    ══════════════════════════════════════════════════════════════════ */
 
+
+/* ══════════════════════════════════════════════════════════════════
+   GALLERY + SERIES FIXES
+   ══════════════════════════════════════════════════════════════════ */
+
+/* ── Gallery image wrap: rounded on hover ───────────────────────── */
+.gallery-image-wrap {
+  border-radius: var(--radius) !important;
+  transition: border-radius 0.3s ease !important;
+}
+.gallery-item:hover .gallery-image-wrap {
+  border-radius: calc(var(--radius) + 6px) !important;
+}
+.gallery-item {
+  border-radius: calc(var(--radius) + 2px) !important;
+  overflow: hidden !important;
+  transition: transform 0.3s cubic-bezier(0.22,1,0.36,1),
+              box-shadow 0.3s ease,
+              border-radius 0.3s ease !important;
+}
+.gallery-item:hover {
+  border-radius: calc(var(--radius) + 8px) !important;
+}
+
+/* ── Gallery meta: more breathing room ─────────────────────────── */
+.gallery-meta {
+  padding: 0.85rem 1rem 0.95rem !important;
+  gap: 0.3rem !important;
+}
+
+/* ── Series strip thumbs: remove stroke/border ──────────────────── */
+.series-strip-thumb {
+  border: none !important;
+  outline: none !important;
+  box-shadow: none !important;
+}
+.series-strip-thumb.active,
+.series-strip-thumb:hover {
+  border: none !important;
+  outline: none !important;
+  box-shadow: none !important;
+}
+
+/* ── Gallery section headers: clean underline, no pill ──────────── */
+.work-group-title {
+  font-size: 0.72rem !important;
+  font-weight: 700 !important;
+  letter-spacing: 0.16em !important;
+  text-transform: uppercase !important;
+  color: var(--accent-dark) !important;
+  background: none !important;
+  border: none !important;
+  border-bottom: 2px solid rgba(82,175,121,0.35) !important;
+  border-radius: 0 !important;
+  padding: 0 0 0.3rem !important;
+  margin-bottom: 1.5rem !important;
+  display: inline-flex !important;
+  align-items: center !important;
+  gap: 0.5rem !important;
+}
+.work-group-title:hover {
+  border-bottom-color: rgba(82,175,121,0.7) !important;
+  background: none !important;
+}
+
+/* ── Resume: fix education line overflow ────────────────────────── */
+#education-line {
+  white-space: normal !important;
+  word-break: break-word !important;
+  overflow-wrap: break-word !important;
+  line-height: 1.55 !important;
+}
+.resume-block {
+  min-width: 0 !important;
+}
+.resume-list li {
+  overflow-wrap: break-word !important;
+  word-break: break-word !important;
+}
