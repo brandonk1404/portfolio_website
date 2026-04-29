@@ -42,7 +42,6 @@ body {
   display: flex;
   flex-direction: column;
   background-color: var(--bg);
-  background-image: url("data:image/svg+xml,%3Csvg%20xmlns=%27http://www.w3.org/2000/svg%27%20viewBox=%270%200%201024%201024%27%3E%3Crect%20fill=%27rgba(49,86,64,0.0142)%27%20width=%27121%27%20height=%2754%27%20x=%2725%27%20y=%27759%27/%3E%3Crect%20fill=%27rgba(49,86,64,0.0264)%27%20width=%2768%27%20height=%2757%27%20x=%27754%27%20y=%27104%27/%3E%3Crect%20fill=%27rgba(49,86,64,0.007)%27%20width=%27109%27%20height=%2751%27%20x=%27604%27%20y=%27432%27/%3E%3Crect%20fill=%27rgba(49,86,64,0.024)%27%20width=%2751%27%20height=%2767%27%20x=%27238%27%20y=%27517%27/%3E%3Crect%20fill=%27rgba(49,86,64,0.027)%27%20width=%27111%27%20height=%2765%27%20x=%27733%27%20y=%27665%27/%3E%3Crect%20fill=%27rgba(49,86,64,0.0144)%27%20width=%2793%27%20height=%2768%27%20x=%27459%27%20y=%27603%27/%3E%3Crect%20fill=%27rgba(49,86,64,0.027)%27%20width=%2740%27%20height=%27137%27%20x=%27825%27%20y=%27163%27/%3E%3Crect%20fill=%27rgba(49,86,64,0.0348)%27%20width=%2783%27%20height=%2775%27%20x=%27159%27%20y=%27220%27/%3E%3Crect%20fill=%27rgba(49,86,64,0.009)%27%20width=%2783%27%20height=%2753%27%20x=%2794%27%20y=%27389%27/%3E%3Crect%20fill=%27rgba(49,86,64,0.0074)%27%20width=%2784%27%20height=%27117%27%20x=%27270%27%20y=%27826%27/%3E%3Crect%20fill=%27rgba(49,86,64,0.0174)%27%20width=%2798%27%20height=%27108%27%20x=%27127%27%20y=%27944%27/%3E%3Crect%20fill=%27rgba(49,86,64,0.0246)%27%20width=%27110%27%20height=%2777%27%20x=%27849%27%20y=%27643%27/%3E%3Crect%20fill=%27rgba(49,86,64,0.008)%27%20width=%2786%27%20height=%27113%27%20x=%27196%27%20y=%27721%27/%3E%3Crect%20fill=%27rgba(49,86,64,0.0356)%27%20width=%27124%27%20height=%2769%27%20x=%27791%27%20y=%27296%27/%3E%3Crect%20fill=%27rgba(49,86,64,0.0196)%27%20width=%2769%27%20height=%2752%27%20x=%27389%27%20y=%27284%27/%3E%3Crect%20fill=%27rgba(49,86,64,0.0122)%27%20width=%2786%27%20height=%2760%27%20x=%27379%27%20y=%27363%27/%3E%3Crect%20fill=%27rgba(49,86,64,0.0254)%27%20width=%2774%27%20height=%27129%27%20x=%27959%27%20y=%27699%27/%3E%3Crect%20fill=%27rgba(49,86,64,0.0278)%27%20width=%27117%27%20height=%27121%27%20x=%27175%27%20y=%27546%27/%3E%3Crect%20fill=%27rgba(49,86,64,0.0356)%27%20width=%2760%27%20height=%2799%27%20x=%27388%27%20y=%27276%27/%3E%3Crect%20fill=%27rgba(49,86,64,0.0266)%27%20width=%27121%27%20height=%27128%27%20x=%27570%27%20y=%27224%27/%3E%3Crect%20fill=%27rgba(49,86,64,0.0306)%27%20width=%27138%27%20height=%27139%27%20x=%2757%27%20y=%27234%27/%3E%3Crect%20fill=%27rgba(49,86,64,0.0124)%27%20width=%2780%27%20height=%2791%27%20x=%27274%27%20y=%2767%27/%3E%3Crect%20fill=%27rgba(49,86,64,0.0256)%27%20width=%27112%27%20height=%27131%27%20x=%27322%27%20y=%27217%27/%3E%3Crect%20fill=%27rgba(49,86,64,0.014)%27%20width=%2790%27%20height=%27122%27%20x=%27469%27%20y=%27146%27/%3E%3Crect%20fill=%27rgba(49,86,64,0.0138)%27%20width=%2771%27%20height=%27135%27%20x=%27574%27%20y=%27551%27/%3E%3Crect%20fill=%27rgba(49,86,64,0.018)%27%20width=%27114%27%20height=%2794%27%20x=%27919%27%20y=%27597%27/%3E%3Crect%20fill=%27rgba(49,86,64,0.0088)%27%20width=%2768%27%20height=%2757%27%20x=%27521%27%20y=%27505%27/%3E%3Crect%20fill=%27rgba(49,86,64,0.0108)%27%20width=%2746%27%20height=%2754%27%20x=%27156%27%20y=%27642%27/%3E%3Crect%20fill=%27rgba(49,86,64,0.0176)%27%20width=%27127%27%20height=%2794%27%20x=%27610%27%20y=%2765%27/%3E%3Crect%20fill=%27rgba(49,86,64,0.0352)%27%20width=%27116%27%20height=%2799%27%20x=%27541%27%20y=%27257%27/%3E%3Crect%20fill=%27rgba(49,86,64,0.0264)%27%20width=%2741%27%20height=%27127%27%20x=%27738%27%20y=%27117%27/%3E%3Crect%20fill=%27rgba(49,86,64,0.0252)%27%20width=%27108%27%20height=%27136%27%20x=%27273%27%20y=%27787%27/%3E%3Crect%20fill=%27rgba(49,86,64,0.0196)%27%20width=%2754%27%20height=%2777%27%20x=%27445%27%20y=%27161%27/%3E%3Crect%20fill=%27rgba(49,86,64,0.0288)%27%20width=%27132%27%20height=%27132%27%20x=%27269%27%20y=%27512%27/%3E%3Crect%20fill=%27rgba(49,86,64,0.015)%27%20width=%27104%27%20height=%2753%27%20x=%27891%27%20y=%27640%27/%3E%3Crect%20fill=%27rgba(49,86,64,0.0106)%27%20width=%27121%27%20height=%27104%27%20x=%27623%27%20y=%27203%27/%3E%3Crect%20fill=%27rgba(49,86,64,0.0336)%27%20width=%27137%27%20height=%2760%27%20x=%27552%27%20y=%27797%27/%3E%3Crect%20fill=%27rgba(49,86,64,0.0066)%27%20width=%2740%27%20height=%27116%27%20x=%27331%27%20y=%27500%27/%3E%3Crect%20fill=%27rgba(49,86,64,0.0132)%27%20width=%2786%27%20height=%2779%27%20x=%27245%27%20y=%2759%27/%3E%3Crect%20fill=%27rgba(49,86,64,0.0206)%27%20width=%27112%27%20height=%2750%27%20x=%2787%27%20y=%27749%27/%3E%3Crect%20fill=%27rgba(49,86,64,0.0098)%27%20width=%2748%27%20height=%27137%27%20x=%27545%27%20y=%27784%27/%3E%3Crect%20fill=%27rgba(49,86,64,0.014)%27%20width=%27124%27%20height=%27100%27%20x=%27562%27%20y=%27169%27/%3E%3Crect%20fill=%27rgba(49,86,64,0.0222)%27%20width=%27117%27%20height=%2794%27%20x=%27216%27%20y=%27951%27/%3E%3Crect%20fill=%27rgba(49,86,64,0.0154)%27%20width=%27133%27%20height=%27128%27%20x=%27205%27%20y=%27730%27/%3E%3Crect%20fill=%27rgba(49,86,64,0.033)%27%20width=%27125%27%20height=%27123%27%20x=%27382%27%20y=%27448%27/%3E%3Crect%20fill=%27rgba(49,86,64,0.008)%27%20width=%2797%27%20height=%2755%27%20x=%27253%27%20y=%27230%27/%3E%3Crect%20fill=%27rgba(49,86,64,0.0236)%27%20width=%2742%27%20height=%27115%27%20x=%27567%27%20y=%27235%27/%3E%3Crect%20fill=%27rgba(49,86,64,0.0078)%27%20width=%2740%27%20height=%2749%27%20x=%27724%27%20y=%27646%27/%3E%3Crect%20fill=%27rgba(49,86,64,0.0082)%27%20width=%2748%27%20height=%2744%27%20x=%27880%27%20y=%27338%27/%3E%3Crect%20fill=%27rgba(49,86,64,0.0124)%27%20width=%2770%27%20height=%2775%27%20x=%27685%27%20y=%27497%27/%3E%3Crect%20fill=%27rgba(49,86,64,0.0232)%27%20width=%2756%27%20height=%27132%27%20x=%27957%27%20y=%27903%27/%3E%3Crect%20fill=%27rgba(49,86,64,0.0302)%27%20width=%27100%27%20height=%2771%27%20x=%27803%27%20y=%27484%27/%3E%3Crect%20fill=%27rgba(49,86,64,0.019)%27%20width=%2764%27%20height=%2752%27%20x=%2799%27%20y=%27674%27/%3E%3Crect%20fill=%27rgba(49,86,64,0.0278)%27%20width=%2794%27%20height=%2792%27%20x=%27478%27%20y=%27884%27/%3E%3Crect%20fill=%27rgba(49,86,64,0.0078)%27%20width=%27126%27%20height=%27123%27%20x=%27661%27%20y=%27100%27/%3E%3C/svg%3E");
 
 img {
   max-width: 100%;
@@ -1313,11 +1312,11 @@ body.is-leaving {
   object-position: center 15%;
 }
 
-/* ── Body background: enable parallax scrolling ──────────────────── */
+/* ── Body background: handled by #bg-parallax JS layer ──────────── */
 body {
   background-attachment: local;
   background-repeat: repeat;
-  background-image: url("data:image/svg+xml,%3Csvg width='40' height='40' viewBox='0 0 40 40' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='%23315640' fill-opacity='0.03'%3E%3Cpath d='M0 40L40 0H20L0 20M40 40V20L20 40'/%3E%3C/g%3E%3C/svg%3E");
+  background-image: none;
   background-size: 1024px 1024px;
 }
 
@@ -2803,183 +2802,7 @@ h1, h2, h3, h4, .cs-hero-title, .cs-hero-sub, .gallery-name,
 /* ══════════════════════════════════════════════════════════════════
    DARK MODE - Simple white to dark conversion
    ══════════════════════════════════════════════════════════════════ */
-@media (prefers-color-scheme: dark) {
-  :root {
-    --bg: #1a1a1a;
-    --bg-alt: #2a2a2a;
-    --text: #ffffff;
-    --text-muted: #cccccc;
-    --accent: #4a9f6d;
-    --accent-dark: #e8e8e8;
-    --border: #404040;
-    --black: #ffffff;
-  }
-  
-  /* Simple background and text conversion */
-  html, body {
-    background: #1a1a1a !important;
-    color: #ffffff !important;
-  }
-  
-  body {
-    background-image: url("data:image/svg+xml,%3Csvg width='4' height='4' viewBox='0 0 4 4' xmlns='http://www.w3.org/2000/svg'%3E%3Crect width='1' height='1' fill='%23333333'/%3E%3Crect x='2' y='2' width='1' height='1' fill='%23333333'/%3E%3C/svg%3E") !important;
-  }
-  
-  #bg-parallax {
-    background-image: url("data:image/svg+xml,%3Csvg width='4' height='4' viewBox='0 0 4 4' xmlns='http://www.w3.org/2000/svg'%3E%3Crect width='1' height='1' fill='%23333333'/%3E%3Crect x='2' y='2' width='1' height='1' fill='%23333333'/%3E%3C/svg%3E") !important;
-  }
-  
-  /* Convert all white backgrounds to dark */
-  * {
-    background-color: inherit !important;
-  }
-  
-  body, .site-header, .nav, main, .section, .gallery, .hero, .about-inner, .resume, .contact-inner, .gallery-item, .series-hero, .series-section {
-    background: #1a1a1a !important;
-  }
-  
-  /* Convert all text to white */
-  h1, h2, h3, h4, h5, h6, p, span, div, li, a, .hero-title, .hero-desc, .section-title, .gallery-name, .gallery-category, .about-content, .contact-content, .resume-content {
-    color: #ffffff !important;
-  }
-  
-  .text-muted, .gallery-meta, .hero-label, .footer, .site-footer, .site-footer p, .site-footer a {
-    color: #cccccc !important;
-  }
-  
-  /* Series-specific colors preserved - including banner rectangles */
-  .series-last-known-recording .series-hero,
-  .series-last-known-recording .series-section,
-  .series-last-known-recording .series-visual,
-  .series-last-known-recording .series-panel,
-  .series-last-known-recording .series-hero-media,
-  .series-last-known-recording .series-strip,
-  .series-last-known-recording .series-strip-thumb {
-    background: #352a4d !important;
-  }
-  
-  .series-last-known-recording .series-title,
-  .series-last-known-recording .series-desc,
-  .series-last-known-recording .series-hero-info {
-    color: #eee8ff !important;
-  }
-  
-  .series-last-known-recording .series-accent {
-    color: #a783e6 !important;
-  }
-  
-  .series-earthly .series-hero,
-  .series-earthly .series-section,
-  .series-earthly .series-visual,
-  .series-earthly .series-panel,
-  .series-earthly .series-hero-media,
-  .series-earthly .series-strip,
-  .series-earthly .series-strip-thumb {
-    background: #2a3d2e !important;
-  }
-  
-  .series-earthly .series-title,
-  .series-earthly .series-desc,
-  .series-earthly .series-hero-info {
-    color: #d4eadb !important;
-  }
-  
-  .series-earthly .series-accent {
-    color: #52af79 !important;
-  }
-  
-  .series-chromatic .series-hero,
-  .series-chromatic .series-section,
-  .series-chromatic .series-visual,
-  .series-chromatic .series-panel,
-  .series-chromatic .series-hero-media,
-  .series-chromatic .series-strip,
-  .series-chromatic .series-strip-thumb {
-    background: #f7f3ee !important;
-  }
-  
-  .series-chromatic .series-title,
-  .series-chromatic .series-desc,
-  .series-chromatic .series-hero-info {
-    color: #315640 !important;
-  }
-  
-  .series-chromatic .series-accent {
-    color: #315640 !important;
-  }
-  
-  /* Ensure series elements don't get overridden by generic rules */
-  .series-last-known-recording *,
-  .series-earthly *,
-  .series-chromatic * {
-    background-color: inherit !important;
-  }
-  
-  .series-last-known-recording .series-hero *,
-  .series-last-known-recording .series-visual *,
-  .series-last-known-recording .series-panel *,
-  .series-last-known-recording .series-strip *,
-  .series-earthly .series-hero *,
-  .series-earthly .series-visual *,
-  .series-earthly .series-panel *,
-  .series-earthly .series-strip *,
-  .series-chromatic .series-hero *,
-  .series-chromatic .series-visual *,
-  .series-chromatic .series-panel *,
-  .series-chromatic .series-strip * {
-    background-color: inherit !important;
-  }
-  
-  /* UI elements */
-  .nav-sub {
-    background: #2a2a2a !important;
-    border: 1px solid #404040 !important;
-  }
-  
-  .nav-sub a {
-    color: #e8e8e8 !important;
-  }
-  
-  .menu-toggle span {
-    background: #e8e8e8 !important;
-  }
-  
-  .btn {
-    background-color: #4a9f6d !important;
-    color: #ffffff !important;
-  }
-  
-  /* Scrollbar */
-  ::-webkit-scrollbar-track {
-    background: #2a2a2a;
-  }
-  
-  ::-webkit-scrollbar-thumb {
-    background: #555555;
-  }
-  
-  /* Fix cursor glow in dark mode */
-  .cursor-glow {
-    background: radial-gradient(circle, rgba(74, 159, 109, 0.08) 0%, transparent 70%) !important;
-  }
-  
-  .btn::before {
-    background: radial-gradient(circle at var(--mx,50%) var(--my,50%), rgba(74, 159, 109, 0.25) 0%, transparent 70%) !important;
-  }
-  
-  /* PERMANENTLY REMOVE gallery gradient in dark mode */
-  .work-group.has-carousel::after {
-    display: none !important;
-    background: none !important;
-    content: none !important;
-  }
-  
-  #work-series::after {
-    display: none !important;
-    background: none !important;
-    content: none !important;
-  }
-}
+
 
 /* ══════════════════════════════════════════════════════════════════
    LIGHTBOX DESC + PLAY/PAUSE ANIMATION
@@ -3584,3 +3407,10 @@ h1, h2, h3, h4, .cs-hero-title, .cs-hero-sub, .gallery-name,
     padding: 1rem 1.25rem 1.25rem !important;
   }
 }
+
+/* ══════════════════════════════════════════════════════════════════
+   DARK MODE — CLEAN BUILD
+   Inverts all UI, backgrounds, text, and borders.
+   Images, videos, logos, and SVG artwork are excluded.
+   ══════════════════════════════════════════════════════════════════ */
+

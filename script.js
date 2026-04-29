@@ -992,30 +992,26 @@
 
   // ── Parallax background squares on scroll ─────────────────────
   (function () {
-    // Find the background-image from the body rule in stylesheet
-    var bgImage = '';
-    try {
-      for (var i = 0; i < document.styleSheets.length; i++) {
-        var rules = document.styleSheets[i].cssRules || [];
-        for (var j = 0; j < rules.length; j++) {
-          var rule = rules[j];
-          if (rule.selectorText === 'body' && rule.style && rule.style.backgroundImage && rule.style.backgroundImage.indexOf('svg') !== -1) {
-            bgImage = rule.style.backgroundImage;
-            break;
-          }
-        }
-        if (bgImage) break;
-      }
-    } catch(e) {}
+    var LIGHT_SVG = "url(\"data:image/svg+xml,%3Csvg%20xmlns%3D%27http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%27%20viewBox%3D%270%200%201024%201024%27%3E%3Crect%20fill%3D%27rgba(49%2C86%2C64%2C0.014)%27%20width%3D%27121%27%20height%3D%2754%27%20x%3D%2725%27%20y%3D%27759%27%2F%3E%3Crect%20fill%3D%27rgba(49%2C86%2C64%2C0.026)%27%20width%3D%2768%27%20height%3D%2757%27%20x%3D%27754%27%20y%3D%27104%27%2F%3E%3Crect%20fill%3D%27rgba(49%2C86%2C64%2C0.024)%27%20width%3D%2751%27%20height%3D%2767%27%20x%3D%27238%27%20y%3D%27517%27%2F%3E%3Crect%20fill%3D%27rgba(49%2C86%2C64%2C0.027)%27%20width%3D%27111%27%20height%3D%2765%27%20x%3D%27733%27%20y%3D%27665%27%2F%3E%3Crect%20fill%3D%27rgba(49%2C86%2C64%2C0.035)%27%20width%3D%2783%27%20height%3D%2775%27%20x%3D%27159%27%20y%3D%27220%27%2F%3E%3Crect%20fill%3D%27rgba(49%2C86%2C64%2C0.035)%27%20width%3D%2760%27%20height%3D%2799%27%20x%3D%27388%27%20y%3D%27276%27%2F%3E%3Crect%20fill%3D%27rgba(49%2C86%2C64%2C0.031)%27%20width%3D%27138%27%20height%3D%27139%27%20x%3D%2757%27%20y%3D%27234%27%2F%3E%3Crect%20fill%3D%27rgba(49%2C86%2C64%2C0.025)%27%20width%3D%27112%27%20height%3D%27131%27%20x%3D%27322%27%20y%3D%27217%27%2F%3E%3Crect%20fill%3D%27rgba(49%2C86%2C64%2C0.029)%27%20width%3D%27132%27%20height%3D%27132%27%20x%3D%27269%27%20y%3D%27512%27%2F%3E%3Crect%20fill%3D%27rgba(49%2C86%2C64%2C0.033)%27%20width%3D%27125%27%20height%3D%27123%27%20x%3D%27382%27%20y%3D%27448%27%2F%3E%3Crect%20fill%3D%27rgba(49%2C86%2C64%2C0.028)%27%20width%3D%27117%27%20height%3D%27121%27%20x%3D%27175%27%20y%3D%27546%27%2F%3E%3Crect%20fill%3D%27rgba(49%2C86%2C64%2C0.027)%27%20width%3D%27121%27%20height%3D%27128%27%20x%3D%27570%27%20y%3D%27224%27%2F%3E%3C%2Fsvg%3E\")";
 
-    // Fallback: read computed style before we strip it
-    if (!bgImage) bgImage = getComputedStyle(document.body).backgroundImage;
+    var DARK_SVG = "url(\"data:image/svg+xml,%3Csvg%20xmlns%3D%27http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%27%20viewBox%3D%270%200%201024%201024%27%3E%3Crect%20fill%3D%27rgba(110%2C184%2C140%2C0.07)%27%20width%3D%27121%27%20height%3D%2754%27%20x%3D%2725%27%20y%3D%27759%27%2F%3E%3Crect%20fill%3D%27rgba(110%2C184%2C140%2C0.10)%27%20width%3D%2768%27%20height%3D%2757%27%20x%3D%27754%27%20y%3D%27104%27%2F%3E%3Crect%20fill%3D%27rgba(110%2C184%2C140%2C0.08)%27%20width%3D%2751%27%20height%3D%2767%27%20x%3D%27238%27%20y%3D%27517%27%2F%3E%3Crect%20fill%3D%27rgba(110%2C184%2C140%2C0.09)%27%20width%3D%27111%27%20height%3D%2765%27%20x%3D%27733%27%20y%3D%27665%27%2F%3E%3Crect%20fill%3D%27rgba(110%2C184%2C140%2C0.12)%27%20width%3D%2783%27%20height%3D%2775%27%20x%3D%27159%27%20y%3D%27220%27%2F%3E%3Crect%20fill%3D%27rgba(110%2C184%2C140%2C0.11)%27%20width%3D%2760%27%20height%3D%2799%27%20x%3D%27388%27%20y%3D%27276%27%2F%3E%3Crect%20fill%3D%27rgba(110%2C184%2C140%2C0.10)%27%20width%3D%27138%27%20height%3D%27139%27%20x%3D%2757%27%20y%3D%27234%27%2F%3E%3Crect%20fill%3D%27rgba(110%2C184%2C140%2C0.09)%27%20width%3D%27112%27%20height%3D%27131%27%20x%3D%27322%27%20y%3D%27217%27%2F%3E%3Crect%20fill%3D%27rgba(110%2C184%2C140%2C0.10)%27%20width%3D%27132%27%20height%3D%27132%27%20x%3D%27269%27%20y%3D%27512%27%2F%3E%3Crect%20fill%3D%27rgba(110%2C184%2C140%2C0.11)%27%20width%3D%27125%27%20height%3D%27123%27%20x%3D%27382%27%20y%3D%27448%27%2F%3E%3Crect%20fill%3D%27rgba(110%2C184%2C140%2C0.09)%27%20width%3D%27117%27%20height%3D%27121%27%20x%3D%27175%27%20y%3D%27546%27%2F%3E%3Crect%20fill%3D%27rgba(110%2C184%2C140%2C0.10)%27%20width%3D%27121%27%20height%3D%27128%27%20x%3D%27570%27%20y%3D%27224%27%2F%3E%3C%2Fsvg%3E\")";
+
+    function getPattern() {
+      return (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) ? DARK_SVG : LIGHT_SVG;
+    }
 
     var bgLayer = document.createElement('div');
     bgLayer.id = 'bg-parallax';
     bgLayer.style.cssText = 'position:fixed;inset:0;z-index:-1;pointer-events:none;background-size:1024px 1024px;background-repeat:repeat;will-change:background-position;';
-    if (bgImage && bgImage !== 'none') bgLayer.style.backgroundImage = bgImage;
+    bgLayer.style.backgroundImage = getPattern();
     document.body.insertBefore(bgLayer, document.body.firstChild);
+
+    // Update instantly if user switches scheme at runtime
+    if (window.matchMedia) {
+      window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', function() {
+        bgLayer.style.backgroundImage = getPattern();
+      });
+    }
 
     var scrollY = 0, ticking = false;
     function updateBg() {
