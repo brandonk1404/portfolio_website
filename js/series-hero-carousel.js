@@ -72,7 +72,7 @@
     function makeVid(src) {
       var v = document.createElement('video');
       v.src = src;
-      v.loop = true;
+      v.loop = false;
       v.muted = true;
       v.playsInline = true;
       v.preload = 'auto';
@@ -310,7 +310,7 @@
       if (item.type === 'video') {
         var v = document.createElement('video');
         v.src = item.src;
-        v.loop = true;
+        v.loop = false;
         v.muted = true;
         v.playsInline = true;
         v.preload = 'auto';

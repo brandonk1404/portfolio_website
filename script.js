@@ -250,7 +250,7 @@
         var v = document.createElement('video');
         v.src = slide.src;
         v.autoplay = true;
-        v.loop = true;
+        v.loop = false;
         v.muted = true;
         v.playsInline = true;
         v.preload = 'auto';
@@ -316,6 +316,17 @@
 
       if (isVideo(slide.src)) {
         el.preload = 'auto';
+        // Transition to next slide 2 seconds before video ends
+        el.addEventListener('timeupdate', function() {
+          if (el.duration && el.currentTime >= el.duration - 2) {
+            el.removeEventListener('timeupdate', arguments.callee);
+            // Force transition to next slide
+            clearInterval(heroInterval);
+            heroIndex = (heroIndex + 1) % shuffled.length;
+            setHeroSlide(heroIndex);
+            startHeroRotation();
+          }
+        });
         var faded = false;
         function fadeOnce() {
           if (!faded) { faded = true; doFade(); }

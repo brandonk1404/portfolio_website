@@ -52,6 +52,7 @@ img {
 
 main {
   flex: 1 0 auto;
+  padding-top: 3rem;
 }
 
 a {
@@ -74,7 +75,7 @@ ul {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: 0.75rem var(--space);
+  padding: 1rem var(--space);
   background: rgba(255, 255, 255, 0.95);
   border-bottom: 1px solid transparent;
 }
@@ -206,11 +207,10 @@ ul {
   width: 100%;
   height: 100%;
   object-fit: cover;
-  aspect-ratio: 4 / 3;
 }
 
 .section {
-  padding: clamp(2.5rem, 5vw, 4rem) var(--space);
+  padding: 3rem var(--space) clamp(3rem, 6vw, 5rem) var(--space);
   max-width: var(--max-width);
   margin: 0 auto;
 }
@@ -220,6 +220,8 @@ ul {
   font-size: clamp(1.5rem, 3vw, 2rem);
   font-weight: 400;
   margin: 0 0 2.5rem;
+  padding: 0.5rem 0;
+  position: relative;
 }
 
 /* Card-style panels for About, Resume, Contact */
@@ -230,6 +232,7 @@ ul {
   border-radius: clamp(10px, 1.2vw, 14px);
   border: 1px solid rgba(229, 231, 230, 0.85);
   box-shadow: 0 14px 40px rgba(49, 86, 64, 0.16);
+  padding: clamp(2rem, 4vw, 3rem);
 }
 
 .about-inner {
@@ -250,10 +253,11 @@ ul {
 
 .gallery {
   display: flex;
-  gap: 2rem;
+  gap: 2.5rem;
   overflow-x: auto;
-  padding-bottom: 1rem;
+  padding: 0 2rem;
   scroll-snap-type: x mandatory;
+  margin-bottom: 1rem;
 }
 
 .gallery-item {
@@ -294,21 +298,24 @@ ul {
 .gallery-meta {
   display: flex;
   flex-direction: column;
-  gap: 0.15rem;
-  padding: 0 0.5rem;
+  gap: 0.25rem;
+  padding: 0.75rem 0.75rem 0.5rem;
+  margin-top: 0.5rem;
 }
 
 .gallery-category {
-  font-size: 0.75rem;
+  font-size: 0.8rem;
   font-weight: 400;
-  letter-spacing: 0.1em;
+  letter-spacing: 0.08em;
   text-transform: uppercase;
   color: var(--text-muted);
+  margin-bottom: 0.1rem;
 }
 
 .gallery-name {
   font-weight: 400;
-  font-size: 1rem;
+  font-size: 1.05rem;
+  line-height: 1.3;
 }
 
 /* Play button overlay for video items */
@@ -1046,18 +1053,9 @@ body {
 .gallery-item:hover .gallery-image-wrap img {
   transform: scale(1.07);
 }
+/* Remove problematic gradient overlay from gallery images */
 .gallery-image-wrap::after {
-  content: '';
-  position: absolute;
-  inset: 0;
-  background: linear-gradient(160deg, rgba(82,175,121,0.18) 0%, rgba(49,86,64,0.1) 100%);
-  opacity: 0;
-  transition: opacity 0.35s ease;
-  border-radius: var(--radius);
-  pointer-events: none;
-}
-.gallery-item:hover .gallery-image-wrap::after {
-  opacity: 1;
+  display: none;
 }
 
 /* ── Gallery meta: slide up on hover ───────────────────────────── */
@@ -1319,6 +1317,7 @@ body.is-leaving {
 body {
   background-attachment: local;
   background-repeat: repeat;
+  background-image: url("data:image/svg+xml,%3Csvg width='40' height='40' viewBox='0 0 40 40' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='%23315640' fill-opacity='0.03'%3E%3Cpath d='M0 40L40 0H20L0 20M40 40V20L20 40'/%3E%3C/g%3E%3C/svg%3E");
   background-size: 1024px 1024px;
 }
 
@@ -1583,6 +1582,11 @@ img[data-fallback-applied="true"] {
   display: none !important;
 }
 
+/* Gallery image wrap with white background for light images */
+.gallery-image-wrap-white {
+  background: #ffffff !important;
+}
+
 /* Ensure gallery wrap always has min height even if image fails */
 .gallery-image-wrap {
   min-height: 120px;
@@ -1723,7 +1727,7 @@ body, h1, h2, h3 {
 
 /* Base section rhythm — generous vertical breathing room */
 .section {
-  padding: clamp(3rem, 6vw, 5rem) var(--space);
+  padding: 3rem var(--space) clamp(3rem, 6vw, 5rem) var(--space);
 }
 
 /* Hero — extra top clearance from header + good bottom gap */
@@ -1747,7 +1751,8 @@ body, h1, h2, h3 {
 
 /* Section titles — more room below before content starts */
 .section-title {
-  margin: 0 0 2rem;
+  margin: 0 0 2.5rem;
+  padding: 0.75rem 0;
 }
 
 /* Work groups — gap between each gallery section */
@@ -1871,8 +1876,11 @@ body, h1, h2, h3 {
 
 /* Mobile spacing fixes */
 @media (max-width: 768px) {
+  main {
+    padding-top: 2rem;
+  }
   .section {
-    padding: clamp(2.5rem, 6vw, 4rem) var(--space);
+    padding: 2rem var(--space) clamp(2.5rem, 6vw, 4rem) var(--space);
   }
 
   .hero {
@@ -2210,7 +2218,7 @@ h1, h2, h3, h4, .cs-hero-title, .cs-hero-sub, .gallery-name,
 /* ── Mobile hero — consolidated ─────────────────────────────────── */
 @media (max-width: 768px) {
   .section {
-    padding-top: calc(var(--header-height) + 1in);
+    padding-top: calc(var(--header-height) + 2rem);
   }
 
   .hero {
@@ -2517,7 +2525,6 @@ h1, h2, h3, h4, .cs-hero-title, .cs-hero-sub, .gallery-name,
 /* ── Series hero pages: canvas height on mobile ─────────────────── */
 @media (max-width: 768px) {
   .series-hero-media {
-    aspect-ratio: 4 / 3;
     min-height: 220px;
   }
   .series-hero-media canvas {
@@ -2693,12 +2700,13 @@ h1, h2, h3, h4, .cs-hero-title, .cs-hero-sub, .gallery-name,
   font-size: clamp(1rem, 1.6vw, 1.15rem);
 }
 .section-title {
-  margin-bottom: clamp(1.5rem, 3vw, 2.5rem);
+  margin-bottom: clamp(2rem, 4vw, 3rem);
+  padding: 0.75rem 0;
 }
 
 /* ── 5. Consistent margins and spacing across all pages ──────────── */
 .section {
-  padding: clamp(2rem, 5vw, 4rem) var(--space);
+  padding: 3rem var(--space) clamp(2rem, 5vw, 4rem) var(--space);
 }
 .work-group {
   margin-bottom: clamp(2rem, 4vw, 3.5rem);
@@ -2793,22 +2801,183 @@ h1, h2, h3, h4, .cs-hero-title, .cs-hero-sub, .gallery-name,
 }
 
 /* ══════════════════════════════════════════════════════════════════
-   DARK MODE (from scratch: global invert)
+   DARK MODE - Simple white to dark conversion
    ══════════════════════════════════════════════════════════════════ */
 @media (prefers-color-scheme: dark) {
-  html {
-    background: #ffffff !important;
-    filter: invert(1) hue-rotate(180deg) !important;
+  :root {
+    --bg: #1a1a1a;
+    --bg-alt: #2a2a2a;
+    --text: #ffffff;
+    --text-muted: #cccccc;
+    --accent: #4a9f6d;
+    --accent-dark: #e8e8e8;
+    --border: #404040;
+    --black: #ffffff;
   }
-
-  /* Keep media normal (not inverted), including the site logo. */
-  img,
-  video,
-  iframe,
-  canvas,
-  svg,
-  .logo img {
-    filter: invert(1) hue-rotate(180deg) !important;
+  
+  /* Simple background and text conversion */
+  html, body {
+    background: #1a1a1a !important;
+    color: #ffffff !important;
+  }
+  
+  body {
+    background-image: url("data:image/svg+xml,%3Csvg width='4' height='4' viewBox='0 0 4 4' xmlns='http://www.w3.org/2000/svg'%3E%3Crect width='1' height='1' fill='%23333333'/%3E%3Crect x='2' y='2' width='1' height='1' fill='%23333333'/%3E%3C/svg%3E") !important;
+  }
+  
+  #bg-parallax {
+    background-image: url("data:image/svg+xml,%3Csvg width='4' height='4' viewBox='0 0 4 4' xmlns='http://www.w3.org/2000/svg'%3E%3Crect width='1' height='1' fill='%23333333'/%3E%3Crect x='2' y='2' width='1' height='1' fill='%23333333'/%3E%3C/svg%3E") !important;
+  }
+  
+  /* Convert all white backgrounds to dark */
+  * {
+    background-color: inherit !important;
+  }
+  
+  body, .site-header, .nav, main, .section, .gallery, .hero, .about-inner, .resume, .contact-inner, .gallery-item, .series-hero, .series-section {
+    background: #1a1a1a !important;
+  }
+  
+  /* Convert all text to white */
+  h1, h2, h3, h4, h5, h6, p, span, div, li, a, .hero-title, .hero-desc, .section-title, .gallery-name, .gallery-category, .about-content, .contact-content, .resume-content {
+    color: #ffffff !important;
+  }
+  
+  .text-muted, .gallery-meta, .hero-label, .footer, .site-footer, .site-footer p, .site-footer a {
+    color: #cccccc !important;
+  }
+  
+  /* Series-specific colors preserved - including banner rectangles */
+  .series-last-known-recording .series-hero,
+  .series-last-known-recording .series-section,
+  .series-last-known-recording .series-visual,
+  .series-last-known-recording .series-panel,
+  .series-last-known-recording .series-hero-media,
+  .series-last-known-recording .series-strip,
+  .series-last-known-recording .series-strip-thumb {
+    background: #352a4d !important;
+  }
+  
+  .series-last-known-recording .series-title,
+  .series-last-known-recording .series-desc,
+  .series-last-known-recording .series-hero-info {
+    color: #eee8ff !important;
+  }
+  
+  .series-last-known-recording .series-accent {
+    color: #a783e6 !important;
+  }
+  
+  .series-earthly .series-hero,
+  .series-earthly .series-section,
+  .series-earthly .series-visual,
+  .series-earthly .series-panel,
+  .series-earthly .series-hero-media,
+  .series-earthly .series-strip,
+  .series-earthly .series-strip-thumb {
+    background: #2a3d2e !important;
+  }
+  
+  .series-earthly .series-title,
+  .series-earthly .series-desc,
+  .series-earthly .series-hero-info {
+    color: #d4eadb !important;
+  }
+  
+  .series-earthly .series-accent {
+    color: #52af79 !important;
+  }
+  
+  .series-chromatic .series-hero,
+  .series-chromatic .series-section,
+  .series-chromatic .series-visual,
+  .series-chromatic .series-panel,
+  .series-chromatic .series-hero-media,
+  .series-chromatic .series-strip,
+  .series-chromatic .series-strip-thumb {
+    background: #f7f3ee !important;
+  }
+  
+  .series-chromatic .series-title,
+  .series-chromatic .series-desc,
+  .series-chromatic .series-hero-info {
+    color: #315640 !important;
+  }
+  
+  .series-chromatic .series-accent {
+    color: #315640 !important;
+  }
+  
+  /* Ensure series elements don't get overridden by generic rules */
+  .series-last-known-recording *,
+  .series-earthly *,
+  .series-chromatic * {
+    background-color: inherit !important;
+  }
+  
+  .series-last-known-recording .series-hero *,
+  .series-last-known-recording .series-visual *,
+  .series-last-known-recording .series-panel *,
+  .series-last-known-recording .series-strip *,
+  .series-earthly .series-hero *,
+  .series-earthly .series-visual *,
+  .series-earthly .series-panel *,
+  .series-earthly .series-strip *,
+  .series-chromatic .series-hero *,
+  .series-chromatic .series-visual *,
+  .series-chromatic .series-panel *,
+  .series-chromatic .series-strip * {
+    background-color: inherit !important;
+  }
+  
+  /* UI elements */
+  .nav-sub {
+    background: #2a2a2a !important;
+    border: 1px solid #404040 !important;
+  }
+  
+  .nav-sub a {
+    color: #e8e8e8 !important;
+  }
+  
+  .menu-toggle span {
+    background: #e8e8e8 !important;
+  }
+  
+  .btn {
+    background-color: #4a9f6d !important;
+    color: #ffffff !important;
+  }
+  
+  /* Scrollbar */
+  ::-webkit-scrollbar-track {
+    background: #2a2a2a;
+  }
+  
+  ::-webkit-scrollbar-thumb {
+    background: #555555;
+  }
+  
+  /* Fix cursor glow in dark mode */
+  .cursor-glow {
+    background: radial-gradient(circle, rgba(74, 159, 109, 0.08) 0%, transparent 70%) !important;
+  }
+  
+  .btn::before {
+    background: radial-gradient(circle at var(--mx,50%) var(--my,50%), rgba(74, 159, 109, 0.25) 0%, transparent 70%) !important;
+  }
+  
+  /* PERMANENTLY REMOVE gallery gradient in dark mode */
+  .work-group.has-carousel::after {
+    display: none !important;
+    background: none !important;
+    content: none !important;
+  }
+  
+  #work-series::after {
+    display: none !important;
+    background: none !important;
+    content: none !important;
   }
 }
 
@@ -2901,16 +3070,10 @@ h1, h2, h3, h4, .cs-hero-title, .cs-hero-sub, .gallery-name,
   .lightbox-nav { display: none !important; }
 }
 
-/* Gallery scroll fade hint */
+/* Gallery scroll fade hint - REMOVED to prevent white gradient in dark mode */
 .work-group { position: relative; }
 .work-group.has-carousel::after {
-  content: "";
-  position: absolute;
-  top: 0; right: 0;
-  width: 80px; bottom: 3rem;
-  background: linear-gradient(to right, transparent, var(--bg) 100%);
-  pointer-events: none;
-  z-index: 6;
+  display: none !important;
 }
 #work-series::after { display: none !important; }
 
