@@ -747,7 +747,7 @@ ul {
 
   /* Featured grid: 2 columns on tablet */
   .featured-grid {
-    grid-template-columns: 1fr 1fr;
+    grid-template-columns: 1fr;
   }
 
   /* Gallery cards: show 2 at a time */
@@ -1203,8 +1203,7 @@ body.is-leaving {
 /* ── Prototype link under gallery card ─────────────────────────── */
 .gallery-prototype-link {
   display: inline-block;
-  margin-top: 0.75rem;
-  margin-left: 0.1rem;
+  margin-top: 0.5rem;
   font-size: 0.8rem;
   font-weight: 700;
   letter-spacing: 0.06em;
@@ -1212,7 +1211,6 @@ body.is-leaving {
   text-decoration: none;
   border-bottom: 1px solid rgba(82,175,121,0.4);
   transition: color 0.18s ease, border-color 0.18s ease;
-  padding-bottom: 0.1rem;
 }
 .gallery-prototype-link:hover {
   color: var(--accent);
@@ -2490,7 +2488,7 @@ h1, h2, h3, h4, .cs-hero-title, .cs-hero-sub, .gallery-name,
 /* ── Series overview: tablet 2-col → but not too squished ───────── */
 @media (min-width: 769px) and (max-width: 1024px) {
   .series-entry {
-    grid-template-columns: 1fr 1fr;
+    grid-template-columns: 1fr;
     gap: 1.5rem;
   }
   .series-title {
@@ -2516,7 +2514,7 @@ h1, h2, h3, h4, .cs-hero-title, .cs-hero-sub, .gallery-name,
 /* ── Series hero pages: tablet ───────────────────────────────────── */
 @media (min-width: 769px) and (max-width: 1024px) {
   .series-hero-inner {
-    grid-template-columns: 1fr 1fr;
+    grid-template-columns: 1fr;
     gap: 1.5rem;
   }
   .series-hero-title {
@@ -2660,7 +2658,7 @@ h1, h2, h3, h4, .cs-hero-title, .cs-hero-sub, .gallery-name,
     padding-bottom: 1rem !important;
   }
   .hero-inner {
-    grid-template-columns: 1fr 1fr !important;
+    grid-template-columns: 1fr !important;
     gap: 1rem !important;
     align-items: center !important;
   }
@@ -2675,7 +2673,7 @@ h1, h2, h3, h4, .cs-hero-title, .cs-hero-sub, .gallery-name,
     padding-bottom: 1.5rem !important;
   }
   .featured-grid {
-    grid-template-columns: 1fr 1fr !important;
+    grid-template-columns: 1fr !important;
   }
 }
 
@@ -2972,7 +2970,7 @@ h1, h2, h3, h4, .cs-hero-title, .cs-hero-sub, .gallery-name,
   }
   .gallery {
     display: grid !important;
-    grid-template-columns: 1fr 1fr !important;
+    grid-template-columns: 1fr !important;
     overflow-x: visible !important;
     scroll-snap-type: none !important;
     gap: 0.6rem !important;
@@ -3047,11 +3045,12 @@ h1, h2, h3, h4, .cs-hero-title, .cs-hero-sub, .gallery-name,
     gap: 1.5rem !important;
   }
   .about-photo {
-    width: 160px !important;
-    height: 160px !important;
-    max-width: 160px !important;
-    border-radius: 50% !important;
+    width: 200px !important;
+    max-width: 200px !important;
+    aspect-ratio: 1 / 1 !important;
+    border-radius: calc(var(--radius) + 4px) !important;
     object-fit: cover !important;
+    object-position: center top !important;
     margin: 0 auto !important;
     display: block !important;
   }
@@ -3109,7 +3108,7 @@ h1, h2, h3, h4, .cs-hero-title, .cs-hero-sub, .gallery-name,
     line-height: 1.65 !important;
   }
   .series-works-grid {
-    grid-template-columns: 1fr 1fr !important;
+    grid-template-columns: 1fr !important;
     display: grid !important;
     overflow-x: visible !important;
     scroll-snap-type: none !important;
@@ -3156,7 +3155,7 @@ h1, h2, h3, h4, .cs-hero-title, .cs-hero-sub, .gallery-name,
 /* ── Small phones ────────────────────────────────────────────────── */
 @media (max-width: 390px) {
   .gallery {
-    grid-template-columns: 1fr 1fr !important;
+    grid-template-columns: 1fr !important;
     gap: 0.45rem !important;
   }
   .gallery-name {
@@ -3411,71 +3410,6 @@ h1, h2, h3, h4, .cs-hero-title, .cs-hero-sub, .gallery-name,
   }
 }
 
-/* ── Portrait phone: maximize lightbox image, compress caption ────── */
-@media (orientation: portrait) and (max-width: 768px) {
-  .lightbox.open {
-    padding: 0 !important;
-    align-items: flex-end !important;
-  }
-  .lightbox-dialog {
-    width: 100vw !important;
-    max-width: 100vw !important;
-    max-height: calc(100dvh - 3.5rem) !important;
-    border-radius: 18px 18px 0 0 !important;
-    display: flex !important;
-    flex-direction: column !important;
-    overflow: hidden !important;
-    margin: 0 !important;
-  }
-  .lightbox-body {
-    flex: 1 1 auto !important;
-    min-height: 0 !important;
-    display: flex !important;
-    flex-direction: column !important;
-  }
-  .lightbox-media-frame {
-    flex: 1 1 auto !important;
-    width: 100% !important;
-    height: 100% !important;
-    aspect-ratio: unset !important;
-    border-radius: 0 !important;
-    min-height: 0 !important;
-  }
-  .lightbox-media-frame img {
-    width: 100% !important;
-    height: 100% !important;
-    object-fit: contain !important;
-  }
-  .lightbox-caption {
-    flex: 0 0 auto !important;
-    padding: 0.6rem 1rem 0.8rem !important;
-    gap: 0.1rem !important;
-  }
-  .lightbox-title {
-    font-size: 0.9rem !important;
-  }
-  .lightbox-category {
-    font-size: 0.65rem !important;
-  }
-  .lightbox-desc {
-    font-size: 0.78rem !important;
-    margin-top: 0.25rem !important;
-    padding-top: 0.25rem !important;
-    display: -webkit-box !important;
-    -webkit-line-clamp: 2 !important;
-    -webkit-box-orient: vertical !important;
-    overflow: hidden !important;
-  }
-  .lightbox-close {
-    top: 0.6rem !important;
-    right: 0.7rem !important;
-    width: 36px !important;
-    height: 36px !important;
-    font-size: 1.3rem !important;
-    z-index: 10 !important;
-  }
-}
-
 /* ══════════════════════════════════════════════════════════════════
    DARK MODE — CLEAN BUILD
    Inverts all UI, backgrounds, text, and borders.
@@ -3560,4 +3494,521 @@ h1, h2, h3, h4, .cs-hero-title, .cs-hero-sub, .gallery-name,
 .resume-list li {
   overflow-wrap: break-word !important;
   word-break: break-word !important;
+}
+
+/* ══════════════════════════════════════════════════════════════════
+   DARK MODE
+   Only changes background colors and text/border colors.
+   Images, logo, and videos are untouched.
+   Parallax squares handled by JS (already dark-aware).
+   ══════════════════════════════════════════════════════════════════ */
+@media (prefers-color-scheme: dark) {
+
+  /* Page background — dark green. Squares show through from #bg-parallax */
+  html, body {
+    background-color: #0f1410 !important;
+    color: #e8ede9 !important;
+  }
+
+  /* Header */
+  .site-header {
+    background: rgba(15, 20, 16, 0.96) !important;
+    border-bottom-color: rgba(232, 237, 233, 0.08) !important;
+  }
+
+  /* Nav drawer */
+  .nav {
+    background: #0f1410 !important;
+    border-left-color: rgba(232, 237, 233, 0.08) !important;
+  }
+  .nav a, .nav-link-main { color: #e8ede9 !important; }
+  .nav-sub {
+    background: #161d18 !important;
+    border-color: rgba(110, 184, 140, 0.2) !important;
+  }
+  .nav-sub a { color: rgba(232, 237, 233, 0.8) !important; }
+  .menu-toggle span { background: #e8ede9 !important; }
+  .nav-overlay { background: rgba(0,0,0,0.65) !important; }
+
+  /* All text */
+  h1,h2,h3,h4,h5,h6,p,li,span,label,
+  .section-title,.work-group-title,.hero-title,.hero-desc,.hero-label,
+  .gallery-name,.gallery-category,.about-lead,
+  .series-hero-title,.series-hero-desc,.series-title,
+  .lightbox-title,.lightbox-category,.lightbox-desc,
+  .contact-availability,.resume-role,.resume-org,
+  .featured-title,.featured-desc {
+    color: #e8ede9 !important;
+  }
+  .gallery-category,.hero-label,.resume-date,.lightbox-category,.gallery-year {
+    color: rgba(232,237,233,0.55) !important;
+  }
+
+  /* White backgrounds → dark */
+  .about-inner,.contact-card,.resume-card,.series-entry,
+  .featured-card,.gallery-meta,.lightbox-dialog,.lightbox-caption {
+    background: #161d18 !important;
+    border-color: rgba(232,237,233,0.08) !important;
+  }
+  .gallery-item,.gallery-image-wrap {
+    background: #161d18 !important;
+  }
+  .gallery-image-wrap-white,.gallery-img-poster {
+    background: #1e2620 !important;
+  }
+  .gallery-overlay {
+    background: rgba(10,14,11,0.85) !important;
+  }
+  .work-group.has-carousel::after {
+    background: linear-gradient(to right, transparent, #0f1410) !important;
+  }
+
+  /* Buttons */
+  .btn { color: #0f1410 !important; }
+  .btn-secondary,.btn-outline {
+    background: transparent !important;
+    border-color: #6eb88c !important;
+    color: #6eb88c !important;
+  }
+
+  /* Footer — noticeably darker than page */
+  .site-footer {
+    background: #080c09 !important;
+    border-top-color: rgba(232,237,233,0.06) !important;
+    color: rgba(232,237,233,0.45) !important;
+  }
+  .site-footer p,.site-footer a,.site-footer span {
+    color: rgba(232,237,233,0.45) !important;
+  }
+
+  /* Forms */
+  input,textarea,select {
+    background: #161d18 !important;
+    color: #e8ede9 !important;
+    border-color: rgba(232,237,233,0.15) !important;
+  }
+  input::placeholder,textarea::placeholder {
+    color: rgba(232,237,233,0.35) !important;
+  }
+
+  /* Misc UI */
+  .section-title::after { background: #6eb88c !important; }
+  .resume-preview-wrap {
+    background: #161d18 !important;
+    border-color: rgba(232,237,233,0.08) !important;
+  }
+  #work-series .work-group-title a {
+    border-color: #6eb88c !important;
+    color: #6eb88c !important;
+  }
+  ::-webkit-scrollbar-track { background: #0f1410 !important; }
+  ::-webkit-scrollbar-thumb { background: #2a3530 !important; }
+
+  /* Images, video, logo — excluded entirely */
+  img, video, canvas, .about-photo,
+  .gallery-image-wrap img, .gallery-image-wrap video,
+  .hero-showcase img, .series-visual img,
+  .featured-img-wrap img, iframe {
+    filter: none !important;
+  }
+}
+
+/* ══════════════════════════════════════════════════════════════════
+   EXTENDED ANIMATIONS
+   ══════════════════════════════════════════════════════════════════ */
+
+/* ── 1. Scroll-reveal base (JS adds .is-revealed) ─────────────────── */
+.reveal {
+  opacity: 0;
+  transform: translateY(28px);
+  transition: opacity 0.65s cubic-bezier(0.22,1,0.36,1),
+              transform 0.65s cubic-bezier(0.22,1,0.36,1);
+}
+.reveal.is-revealed {
+  opacity: 1;
+  transform: none;
+}
+.reveal-left {
+  opacity: 0;
+  transform: translateX(-28px);
+  transition: opacity 0.6s cubic-bezier(0.22,1,0.36,1),
+              transform 0.6s cubic-bezier(0.22,1,0.36,1);
+}
+.reveal-left.is-revealed {
+  opacity: 1;
+  transform: none;
+}
+.reveal-right {
+  opacity: 0;
+  transform: translateX(28px);
+  transition: opacity 0.6s cubic-bezier(0.22,1,0.36,1),
+              transform 0.6s cubic-bezier(0.22,1,0.36,1);
+}
+.reveal-right.is-revealed {
+  opacity: 1;
+  transform: none;
+}
+.reveal-scale {
+  opacity: 0;
+  transform: scale(0.92);
+  transition: opacity 0.55s cubic-bezier(0.22,1,0.36,1),
+              transform 0.55s cubic-bezier(0.22,1,0.36,1);
+}
+.reveal-scale.is-revealed {
+  opacity: 1;
+  transform: none;
+}
+
+/* Stagger delays */
+.reveal-delay-1 { transition-delay: 0.08s; }
+.reveal-delay-2 { transition-delay: 0.16s; }
+.reveal-delay-3 { transition-delay: 0.24s; }
+.reveal-delay-4 { transition-delay: 0.32s; }
+
+/* ── 2. Section title underline draw-in ───────────────────────────── */
+.section-title::after {
+  transition: width 0.7s cubic-bezier(0.22,1,0.36,1) 0.2s !important;
+}
+.section-title:not(.is-revealed)::after {
+  width: 0 !important;
+}
+.section-title.is-revealed::after {
+  width: 2.5rem !important;
+}
+
+/* ── 3. Gallery item: shimmer on image load ───────────────────────── */
+@keyframes shimmer {
+  0%   { background-position: -400px 0; }
+  100% { background-position: 400px 0; }
+}
+.gallery-image-wrap.is-loading {
+  background: linear-gradient(90deg, var(--bg-alt) 25%, rgba(82,175,121,0.06) 50%, var(--bg-alt) 75%);
+  background-size: 400px 100%;
+  animation: shimmer 1.4s infinite linear;
+}
+
+/* ── 4. Button: ripple on click ───────────────────────────────────── */
+.btn {
+  overflow: hidden;
+  position: relative;
+}
+@keyframes btn-ripple {
+  from { transform: scale(0); opacity: 0.35; }
+  to   { transform: scale(3.5); opacity: 0; }
+}
+.btn-ripple-el {
+  position: absolute;
+  border-radius: 50%;
+  width: 60px;
+  height: 60px;
+  margin: -30px;
+  background: rgba(255,255,255,0.35);
+  pointer-events: none;
+  animation: btn-ripple 0.55s ease-out forwards;
+}
+
+/* ── 5. Nav link: underline slide ────────────────────────────────── */
+.nav a:not(.btn) {
+  position: relative;
+}
+.nav a:not(.btn)::after {
+  content: "";
+  position: absolute;
+  bottom: -2px;
+  left: 0;
+  width: 0;
+  height: 1.5px;
+  background: var(--accent-dark);
+  transition: width 0.25s cubic-bezier(0.22,1,0.36,1);
+}
+.nav a:not(.btn):hover::after {
+  width: 100%;
+}
+
+/* ── 6. Gallery item: image zoom on hover ─────────────────────────── */
+.gallery-image-wrap img,
+.gallery-image-wrap video {
+  transition: transform 0.55s cubic-bezier(0.22,1,0.36,1),
+              opacity 0.3s ease !important;
+}
+.gallery-item:hover .gallery-image-wrap img,
+.gallery-item:hover .gallery-image-wrap video {
+  transform: scale(1.04);
+}
+
+/* ── 7. Contact/resume cards: lift on hover ──────────────────────── */
+.contact-card,
+.resume-card,
+.series-entry {
+  transition: transform 0.3s cubic-bezier(0.22,1,0.36,1),
+              box-shadow 0.3s ease,
+              border-color 0.25s ease !important;
+}
+.contact-card:hover,
+.resume-card:hover,
+.series-entry:hover {
+  transform: translateY(-4px) !important;
+  box-shadow: 0 16px 40px rgba(49,86,64,0.14) !important;
+  border-color: rgba(82,175,121,0.3) !important;
+}
+
+/* ── 8. About photo: subtle entrance scale ───────────────────────── */
+@keyframes photo-enter {
+  from { opacity: 0; transform: scale(0.94) translateY(12px); }
+  to   { opacity: 1; transform: none; }
+}
+.about-photo {
+  animation: photo-enter 0.8s 0.2s cubic-bezier(0.22,1,0.36,1) both;
+}
+
+/* ── 9. Lightbox image: fade-zoom on open ────────────────────────── */
+@keyframes media-enter {
+  from { opacity: 0; transform: scale(0.97); }
+  to   { opacity: 1; transform: none; }
+}
+.lightbox-media-frame img,
+.lightbox-media-frame video {
+  animation: media-enter 0.4s cubic-bezier(0.22,1,0.36,1) both;
+}
+
+/* ── 10. Series hero title: word-by-word stagger ─────────────────── */
+@keyframes word-pop {
+  from { opacity: 0; transform: translateY(16px) skewY(2deg); }
+  to   { opacity: 1; transform: none; }
+}
+.series-hero-title .word {
+  display: inline-block;
+  animation: word-pop 0.6s cubic-bezier(0.22,1,0.36,1) both;
+}
+
+/* ── 11. Page section: count-up numbers ──────────────────────────── */
+.count-up {
+  display: inline-block;
+  transition: color 0.3s ease;
+}
+
+/* ── 12. Footer links: color slide ───────────────────────────────── */
+.site-footer a {
+  position: relative;
+  transition: color 0.2s ease;
+}
+
+/* ── 13. Gallery overlay text: slide up ──────────────────────────── */
+.gallery-overlay-text {
+  transform: translateY(6px);
+  transition: transform 0.35s cubic-bezier(0.22,1,0.36,1),
+              opacity 0.3s ease !important;
+}
+.gallery-item:hover .gallery-overlay-text {
+  transform: translateY(0) !important;
+}
+
+/* ── 14. Cursor magnetic effect on btns (JS driven) ──────────────── */
+.btn {
+  transition: transform 0.2s cubic-bezier(0.22,1,0.36,1),
+              background-color 0.18s ease,
+              box-shadow 0.18s ease !important;
+}
+
+/* ── 15. Work group title: fade in from left ─────────────────────── */
+.work-group-title {
+  transition: border-bottom-color 0.3s ease, color 0.2s ease,
+              opacity 0.5s ease, transform 0.5s cubic-bezier(0.22,1,0.36,1) !important;
+}
+}
+
+/* ══════════════════════════════════════════════════════════════════
+   SITE-WIDE ANIMATIONS — layered on top of existing ones
+   ══════════════════════════════════════════════════════════════════ */
+
+/* ── Scroll-reveal base state ────────────────────────────────────── */
+.reveal {
+  opacity: 0;
+  transform: translateY(28px);
+  transition: opacity 0.7s cubic-bezier(0.22,1,0.36,1),
+              transform 0.7s cubic-bezier(0.22,1,0.36,1);
+}
+.reveal.is-visible {
+  opacity: 1;
+  transform: none;
+}
+/* Variants */
+.reveal-left {
+  opacity: 0;
+  transform: translateX(-32px);
+  transition: opacity 0.7s cubic-bezier(0.22,1,0.36,1),
+              transform 0.7s cubic-bezier(0.22,1,0.36,1);
+}
+.reveal-left.is-visible { opacity: 1; transform: none; }
+
+.reveal-right {
+  opacity: 0;
+  transform: translateX(32px);
+  transition: opacity 0.7s cubic-bezier(0.22,1,0.36,1),
+              transform 0.7s cubic-bezier(0.22,1,0.36,1);
+}
+.reveal-right.is-visible { opacity: 1; transform: none; }
+
+.reveal-scale {
+  opacity: 0;
+  transform: scale(0.93);
+  transition: opacity 0.65s cubic-bezier(0.22,1,0.36,1),
+              transform 0.65s cubic-bezier(0.22,1,0.36,1);
+}
+.reveal-scale.is-visible { opacity: 1; transform: none; }
+
+/* Stagger delays */
+.stagger-1 { transition-delay: 0.05s !important; }
+.stagger-2 { transition-delay: 0.12s !important; }
+.stagger-3 { transition-delay: 0.19s !important; }
+.stagger-4 { transition-delay: 0.26s !important; }
+.stagger-5 { transition-delay: 0.33s !important; }
+.stagger-6 { transition-delay: 0.40s !important; }
+
+/* ── Gallery card stagger ─────────────────────────────────────────── */
+.gallery-item {
+  opacity: 0;
+  transform: translateY(20px) scale(0.97);
+  transition: opacity 0.55s cubic-bezier(0.22,1,0.36,1),
+              transform 0.55s cubic-bezier(0.22,1,0.36,1),
+              box-shadow 0.3s ease,
+              border-radius 0.3s ease !important;
+}
+.gallery-item.card-visible {
+  opacity: 1;
+  transform: none;
+}
+.gallery-item:hover {
+  transform: translateY(-6px) scale(1.02) !important;
+}
+
+/* ── Page transition ──────────────────────────────────────────────── */
+@keyframes page-fade-in {
+  from { opacity: 0; transform: translateY(12px); }
+  to   { opacity: 1; transform: none; }
+}
+.page-transition-out {
+  animation: page-fade-out 0.28s cubic-bezier(0.4,0,1,1) forwards;
+}
+@keyframes page-fade-out {
+  to { opacity: 0; transform: translateY(-8px); }
+}
+
+/* ── Section title draw-in underline ─────────────────────────────── */
+.section-title::after {
+  width: 0 !important;
+  transition: width 0.6s cubic-bezier(0.22,1,0.36,1) 0.2s !important;
+}
+.section-title.is-visible::after {
+  width: 2.5rem !important;
+}
+
+/* ── Button press + glow ─────────────────────────────────────────── */
+.btn {
+  position: relative;
+  overflow: hidden;
+}
+.btn::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: rgba(255,255,255,0.15);
+  opacity: 0;
+  transition: opacity 0.2s ease;
+  border-radius: inherit;
+}
+.btn:active::after { opacity: 1; }
+
+/* ── Nav link animated underline ─────────────────────────────────── */
+.site-header .nav > a,
+.site-header .nav-link-main {
+  position: relative;
+}
+.site-header .nav > a::after,
+.site-header .nav-link-main::after {
+  content: '';
+  position: absolute;
+  bottom: -2px;
+  left: 0;
+  width: 0;
+  height: 1.5px;
+  background: var(--accent-dark);
+  transition: width 0.25s cubic-bezier(0.22,1,0.36,1);
+}
+.site-header .nav > a:hover::after,
+.site-header .nav-link-main:hover::after {
+  width: 100%;
+}
+
+/* ── Gallery card image zoom on hover ────────────────────────────── */
+.gallery-image-wrap {
+  overflow: hidden;
+}
+.gallery-image-wrap img,
+.gallery-image-wrap video {
+  transition: transform 0.55s cubic-bezier(0.22,1,0.36,1) !important;
+  transform-origin: center center;
+}
+.gallery-item:hover .gallery-image-wrap img,
+.gallery-item:hover .gallery-image-wrap video {
+  transform: scale(1.06) !important;
+}
+
+/* ── About photo subtle hover tilt ───────────────────────────────── */
+.about-photo {
+  transition: transform 0.4s cubic-bezier(0.22,1,0.36,1),
+              box-shadow 0.4s ease !important;
+}
+.about-photo:hover {
+  transform: rotate(1.5deg) scale(1.03) !important;
+  box-shadow: 0 16px 40px rgba(49,86,64,0.2) !important;
+}
+
+/* ── Contact + resume cards lift ─────────────────────────────────── */
+.contact-card,
+.resume-card {
+  transition: transform 0.35s cubic-bezier(0.22,1,0.36,1),
+              box-shadow 0.35s ease !important;
+}
+.contact-card:hover,
+.resume-card:hover {
+  transform: translateY(-4px) !important;
+  box-shadow: 0 14px 36px rgba(49,86,64,0.14) !important;
+}
+
+/* ── Series entry card lift ──────────────────────────────────────── */
+.series-entry {
+  transition: transform 0.35s cubic-bezier(0.22,1,0.36,1),
+              box-shadow 0.35s ease !important;
+}
+.series-entry:hover {
+  transform: translateY(-5px) !important;
+  box-shadow: 0 18px 44px rgba(49,86,64,0.16) !important;
+}
+
+/* ── Ambient LKR geometry pulse ──────────────────────────────────── */
+@keyframes lkr-pulse {
+  0%, 100% { opacity: var(--lkr-pattern-opacity, 0.12); }
+  50%       { opacity: calc(var(--lkr-pattern-opacity, 0.12) * 1.6); }
+}
+#lkr-geo {
+  animation: lkr-pulse 8s ease-in-out infinite;
+}
+
+/* ── Lightbox open/close already has genie — add subtle scale ────── */
+.lightbox-dialog {
+  transform-origin: center bottom;
+}
+
+/* ── Reduce motion: respect user preference ──────────────────────── */
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    transition-duration: 0.01ms !important;
+  }
+  .reveal, .reveal-left, .reveal-right, .reveal-scale,
+  .gallery-item {
+    opacity: 1 !important;
+    transform: none !important;
+  }
 }

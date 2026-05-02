@@ -42,7 +42,7 @@
         box-shadow: none !important; padding: 0 !important; margin: 0 !important;
         border-radius: 0 !important; white-space: normal !important; min-width: unset !important;
       }
-      .nav-sub a { font-size: 0.75rem !important; color: #5a6b62 !important; padding: 0.3rem 0 !important; justify-content: flex-end !important; width: 100% !important; display: flex !important; letter-spacing: 0.04em; }
+      .nav-sub a { font-size: 0.75rem !important; color: var(--text-muted, #5a6b62) !important; padding: 0.3rem 0 !important; justify-content: flex-end !important; width: 100% !important; display: flex !important; letter-spacing: 0.04em; }
       .nav-group .nav-link-main { pointer-events: none; }
       .nav-link-main .gallery-arrow { display: none !important; }
     }
@@ -181,6 +181,11 @@
       .series-hero-inner { gap: 1.5rem; }
       .series-hero-title { font-size: clamp(1.6rem, 3.5vw, 2.4rem); }
       .series-hero-media { aspect-ratio: 4 / 3; }
+    }
+
+    @media (prefers-color-scheme: dark) {
+      .nav-sub a { color: rgba(232,237,233,0.8) !important; }
+      .nav { background: #0f1410 !important; }
     }
   </style>
   <meta property="og:type" content="website">

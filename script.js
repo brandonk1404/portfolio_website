@@ -904,45 +904,142 @@
     }
   });
 
+  // ── Extended animation system ─────────────────────────────────
   (function () {
-    var revealEls = [];
+    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
 
-    function addReveal(selector, cls) {
+    // 1. Scroll reveal — add classes then observe
+    var revealEls = [];
+    function addReveal(selector, cls, stagger) {
       document.querySelectorAll(selector).forEach(function (el, i) {
         el.classList.add(cls || 'reveal');
-        el.style.transitionDelay = (i * 0.07) + 's';
+        if (stagger) el.style.transitionDelay = (i * stagger) + 's';
         revealEls.push(el);
       });
     }
 
     addReveal('.section-title', 'reveal');
-    addReveal('.about-content p', 'reveal');
-    addReveal('.work-group', 'reveal');
-    addReveal('.resume-block', 'reveal');
-    addReveal('.contact-inner', 'reveal');
-    addReveal('.contact-card', 'reveal');
-    addReveal('.awards-item', 'reveal');
-    addReveal('.awards-section', 'reveal');
-    addReveal('.instagram-section', 'reveal');
+    addReveal('.about-content p', 'reveal', 0.08);
+    addReveal('.work-group', 'reveal', 0.06);
+    addReveal('.resume-card', 'reveal', 0.07);
+    addReveal('.contact-card', 'reveal', 0.08);
+    addReveal('.awards-item', 'reveal', 0.06);
+    addReveal('.series-entry', 'reveal-scale', 0.07);
+    addReveal('.featured-card', 'reveal-scale', 0.07);
+    addReveal('.about-inner', 'reveal');
+    addReveal('.series-hero-desc', 'reveal');
+    addReveal('.series-synopsis', 'reveal');
+    addReveal('.hero-copy', 'reveal');
+    addReveal('.contact-availability', 'reveal');
 
     var io = new IntersectionObserver(function (entries) {
       entries.forEach(function (entry) {
         if (entry.isIntersecting) {
-          entry.target.classList.add('in');
-          // trigger the underline bar on section titles
-          var title = entry.target.querySelector
-            ? entry.target.querySelector('.section-title')
-            : null;
-          if (title) title.classList.add('bar-in');
-          if (entry.target.classList.contains('section-title')) {
-            entry.target.classList.add('bar-in');
-          }
+          entry.target.classList.add('is-revealed', 'in', 'bar-in');
           io.unobserve(entry.target);
         }
       });
-    }, { threshold: 0.15 });
+    }, { threshold: 0.12, rootMargin: '0px 0px -40px 0px' });
 
     revealEls.forEach(function (el) { io.observe(el); });
+
+    // 2. Section title underline draw-in
+    var titleObs = new IntersectionObserver(function (entries) {
+      entries.forEach(function (entry) {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('is-revealed');
+          titleObs.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.3 });
+    document.querySelectorAll('.section-title').forEach(function (el) {
+      titleObs.observe(el);
+    });
+
+    // 3. Image shimmer while loading
+    document.querySelectorAll('.gallery-image-wrap img').forEach(function (img) {
+      if (!img.complete) {
+        img.closest('.gallery-image-wrap').classList.add('is-loading');
+        img.addEventListener('load', function () {
+          img.closest('.gallery-image-wrap').classList.remove('is-loading');
+        });
+      }
+    });
+
+    // 4. Button ripple on click
+    document.querySelectorAll('.btn').forEach(function (btn) {
+      btn.addEventListener('click', function (e) {
+        var rect = btn.getBoundingClientRect();
+        var ripple = document.createElement('span');
+        ripple.className = 'btn-ripple-el';
+        ripple.style.left = (e.clientX - rect.left) + 'px';
+        ripple.style.top  = (e.clientY - rect.top) + 'px';
+        btn.appendChild(ripple);
+        setTimeout(function () { ripple.remove(); }, 600);
+      });
+    });
+
+    // 5. Series hero title word-split animation
+    document.querySelectorAll('.series-hero-title').forEach(function (el) {
+      var words = el.textContent.trim().split(/\s+/);
+      el.innerHTML = words.map(function (w, i) {
+        return '<span class="word" style="animation-delay:' + (0.1 + i * 0.1) + 's">' + w + '</span>';
+      }).join(' ');
+    });
+
+    // 6. Magnetic button effect (desktop only)
+    if (window.matchMedia('(pointer: fine)').matches) {
+      document.querySelectorAll('.btn').forEach(function (btn) {
+        btn.addEventListener('mousemove', function (e) {
+          var rect = btn.getBoundingClientRect();
+          var dx = (e.clientX - rect.left - rect.width / 2) * 0.25;
+          var dy = (e.clientY - rect.top  - rect.height / 2) * 0.25;
+          btn.style.transform = 'translate(' + dx + 'px,' + dy + 'px)';
+        });
+        btn.addEventListener('mouseleave', function () {
+          btn.style.transform = '';
+        });
+      });
+    }
+
+    // 7. Gallery card stagger on load
+    document.querySelectorAll('.gallery-item').forEach(function (item, i) {
+      item.style.animationDelay = ((i % 8) * 0.06) + 's';
+    });
+
+    // 8. Work group title reveal
+    document.querySelectorAll('.work-group-title').forEach(function (el) {
+      el.style.opacity = '0';
+      el.style.transform = 'translateX(-12px)';
+      var obs = new IntersectionObserver(function (entries) {
+        if (entries[0].isIntersecting) {
+          el.style.opacity = '1';
+          el.style.transform = '';
+          obs.disconnect();
+        }
+      }, { threshold: 0.5 });
+      obs.observe(el);
+    });
+
+    // 9. Smooth number count-up on visible stat elements
+    document.querySelectorAll('[data-count]').forEach(function (el) {
+      var target = parseInt(el.getAttribute('data-count'), 10);
+      var obs = new IntersectionObserver(function (entries) {
+        if (!entries[0].isIntersecting) return;
+        obs.disconnect();
+        var start = 0, duration = 1200, startTime = null;
+        function step(ts) {
+          if (!startTime) startTime = ts;
+          var progress = Math.min((ts - startTime) / duration, 1);
+          var ease = 1 - Math.pow(1 - progress, 3);
+          el.textContent = Math.round(ease * target);
+          if (progress < 1) requestAnimationFrame(step);
+        }
+        requestAnimationFrame(step);
+      }, { threshold: 0.8 });
+      obs.observe(el);
+    });
+
   })();
 
   // ── Cursor glow (desktop only) ────────────────────────────────
@@ -1236,5 +1333,209 @@
       applyWidont();
     }
   })();
+
+})();
+
+/* ══════════════════════════════════════════════════════════════════
+   SITE-WIDE ANIMATIONS
+   ══════════════════════════════════════════════════════════════════ */
+(function() {
+  'use strict';
+
+  // ── 1. Scroll reveal — sections, titles, cards ─────────────────
+  function initReveal() {
+    // Tag elements for reveal
+    var revealEls = [
+      { sel: '.section-title',     cls: 'reveal' },
+      { sel: '.about-inner',       cls: 'reveal' },
+      { sel: '.contact-card',      cls: 'reveal' },
+      { sel: '.resume-card',       cls: 'reveal' },
+      { sel: '.series-entry',      cls: 'reveal' },
+      { sel: '.featured-card',     cls: 'reveal-scale' },
+      { sel: '.hero-showcase',     cls: 'reveal-right' },
+      { sel: '.work-group-title',  cls: 'reveal' },
+      { sel: '.series-hero-title', cls: 'reveal' },
+      { sel: '.series-hero-desc',  cls: 'reveal' },
+    ];
+
+    revealEls.forEach(function(item) {
+      document.querySelectorAll(item.sel).forEach(function(el) {
+        if (!el.classList.contains('reveal') &&
+            !el.classList.contains('reveal-left') &&
+            !el.classList.contains('reveal-right') &&
+            !el.classList.contains('reveal-scale')) {
+          el.classList.add(item.cls);
+        }
+      });
+    });
+
+    var revealObs = new IntersectionObserver(function(entries) {
+      entries.forEach(function(e) {
+        if (e.isIntersecting) {
+          e.target.classList.add('is-visible');
+          revealObs.unobserve(e.target);
+        }
+      });
+    }, { threshold: 0.12, rootMargin: '0px 0px -40px 0px' });
+
+    document.querySelectorAll('.reveal, .reveal-left, .reveal-right, .reveal-scale')
+      .forEach(function(el) { revealObs.observe(el); });
+  }
+
+  // ── 2. Gallery card stagger ────────────────────────────────────
+  function initCardStagger() {
+    var cardObs = new IntersectionObserver(function(entries) {
+      entries.forEach(function(e) {
+        if (e.isIntersecting) {
+          e.target.classList.add('card-visible');
+          cardObs.unobserve(e.target);
+        }
+      });
+    }, { threshold: 0.08, rootMargin: '0px 0px -20px 0px' });
+
+    document.querySelectorAll('.gallery-item').forEach(function(card, i) {
+      // Stagger within each row group (reset every 6)
+      var delay = (i % 6) * 0.07;
+      card.style.transitionDelay = delay + 's';
+      cardObs.observe(card);
+    });
+  }
+
+  // ── 3. Page transitions ────────────────────────────────────────
+  function initPageTransitions() {
+    // Fade out on internal link click
+    document.querySelectorAll('a[href]').forEach(function(link) {
+      var href = link.getAttribute('href');
+      if (!href || href.startsWith('#') || href.startsWith('http') ||
+          href.startsWith('mailto') || href.startsWith('tel') ||
+          link.target === '_blank') return;
+
+      link.addEventListener('click', function(e) {
+        var dest = link.href;
+        if (dest === window.location.href) return;
+        e.preventDefault();
+        document.body.style.opacity = '0';
+        document.body.style.transform = 'translateY(-6px)';
+        document.body.style.transition = 'opacity 0.22s ease, transform 0.22s ease';
+        setTimeout(function() { window.location.href = dest; }, 220);
+      });
+    });
+
+    // Fade in on load
+    document.body.style.opacity = '0';
+    document.body.style.transform = 'translateY(10px)';
+    document.body.style.transition = 'opacity 0.45s cubic-bezier(0.22,1,0.36,1), transform 0.45s cubic-bezier(0.22,1,0.36,1)';
+    requestAnimationFrame(function() {
+      requestAnimationFrame(function() {
+        document.body.style.opacity = '1';
+        document.body.style.transform = 'none';
+      });
+    });
+  }
+
+  // ── 4. Hero title character split animation ────────────────────
+  function initHeroTitle() {
+    var title = document.querySelector('.hero-title');
+    if (!title || title.dataset.split) return;
+    title.dataset.split = '1';
+
+    var text = title.textContent;
+    title.textContent = '';
+    var words = text.split(' ');
+    words.forEach(function(word, wi) {
+      var span = document.createElement('span');
+      span.style.cssText = 'display:inline-block;overflow:hidden;vertical-align:bottom;';
+      var inner = document.createElement('span');
+      inner.textContent = word;
+      inner.style.cssText = 'display:inline-block;transform:translateY(110%);opacity:0;' +
+        'transition:transform 0.7s cubic-bezier(0.22,1,0.36,1) ' + (0.08 + wi * 0.1) + 's,' +
+        'opacity 0.5s ease ' + (0.08 + wi * 0.1) + 's;';
+      span.appendChild(inner);
+      title.appendChild(span);
+      if (wi < words.length - 1) title.appendChild(document.createTextNode(' '));
+    });
+
+    requestAnimationFrame(function() {
+      requestAnimationFrame(function() {
+        title.querySelectorAll('span > span').forEach(function(s) {
+          s.style.transform = 'none';
+          s.style.opacity = '1';
+        });
+      });
+    });
+  }
+
+  // ── 5. Cursor magnetic effect on buttons ──────────────────────
+  function initMagneticButtons() {
+    if (window.matchMedia('(hover: none)').matches) return;
+    document.querySelectorAll('.btn').forEach(function(btn) {
+      btn.addEventListener('mousemove', function(e) {
+        var r = btn.getBoundingClientRect();
+        var x = e.clientX - r.left - r.width / 2;
+        var y = e.clientY - r.top - r.height / 2;
+        btn.style.transform = 'translate(' + (x * 0.18) + 'px, ' + (y * 0.18) + 'px) scale(1.04)';
+      });
+      btn.addEventListener('mouseleave', function() {
+        btn.style.transform = '';
+      });
+    });
+  }
+
+  // ── 6. Section title underline draw on scroll ─────────────────
+  function initTitleUnderlines() {
+    var ulObs = new IntersectionObserver(function(entries) {
+      entries.forEach(function(e) {
+        if (e.isIntersecting) {
+          e.target.classList.add('is-visible');
+          ulObs.unobserve(e.target);
+        }
+      });
+    }, { threshold: 0.5 });
+    document.querySelectorAll('.section-title').forEach(function(el) {
+      ulObs.observe(el);
+    });
+  }
+
+  // ── 7. Smooth counter for any [data-count] elements ───────────
+  function initCounters() {
+    document.querySelectorAll('[data-count]').forEach(function(el) {
+      var target = parseInt(el.dataset.count, 10);
+      var obs = new IntersectionObserver(function(entries) {
+        if (!entries[0].isIntersecting) return;
+        obs.disconnect();
+        var start = 0, duration = 1200, startTime = null;
+        function step(ts) {
+          if (!startTime) startTime = ts;
+          var p = Math.min((ts - startTime) / duration, 1);
+          el.textContent = Math.floor(p * target);
+          if (p < 1) requestAnimationFrame(step);
+          else el.textContent = target;
+        }
+        requestAnimationFrame(step);
+      }, { threshold: 0.5 });
+      obs.observe(el);
+    });
+  }
+
+  // ── Init all ──────────────────────────────────────────────────
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', function() {
+      initReveal();
+      initCardStagger();
+      initPageTransitions();
+      initHeroTitle();
+      initMagneticButtons();
+      initTitleUnderlines();
+      initCounters();
+    });
+  } else {
+    initReveal();
+    initCardStagger();
+    initPageTransitions();
+    initHeroTitle();
+    initMagneticButtons();
+    initTitleUnderlines();
+    initCounters();
+  }
 
 })();
