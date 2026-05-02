@@ -3504,6 +3504,15 @@ h1, h2, h3, h4, .cs-hero-title, .cs-hero-sub, .gallery-name,
    ══════════════════════════════════════════════════════════════════ */
 @media (prefers-color-scheme: dark) {
 
+  /* Override CSS variables first — everything that uses var(--bg) goes dark */
+  :root {
+    --bg:        #0f1410;
+    --bg-alt:    #161d18;
+    --text:      #e8ede9;
+    --text-muted: rgba(232,237,233,0.55);
+    --border:    rgba(232,237,233,0.1);
+  }
+
   /* Page background — dark green. Squares show through from #bg-parallax */
   html, body {
     background-color: #0f1410 !important;
