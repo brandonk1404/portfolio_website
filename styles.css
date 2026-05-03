@@ -41,7 +41,7 @@ body {
   min-height: 100%;
   display: flex;
   flex-direction: column;
-  background-color: var(--bg);
+}
 
 img {
   max-width: 100%;
@@ -3823,7 +3823,6 @@ h1, h2, h3, h4, .cs-hero-title, .cs-hero-sub, .gallery-name,
 .work-group-title {
   transition: border-bottom-color 0.3s ease, color 0.2s ease,
               opacity 0.5s ease, transform 0.5s cubic-bezier(0.22,1,0.36,1) !important;
-}
 }
 
 /* ══════════════════════════════════════════════════════════════════
