@@ -3554,7 +3554,7 @@ h1, h2, h3, h4, .cs-hero-title, .cs-hero-sub, .gallery-name,
   }
 
   /* White backgrounds → dark */
-  .about-inner,.contact-card,.resume-card,.series-entry,
+  .about-inner,.contact-card,.resume-card,.resume-block,.series-entry,
   .featured-card,.gallery-meta,.lightbox-dialog,.lightbox-caption {
     background: #161d18 !important;
     border-color: rgba(232,237,233,0.08) !important;
@@ -3573,7 +3573,8 @@ h1, h2, h3, h4, .cs-hero-title, .cs-hero-sub, .gallery-name,
   }
 
   /* Buttons */
-  .btn { color: #0f1410 !important; }
+  .btn { background-color: #52af79 !important; color: #0f1410 !important; }
+  .btn:hover { background-color: #6eb88c !important; color: #0f1410 !important; }
   .btn-secondary,.btn-outline {
     background: transparent !important;
     border-color: #6eb88c !important;
@@ -4095,5 +4096,425 @@ h1, h2, h3, h4, .cs-hero-title, .cs-hero-sub, .gallery-name,
   .series-entry,
   .featured-card {
     padding: 1.25rem 1.4rem !important;
+  }
+}
+
+/* ── Nav drawer: full screen on mobile ───────────────────────────── */
+@media (max-width: 1024px) {
+  .nav {
+    width: 100vw !important;
+    left: 0 !important;
+    right: 0 !important;
+    border-left: none !important;
+    align-items: center !important;
+    justify-content: center !important;
+    padding: calc(var(--header-height) + 2rem) 2rem 3rem !important;
+  }
+  .nav a,
+  .nav-link-main {
+    font-size: 1.15rem !important;
+    justify-content: center !important;
+    text-align: center !important;
+  }
+  .nav-sub {
+    align-items: center !important;
+  }
+  .nav-sub a {
+    justify-content: center !important;
+    text-align: center !important;
+  }
+}
+
+/* ── Resume dark mode fixes ──────────────────────────────────────── */
+@media (prefers-color-scheme: dark) {
+  .resume-block {
+    background: #161d18 !important;
+    border-radius: var(--radius) !important;
+    padding: 1.5rem !important;
+    border: 1px solid rgba(232,237,233,0.08) !important;
+  }
+  .resume-block h3,
+  .resume-block li,
+  .resume-block strong {
+    color: #e8ede9 !important;
+  }
+  .resume-image-wrap {
+    border-color: rgba(232,237,233,0.08) !important;
+    box-shadow: 0 8px 32px rgba(0,0,0,0.4) !important;
+  }
+  .resume.section {
+    background: transparent !important;
+  }
+}
+
+/* ══════════════════════════════════════════════════════════════════
+   LIGHTBOX — FINAL AUTHORITATIVE FIX
+   ══════════════════════════════════════════════════════════════════ */
+
+/* Portrait / desktop: always centered */
+@media (orientation: portrait), (min-width: 901px) {
+  .lightbox.open {
+    display: flex !important;
+    flex-direction: column !important;
+    align-items: center !important;
+    justify-content: center !important;
+    padding: 1rem !important;
+    overflow-y: auto !important;
+    min-height: 100% !important;
+  }
+  .lightbox-dialog {
+    display: block !important;
+    flex-direction: unset !important;
+    width: min(860px, calc(100vw - 2rem)) !important;
+    max-width: 100% !important;
+    margin: auto !important;
+    max-height: none !important;
+    overflow: hidden !important;
+  }
+  .lightbox-media-frame {
+    aspect-ratio: 16 / 9 !important;
+    width: 100% !important;
+    height: auto !important;
+    border-radius: inherit !important;
+  }
+  .lightbox-caption {
+    flex: unset !important;
+    width: auto !important;
+    max-height: none !important;
+    border-left: none !important;
+    border-top: 1px solid var(--border) !important;
+    padding: 1.25rem 1.5rem 1.4rem !important;
+    display: flex !important;
+    flex-direction: column !important;
+  }
+}
+
+/* X button — always fixed top-right, always visible when open */
+.lightbox-close {
+  position: fixed !important;
+  top: 1rem !important;
+  right: 1rem !important;
+  width: 44px !important;
+  height: 44px !important;
+  border-radius: 999px !important;
+  background: rgba(0,0,0,0.65) !important;
+  border: 1px solid rgba(255,255,255,0.3) !important;
+  color: #fff !important;
+  font-size: 24px !important;
+  cursor: pointer !important;
+  z-index: 1000 !important;
+  display: none !important;
+  align-items: center !important;
+  justify-content: center !important;
+  line-height: 1 !important;
+  backdrop-filter: blur(4px) !important;
+  transition: background 0.18s ease, transform 0.18s ease !important;
+}
+.lightbox.open .lightbox-close {
+  display: flex !important;
+}
+.lightbox-close:hover {
+  background: rgba(0,0,0,0.9) !important;
+  transform: scale(1.08) !important;
+}
+
+/* ── Gallery: fill more screen on mobile ─────────────────────────── */
+@media (max-width: 768px) {
+  .gallery {
+    display: grid !important;
+    grid-template-columns: 1fr !important;
+    gap: 0.5rem !important;
+    padding: 0 !important;
+    margin: 0 !important;
+  }
+  .gallery-item {
+    width: 100% !important;
+    min-width: 0 !important;
+    flex: unset !important;
+  }
+  /* Remove side padding from the work-group so cards hit the edge */
+  .work-group {
+    padding-left: 0 !important;
+    padding-right: 0 !important;
+  }
+  .section,
+  .hero {
+    padding-left: 0.75rem !important;
+    padding-right: 0.75rem !important;
+  }
+  /* But keep titles and text padded */
+  .work-group-title,
+  .section-title,
+  .gallery-year {
+    padding-left: 0.75rem !important;
+  }
+}
+
+/* ══════════════════════════════════════════════════════════════════
+   MOBILE VERTICAL — IMMERSIVE PORTRAIT GALLERY
+   ══════════════════════════════════════════════════════════════════ */
+@media (max-width: 768px) and (orientation: portrait) {
+
+  /* Each card is tall and nearly fills the viewport */
+  .gallery-item {
+    width: 100% !important;
+    margin-bottom: 0.5rem !important;
+  }
+
+  /* Portrait ratio image wrap — tall and immersive */
+  .gallery-image-wrap {
+    aspect-ratio: 4 / 5 !important;
+    border-radius: 12px 12px 0 0 !important;
+  }
+
+  /* All images fill the tall card */
+  .gallery-image-wrap img,
+  .gallery-image-wrap video {
+    object-fit: cover !important;
+    width: 100% !important;
+    height: 100% !important;
+  }
+
+  /* Poster/illustration items — contain so they don't crop badly */
+  .gallery-image-wrap-white img,
+  .gallery-img-poster img {
+    object-fit: contain !important;
+    padding: 1rem !important;
+  }
+
+  /* Bigger meta below each card */
+  .gallery-meta {
+    padding: 0.85rem 1rem 1rem !important;
+    border-radius: 0 0 12px 12px !important;
+  }
+  .gallery-name {
+    font-size: 0.95rem !important;
+    font-weight: 500 !important;
+  }
+  .gallery-category {
+    font-size: 0.72rem !important;
+  }
+
+  /* Overlay: full height tap reveal */
+  .gallery-overlay {
+    border-radius: 12px 12px 0 0 !important;
+  }
+
+  /* Video items: keep 16:9 but still taller */
+  .video-item .gallery-image-wrap {
+    aspect-ratio: 16 / 9 !important;
+  }
+
+  /* Gallery gap — subtle breathing room */
+  .gallery {
+    gap: 1rem !important;
+    padding: 0 !important;
+  }
+
+  /* Work group title — more space above each section */
+  .work-group {
+    margin-bottom: 3rem !important;
+  }
+}
+
+/* ══════════════════════════════════════════════════════════════════
+   MOBILE VERTICAL EXPERIENCE — FULL SITE
+   ══════════════════════════════════════════════════════════════════ */
+@media (max-width: 768px) and (orientation: portrait) {
+
+  /* ── HERO ─────────────────────────────────────────────────────── */
+  .hero {
+    min-height: 100svh !important;
+    padding-top: calc(var(--header-height) + 1.5rem) !important;
+    padding-bottom: 2rem !important;
+    display: flex !important;
+    flex-direction: column !important;
+    justify-content: space-between !important;
+  }
+  .hero-inner {
+    flex-direction: column !important;
+    gap: 2rem !important;
+    flex: 1 !important;
+  }
+  .hero-copy {
+    order: 2 !important;
+  }
+  .hero-showcase {
+    order: 1 !important;
+    width: 100% !important;
+    max-width: 100% !important;
+  }
+  .hero-showcase-frame {
+    aspect-ratio: 4 / 5 !important;
+    width: 100% !important;
+    border-radius: 12px !important;
+    overflow: hidden !important;
+  }
+  .hero-showcase-image {
+    width: 100% !important;
+    height: 100% !important;
+    object-fit: cover !important;
+  }
+  .hero-title {
+    font-size: clamp(2.6rem, 11vw, 3.5rem) !important;
+    line-height: 1.05 !important;
+  }
+  .hero-desc {
+    font-size: 1rem !important;
+    line-height: 1.65 !important;
+    margin-top: 0.75rem !important;
+  }
+
+  /* ── ABOUT ─────────────────────────────────────────────────────── */
+  .about-inner {
+    padding: 1.5rem 1rem !important;
+  }
+  .about-photo {
+    width: 100% !important;
+    max-width: 100% !important;
+    height: auto !important;
+    aspect-ratio: 4 / 3 !important;
+    object-fit: cover !important;
+    object-position: center top !important;
+    border-radius: 12px !important;
+    margin-bottom: 1.5rem !important;
+  }
+  .about-lead {
+    font-size: 1.1rem !important;
+    line-height: 1.6 !important;
+    margin-bottom: 1rem !important;
+  }
+  .about-content p {
+    font-size: 0.95rem !important;
+    line-height: 1.7 !important;
+  }
+
+  /* ── CONTACT ───────────────────────────────────────────────────── */
+  .contact-availability {
+    font-size: 1rem !important;
+    line-height: 1.7 !important;
+    margin-bottom: 1.5rem !important;
+  }
+  .contact-list {
+    list-style: none !important;
+    padding: 0 !important;
+    margin: 0 !important;
+    display: flex !important;
+    flex-direction: column !important;
+    gap: 0.75rem !important;
+  }
+  .contact-row {
+    display: flex !important;
+    align-items: center !important;
+    gap: 1rem !important;
+    background: var(--bg-alt) !important;
+    border-radius: 12px !important;
+    padding: 1.1rem 1.25rem !important;
+    min-height: 64px !important;
+    border: 1px solid var(--border) !important;
+  }
+  .contact-row a {
+    font-size: 1rem !important;
+    text-decoration: none !important;
+    font-weight: 500 !important;
+  }
+  .contact-svg {
+    width: 28px !important;
+    height: 28px !important;
+    flex-shrink: 0 !important;
+  }
+
+  /* ── RESUME ────────────────────────────────────────────────────── */
+  .resume-image-wrap {
+    border-radius: 12px !important;
+    margin-bottom: 1.5rem !important;
+  }
+  .resume-image {
+    border-radius: 12px !important;
+  }
+  .resume-grid {
+    grid-template-columns: 1fr !important;
+    gap: 0.75rem !important;
+  }
+  .resume-block {
+    border-radius: 12px !important;
+    padding: 1.25rem !important;
+  }
+  .resume-block h3 {
+    font-size: 0.85rem !important;
+    letter-spacing: 0.1em !important;
+    text-transform: uppercase !important;
+    margin-bottom: 0.75rem !important;
+    color: var(--accent-dark) !important;
+  }
+  .resume-list li {
+    font-size: 0.95rem !important;
+    line-height: 1.6 !important;
+    padding: 0.2rem 0 !important;
+  }
+  .resume-download.btn {
+    width: 100% !important;
+    margin-top: 1.5rem !important;
+    padding: 1rem !important;
+    font-size: 0.95rem !important;
+    border-radius: 12px !important;
+    text-align: center !important;
+  }
+
+  /* ── SERIES LISTING ────────────────────────────────────────────── */
+  .series-entry {
+    border-radius: 12px !important;
+    padding: 1.25rem !important;
+    margin-bottom: 1rem !important;
+  }
+  .series-title {
+    font-size: 1.4rem !important;
+  }
+  .series-desc {
+    font-size: 0.92rem !important;
+    line-height: 1.65 !important;
+  }
+  .series-visual-main {
+    aspect-ratio: 3 / 4 !important;
+    object-fit: cover !important;
+    width: 100% !important;
+    border-radius: 10px !important;
+    margin-bottom: 1rem !important;
+  }
+
+  /* ── FOOTER ─────────────────────────────────────────────────────── */
+  .site-footer {
+    padding: 2rem 1rem !important;
+    text-align: center !important;
+  }
+  .site-footer p {
+    font-size: 0.8rem !important;
+    line-height: 1.7 !important;
+  }
+
+  /* ── SECTION TITLES ─────────────────────────────────────────────── */
+  .section-title {
+    font-size: clamp(1.5rem, 7vw, 2rem) !important;
+    margin-bottom: 1.5rem !important;
+  }
+
+  /* ── LIGHTBOX MOBILE ────────────────────────────────────────────── */
+  .lightbox.open {
+    padding: 0.5rem !important;
+    padding-top: 3.5rem !important;
+    justify-content: flex-start !important;
+    align-items: center !important;
+  }
+  .lightbox-dialog {
+    width: 100% !important;
+    border-radius: 14px !important;
+    overflow: hidden !important;
+  }
+  .lightbox-media-frame {
+    aspect-ratio: 1 / 1 !important;
+    border-radius: 14px 14px 0 0 !important;
+  }
+  .lightbox-caption {
+    padding: 1rem 1.1rem 1.25rem !important;
   }
 }
