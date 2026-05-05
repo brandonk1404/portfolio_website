@@ -4518,3 +4518,196 @@ h1, h2, h3, h4, .cs-hero-title, .cs-hero-sub, .gallery-name,
     padding: 1rem 1.1rem 1.25rem !important;
   }
 }
+
+/* ══════════════════════════════════════════════════════════════════
+   DESKTOP EXPERIENCE — TAKE ADVANTAGE OF WIDE SCREENS
+   ══════════════════════════════════════════════════════════════════ */
+
+/* ── 1. Wider max-width on large screens ─────────────────────────── */
+@media (min-width: 1400px) {
+  :root {
+    --max-width: 1360px;
+    --space: 3rem;
+  }
+  .hero-title {
+    font-size: clamp(4.5rem, 7vw, 6.5rem) !important;
+    line-height: 0.88 !important;
+  }
+  .hero-desc {
+    font-size: 1.1rem !important;
+    max-width: 30rem !important;
+  }
+}
+
+/* ── 2. Gallery: proper multi-column grid on desktop ─────────────── */
+@media (min-width: 1024px) {
+  .work-group .gallery {
+    display: grid !important;
+    grid-template-columns: repeat(3, 1fr) !important;
+    gap: 1.25rem !important;
+    overflow-x: visible !important;
+    scroll-snap-type: none !important;
+    padding: 0 !important;
+    width: 100% !important;
+  }
+  .work-group .gallery-item {
+    flex: unset !important;
+    width: 100% !important;
+    min-width: 0 !important;
+  }
+  /* Nav arrows not needed with grid */
+  .gallery-nav {
+    display: none !important;
+  }
+  .work-group.has-carousel::after {
+    display: none !important;
+  }
+}
+
+@media (min-width: 1400px) {
+  .work-group .gallery {
+    grid-template-columns: repeat(4, 1fr) !important;
+  }
+}
+
+/* ── 3. Hero: bigger, more dramatic showcase ─────────────────────── */
+@media (min-width: 1024px) {
+  .hero {
+    min-height: 92vh !important;
+  }
+  .hero-inner {
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1.8fr) !important;
+    gap: max(4rem, 8vw) !important;
+    align-items: center !important;
+  }
+  .hero-showcase-frame {
+    aspect-ratio: 4 / 3 !important;
+  }
+}
+
+/* ── 4. About: wider photo, richer layout ────────────────────────── */
+@media (min-width: 1024px) {
+  .about-layout {
+    grid-template-columns: 320px 1fr !important;
+    gap: 4rem !important;
+    align-items: start !important;
+  }
+  .about-photo {
+    position: sticky !important;
+    top: calc(var(--header-height) + 2rem) !important;
+    width: 100% !important;
+    border-radius: 16px !important;
+  }
+  .about-lead {
+    font-size: 1.25rem !important;
+    line-height: 1.55 !important;
+  }
+  .about-content p {
+    font-size: 1rem !important;
+    line-height: 1.75 !important;
+    max-width: 65ch !important;
+  }
+}
+
+/* ── 5. Contact: 3-column on wide screens ────────────────────────── */
+@media (min-width: 1024px) {
+  .contact-grid {
+    grid-template-columns: repeat(3, 1fr) !important;
+    gap: 1.5rem !important;
+  }
+  .contact-card {
+    padding: 2rem 2rem !important;
+    gap: 1rem !important;
+  }
+  .contact-availability {
+    font-size: 1.05rem !important;
+    line-height: 1.75 !important;
+    max-width: 40ch !important;
+  }
+}
+
+/* ── 6. Resume: side-by-side preview + blocks ────────────────────── */
+@media (min-width: 1024px) {
+  .resume-grid {
+    grid-template-columns: repeat(3, 1fr) !important;
+    gap: 1.5rem !important;
+  }
+  .resume-image-wrap {
+    max-width: 100% !important;
+    margin-bottom: 3rem !important;
+  }
+  .resume-block {
+    padding: 2rem !important;
+  }
+  .resume-block h3 {
+    font-size: 0.78rem !important;
+    letter-spacing: 0.14em !important;
+    color: var(--accent-dark) !important;
+    text-transform: uppercase !important;
+    margin-bottom: 1rem !important;
+  }
+}
+
+/* ── 7. Series listing: 2-column entries ─────────────────────────── */
+@media (min-width: 1024px) {
+  .series-list {
+    display: grid !important;
+    grid-template-columns: 1fr 1fr !important;
+    gap: 2rem !important;
+  }
+  .series-entry {
+    padding: 2.5rem !important;
+    display: flex !important;
+    flex-direction: column !important;
+    justify-content: space-between !important;
+  }
+  .series-visual-main {
+    aspect-ratio: 3 / 2 !important;
+    width: 100% !important;
+    object-fit: cover !important;
+    border-radius: 10px !important;
+    margin-bottom: 1.25rem !important;
+  }
+  .series-title {
+    font-size: clamp(1.4rem, 2.5vw, 1.8rem) !important;
+  }
+}
+
+/* ── 8. Lightbox: wider on large screens ─────────────────────────── */
+@media (min-width: 1200px) {
+  .lightbox-dialog {
+    width: min(1000px, calc(100vw - 4rem)) !important;
+  }
+}
+@media (min-width: 1600px) {
+  .lightbox-dialog {
+    width: min(1160px, calc(100vw - 6rem)) !important;
+  }
+}
+
+/* ── 9. Section titles: bigger on wide screens ───────────────────── */
+@media (min-width: 1200px) {
+  .section-title {
+    font-size: clamp(1.6rem, 3vw, 2.4rem) !important;
+  }
+  .work-group-title {
+    font-size: 0.75rem !important;
+    letter-spacing: 0.18em !important;
+  }
+}
+
+/* ── 10. Featured grid: always 3 col on desktop ──────────────────── */
+@media (min-width: 1024px) {
+  .featured-grid {
+    grid-template-columns: repeat(3, 1fr) !important;
+    gap: 1.75rem !important;
+  }
+  .featured-card {
+    transition: transform 0.3s cubic-bezier(0.22,1,0.36,1),
+                box-shadow 0.3s ease !important;
+  }
+  .featured-card:hover {
+    transform: translateY(-6px) !important;
+    box-shadow: 0 20px 48px rgba(49,86,64,0.18) !important;
+  }
+}

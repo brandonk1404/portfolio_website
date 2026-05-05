@@ -182,7 +182,7 @@
     { src: 'images/the_maker_thumb.jpg',              title: 'The Maker',                                      medium: 'Photographic Print',    position: 'center center' },
     { src: 'images/garden_thumb.jpg',             title: 'Garden',                                         medium: 'Photographic Print',    position: 'center top' },
     { src: 'images/room_depth_fullview.jpg',             title: 'Room Depth',                                     medium: 'Digital Illustration',  position: 'center center' },
-    { src: 'images/sight_by_sound_thumb.jpg',              title: 'Sight By Sound Packaging',                       medium: 'Digital Illustration',  position: 'center top' },
+    { src: 'images/sight_by_sound_thumb.png',              title: 'Sight By Sound Packaging',                       medium: 'Digital Illustration',  position: 'center top' },
     { src: 'images/dan_friedman_thumb.jpg',             title: 'Dan Friedman Information Poster',                medium: 'Digital Illustration',  position: 'center top' },
     { src: 'images/soap_bottles_thumb.jpg',             title: 'Soap Bottles',                                   medium: 'Oil Painting',          position: 'center center' },
     { src: 'images/vessels_thumb.jpg',                   title: 'Vessels',                                        medium: 'Oil Painting',          position: 'center center' },
