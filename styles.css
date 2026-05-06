@@ -1245,8 +1245,8 @@ body.is-leaving {
 }
 .nav-sub {
   margin-top: 0 !important;
-  padding-top: 24px !important;
-  top: calc(100% - 0px);
+  padding-top: 0 !important;
+  top: 100%;
 }
 
 /* ── Nav: vertically center Gallery text with other links ────────── */
@@ -1383,9 +1383,10 @@ body {
 /* Desktop: make the sub-menu appear naturally below; bridge gap */
 @media (min-width: 769px) {
   .nav-sub {
-    top: calc(100% + 8px) !important;
-    padding-top: 0.5rem !important;
+    top: 100% !important;
+    padding-top: 0 !important;
     margin-top: 0 !important;
+    /* Flush with the bottom of the header */
   }
   /* invisible bridge so mouse can travel down to dropdown */
   .nav-group::before {
@@ -1394,7 +1395,7 @@ body {
     top: 100%;
     left: -10px;
     right: -10px;
-    height: 16px;
+    height: 8px;
     background: transparent;
     z-index: 9;
   }
@@ -3008,11 +3009,13 @@ h1, h2, h3, h4, .cs-hero-title, .cs-hero-sub, .gallery-name,
   .lightbox.open {
     padding: 0.5rem !important;
     padding-top: 3.5rem !important; /* room for X button */
+    justify-content: center !important;
+    align-items: center !important;
   }
   .lightbox-dialog {
     width: 100% !important;
-    max-width: 100% !important;
-    margin: 0 !important;
+    max-width: calc(100vw - 1rem) !important;
+    margin: auto !important;
     border-radius: 10px !important;
   }
   .lightbox-media-frame {
@@ -4502,7 +4505,7 @@ h1, h2, h3, h4, .cs-hero-title, .cs-hero-sub, .gallery-name,
   .lightbox.open {
     padding: 0.5rem !important;
     padding-top: 3.5rem !important;
-    justify-content: flex-start !important;
+    justify-content: center !important;
     align-items: center !important;
   }
   .lightbox-dialog {
@@ -4511,7 +4514,7 @@ h1, h2, h3, h4, .cs-hero-title, .cs-hero-sub, .gallery-name,
     overflow: hidden !important;
   }
   .lightbox-media-frame {
-    aspect-ratio: 1 / 1 !important;
+    aspect-ratio: 16 / 9 !important;
     border-radius: 14px 14px 0 0 !important;
   }
   .lightbox-caption {
@@ -4648,25 +4651,12 @@ h1, h2, h3, h4, .cs-hero-title, .cs-hero-sub, .gallery-name,
   }
 }
 
-/* ── 7. Series listing: 2-column entries ─────────────────────────── */
+/* ── 7. Series listing: let series.html inline styles control layout ── */
 @media (min-width: 1024px) {
-  .series-list {
-    display: grid !important;
-    grid-template-columns: 1fr 1fr !important;
-    gap: 2rem !important;
-  }
-  .series-entry {
-    padding: 2.5rem !important;
-    display: flex !important;
-    flex-direction: column !important;
-    justify-content: space-between !important;
-  }
+  /* Series entries use the inline styles in series.html for alternating layout */
   .series-visual-main {
-    aspect-ratio: 3 / 2 !important;
-    width: 100% !important;
-    object-fit: cover !important;
-    border-radius: 10px !important;
-    margin-bottom: 1.25rem !important;
+    object-fit: cover;
+    border-radius: 10px;
   }
   .series-title {
     font-size: clamp(1.4rem, 2.5vw, 1.8rem) !important;
@@ -4710,4 +4700,44 @@ h1, h2, h3, h4, .cs-hero-title, .cs-hero-sub, .gallery-name,
     transform: translateY(-6px) !important;
     box-shadow: 0 20px 48px rgba(49,86,64,0.18) !important;
   }
+}
+
+/* ══════════════════════════════════════════════════════════════════
+   LIGHTBOX — BACKGROUND BLUR + CENTERING FIXES
+   ══════════════════════════════════════════════════════════════════ */
+
+/* Blur and dim page content when lightbox is open */
+body.lightbox-is-open main,
+body.lightbox-is-open .site-header {
+  filter: blur(4px);
+  transition: filter 0.3s ease;
+  pointer-events: none;
+}
+body.lightbox-is-open .site-footer {
+  filter: blur(4px);
+  transition: filter 0.3s ease;
+}
+
+/* Ensure lightbox dialog is always centered in viewport */
+.lightbox.open {
+  position: fixed !important;
+  inset: 0 !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  padding: 1rem !important;
+  overflow-y: auto !important;
+}
+
+.lightbox-dialog {
+  position: relative !important;
+  margin: auto !important;
+  flex-shrink: 0 !important;
+}
+
+/* Image right-click protection */
+img {
+  -webkit-user-drag: none;
+  user-drag: none;
+  -webkit-touch-callout: none;
 }

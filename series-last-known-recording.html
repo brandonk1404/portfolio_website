@@ -27,7 +27,7 @@
     }
     .nav-group { position: relative; }
     .nav-sub {
-      position: absolute; left: 0; top: 100%; margin-top: 0.35rem;
+      position: absolute; left: 0; top: 100%; margin-top: 0;
       padding: 0.5rem 0.75rem; border-radius: 8px;
       border: 1px solid rgba(167,131,230,0.25); box-shadow: 0 12px 34px rgba(25,16,36,0.45);
       display: none; flex-direction: column; gap: 0.1rem; white-space: nowrap; min-width: 140px;
@@ -174,13 +174,6 @@
     }
     .series-works-section .section-title {
       margin-bottom: 2rem;
-      color: #352a4d;
-    }
-    .series-works-section .gallery-category {
-      color: rgba(53, 42, 77, 0.52) !important;
-    }
-    .series-works-section .gallery-name {
-      color: #352a4d !important;
     }
     .series-works-grid {
       display: grid;
@@ -202,6 +195,12 @@
       .series-hero-inner { gap: 1.5rem; }
       .series-hero-title { font-size: clamp(1.6rem, 3.5vw, 2.4rem); }
       .series-hero-media { aspect-ratio: 4 / 3; }
+    }
+    @media (prefers-color-scheme: dark) {
+      .nav-sub { background: #1e1830 !important; border-color: rgba(167,131,230,0.2) !important; }
+      .nav-sub a { color: rgba(238,232,255,0.8) !important; }
+      .nav { background: #0f1410 !important; }
+      .site-header { background: rgba(15,20,16,0.96) !important; }
     }
   </style>
   <meta property="og:type" content="website">

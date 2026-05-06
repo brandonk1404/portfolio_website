@@ -610,18 +610,16 @@
       return;
     }
 
-    // Genie effect — expand from the bottom-center of the clicked card
-    var cardRect = link.getBoundingClientRect();
-    var originX = ((cardRect.left + cardRect.width / 2) / window.innerWidth * 100).toFixed(1) + '%';
-    var originY = ((cardRect.bottom) / window.innerHeight * 100).toFixed(1) + '%';
+    // Genie effect — always expand from center of viewport so dialog stays centered
     var dialog = lightbox.querySelector('.lightbox-dialog');
     if (dialog) {
-      dialog.style.transformOrigin = originX + ' ' + originY;
+      dialog.style.transformOrigin = '50% 50%';
     }
 
     lastFocused = document.activeElement;
     lightbox.classList.add('open');
     lightbox.setAttribute('aria-hidden', 'false');
+    document.body.classList.add('lightbox-is-open');
     document.body.style.overflow = 'hidden';
     document.documentElement.style.overflow = 'hidden';
 
@@ -635,6 +633,7 @@
     setTimeout(function () {
       lightbox.classList.remove('open', 'closing');
       lightbox.setAttribute('aria-hidden', 'true');
+      document.body.classList.remove('lightbox-is-open');
       document.body.style.overflow = '';
       document.documentElement.style.overflow = '';
       lightboxBody.innerHTML = '';
@@ -1538,4 +1537,31 @@
     initCounters();
   }
 
+})();
+
+// ── Right-click image protection ─────────────────────────────
+(function() {
+  document.addEventListener('contextmenu', function(e) {
+    if (!e.target) return;
+    var tag = e.target.tagName;
+    if (tag === 'IMG' || tag === 'VIDEO' || tag === 'CANVAS') {
+      e.preventDefault();
+      return false;
+    }
+    var wrap = e.target.closest && e.target.closest('.gallery-image-wrap, .hero-showcase-frame, .lightbox-media-frame, .series-visual, .series-hero-media, .featured-img-wrap');
+    if (wrap) {
+      e.preventDefault();
+      return false;
+    }
+  });
+
+  // Disable drag-to-save on images
+  document.addEventListener('dragstart', function(e) {
+    if (!e.target) return;
+    var tag = e.target.tagName;
+    if (tag === 'IMG' || tag === 'VIDEO') {
+      e.preventDefault();
+      return false;
+    }
+  });
 })();
