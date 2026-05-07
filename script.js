@@ -145,8 +145,9 @@
     syncArrowWidth();
     window.addEventListener('resize', syncArrowWidth);
     galleryToggle.addEventListener('click', function (e) {
-      // On mobile, sub-links are always visible — toggle does nothing
-      if (window.matchMedia('(max-width: 768px)').matches) return;
+      // On mobile (portrait or landscape), sub-links are always visible — toggle does nothing
+      var isMobile = window.matchMedia('(max-width: 1024px)').matches;
+      if (isMobile) return;
       var isOpen = galleryGroup.classList.toggle('open');
       galleryToggle.setAttribute('aria-expanded', isOpen ? 'true' : 'false');
     });
@@ -610,7 +611,25 @@
       return;
     }
 
-    // Genie effect — always expand from center of viewport so dialog stays centered
+    // Position lightbox via JS using actual viewport coords — bypasses all
+    // CSS position:fixed stacking context bugs in Chrome entirely.
+    var vw = window.innerWidth;
+    var vh = window.innerHeight;
+    lightbox.style.cssText = [
+      'display:flex',
+      'position:fixed',
+      'top:0',
+      'left:0',
+      'width:' + vw + 'px',
+      'height:' + vh + 'px',
+      'z-index:2000',
+      'align-items:center',
+      'justify-content:center',
+      'flex-direction:column',
+      'box-sizing:border-box',
+      'padding:clamp(2.5rem,5vw,4rem) clamp(0.75rem,3vw,2rem) clamp(1rem,2vw,2rem)'
+    ].join(';') + ';';
+
     var dialog = lightbox.querySelector('.lightbox-dialog');
     if (dialog) {
       dialog.style.transformOrigin = '50% 50%';
@@ -620,8 +639,15 @@
     lightbox.classList.add('open');
     lightbox.setAttribute('aria-hidden', 'false');
     document.body.classList.add('lightbox-is-open');
-    document.body.style.overflow = 'hidden';
     document.documentElement.style.overflow = 'hidden';
+    document.body.style.overflow = 'hidden';
+
+    // Re-apply viewport size on resize while open
+    lightbox._resizeHandler = function() {
+      lightbox.style.width = window.innerWidth + 'px';
+      lightbox.style.height = window.innerHeight + 'px';
+    };
+    window.addEventListener('resize', lightbox._resizeHandler);
 
     var closeBtn = lightbox.querySelector('[data-lightbox-close]');
     if (closeBtn) closeBtn.focus();
@@ -633,9 +659,16 @@
     setTimeout(function () {
       lightbox.classList.remove('open', 'closing');
       lightbox.setAttribute('aria-hidden', 'true');
+      // Clear JS-set inline styles so lightbox is truly hidden
+      lightbox.style.cssText = '';
       document.body.classList.remove('lightbox-is-open');
-      document.body.style.overflow = '';
       document.documentElement.style.overflow = '';
+      document.body.style.overflow = '';
+      // Remove resize listener
+      if (lightbox._resizeHandler) {
+        window.removeEventListener('resize', lightbox._resizeHandler);
+        lightbox._resizeHandler = null;
+      }
       lightboxBody.innerHTML = '';
       activeIndex = -1;
       var protoLink = document.getElementById('lightbox-prototype-link');
@@ -942,6 +975,17 @@
 
     revealEls.forEach(function (el) { io.observe(el); });
 
+    // Immediately reveal elements already in viewport on load
+    // (fixes first work-group being invisible on mobile)
+    setTimeout(function () {
+      revealEls.forEach(function (el) {
+        var rect = el.getBoundingClientRect();
+        if (rect.top < window.innerHeight && rect.bottom > 0) {
+          el.classList.add('is-revealed', 'in', 'bar-in');
+        }
+      });
+    }, 50);
+
     // 2. Section title underline draw-in
     var titleObs = new IntersectionObserver(function (entries) {
       entries.forEach(function (entry) {
@@ -1098,9 +1142,9 @@
 
     var bgLayer = document.createElement('div');
     bgLayer.id = 'bg-parallax';
-    bgLayer.style.cssText = 'position:fixed;inset:0;z-index:-1;pointer-events:none;background-size:1024px 1024px;background-repeat:repeat;will-change:background-position;';
+    bgLayer.style.cssText = 'position:fixed;inset:0;z-index:-1;pointer-events:none;background-size:1024px 1024px;background-repeat:repeat;';
     bgLayer.style.backgroundImage = getPattern();
-    document.body.insertBefore(bgLayer, document.body.firstChild);
+    document.documentElement.insertBefore(bgLayer, document.body);
 
     // Update instantly if user switches scheme at runtime
     if (window.matchMedia) {
@@ -1414,20 +1458,17 @@
         if (dest === window.location.href) return;
         e.preventDefault();
         document.body.style.opacity = '0';
-        document.body.style.transform = 'translateY(-6px)';
-        document.body.style.transition = 'opacity 0.22s ease, transform 0.22s ease';
+        document.body.style.transition = 'opacity 0.22s ease';
         setTimeout(function() { window.location.href = dest; }, 220);
       });
     });
 
-    // Fade in on load
+    // Fade in on load — opacity only, no transform (transform on body breaks position:fixed in Chrome)
     document.body.style.opacity = '0';
-    document.body.style.transform = 'translateY(10px)';
-    document.body.style.transition = 'opacity 0.45s cubic-bezier(0.22,1,0.36,1), transform 0.45s cubic-bezier(0.22,1,0.36,1)';
+    document.body.style.transition = 'opacity 0.45s cubic-bezier(0.22,1,0.36,1)';
     requestAnimationFrame(function() {
       requestAnimationFrame(function() {
         document.body.style.opacity = '1';
-        document.body.style.transform = 'none';
       });
     });
   }

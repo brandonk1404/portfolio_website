@@ -891,8 +891,8 @@ ul {
 
 /* ── Page enter ─────────────────────────────────────────────────── */
 @keyframes page-enter {
-  from { opacity: 0; transform: translateY(18px); }
-  to   { opacity: 1; transform: translateY(0); }
+  from { opacity: 0; }
+  to   { opacity: 1; }
 }
 body {
   animation: page-enter 0.55s cubic-bezier(0.22, 1, 0.36, 1) both;
@@ -1185,8 +1185,8 @@ body {
 
 /* ── Page transition out ────────────────────────────────────────── */
 @keyframes page-exit {
-  from { opacity: 1; transform: translateY(0); }
-  to   { opacity: 0; transform: translateY(-12px); }
+  from { opacity: 1; }
+  to   { opacity: 0; }
 }
 body.is-leaving {
   animation: page-exit 0.25s ease forwards;
@@ -1406,7 +1406,6 @@ body {
 #bg-parallax {
   background-size: 1024px 1024px !important;
   background-repeat: repeat !important;
-  will-change: background-position;
 }
 
 /* Ensure body bg is clean (parallax layer handles it) */
@@ -4707,15 +4706,18 @@ h1, h2, h3, h4, .cs-hero-title, .cs-hero-sub, .gallery-name,
    ══════════════════════════════════════════════════════════════════ */
 
 /* Blur and dim page content when lightbox is open */
+/* filter:blur() removed — it creates a stacking context that breaks
+   position:fixed on the lightbox overlay and close button in Safari/Chrome.
+   Use opacity instead, which does not affect fixed positioning. */
 body.lightbox-is-open main,
 body.lightbox-is-open .site-header {
-  filter: blur(4px);
-  transition: filter 0.3s ease;
+  opacity: 0.25;
+  transition: opacity 0.3s ease;
   pointer-events: none;
 }
 body.lightbox-is-open .site-footer {
-  filter: blur(4px);
-  transition: filter 0.3s ease;
+  opacity: 0.25;
+  transition: opacity 0.3s ease;
 }
 
 /* Ensure lightbox dialog is always centered in viewport */
@@ -5213,5 +5215,241 @@ img {
   }
   .lightbox-nav {
     display: none !important;
+  }
+}
+
+/* ══════════════════════════════════════════════════════════════════
+   FIX: Ensure work-groups never stay permanently invisible
+   if the reveal observer misses them (e.g. first section on mobile)
+   ══════════════════════════════════════════════════════════════════ */
+@media (max-width: 768px) {
+  .work-group.reveal:not(.in):not(.is-revealed) {
+    animation: force-reveal 0s 0.8s forwards;
+  }
+  @keyframes force-reveal {
+    to {
+      opacity: 1;
+      transform: none;
+    }
+  }
+}
+
+/* ══════════════════════════════════════════════════════════════════
+   DEFINITIVE: Mobile landscape nav drawer — clean, no conflicts
+   ══════════════════════════════════════════════════════════════════ */
+@media (max-width: 900px) and (orientation: landscape) and (max-height: 500px) {
+
+  /* Header: fixed compact height, everything inline */
+  .site-header {
+    height: 48px !important;
+    min-height: 48px !important;
+    max-height: 48px !important;
+    padding: 0 1rem !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: space-between !important;
+    flex-wrap: nowrap !important;
+    overflow: visible !important;
+  }
+
+  .logo img { height: 22px !important; }
+  .logo span { font-size: 0.8rem !important; white-space: nowrap !important; }
+
+  .menu-toggle {
+    width: 36px !important;
+    height: 36px !important;
+    padding: 0 !important;
+    flex-shrink: 0 !important;
+  }
+
+  /* Nav drawer: fits the short landscape viewport, scrollable */
+  .nav {
+    position: fixed !important;
+    top: 0 !important;
+    right: 0 !important;
+    bottom: 0 !important;
+    width: min(55vw, 240px) !important;
+    height: 100vh !important;
+    height: 100dvh !important;
+    /* Use explicit px padding-top so header-height var isn't needed */
+    padding: 56px 1rem 1rem !important;
+    display: flex !important;
+    flex-direction: column !important;
+    align-items: center !important;
+    justify-content: flex-start !important;
+    gap: 0 !important;
+    overflow-y: auto !important;
+    overflow-x: hidden !important;
+    -webkit-overflow-scrolling: touch !important;
+    overscroll-behavior: contain !important;
+    transform: translateX(100%) !important;
+    transition: transform 0.28s cubic-bezier(0.4, 0, 0.2, 1) !important;
+    box-sizing: border-box !important;
+    z-index: 99 !important;
+  }
+
+  .nav.is-open {
+    transform: translateX(0) !important;
+  }
+
+  /* Nav links: compact, centered */
+  .nav > a,
+  .nav-group {
+    width: 100% !important;
+    text-align: center !important;
+    justify-content: center !important;
+    align-items: center !important;
+    min-height: 36px !important;
+    padding: 0.25rem 0 !important;
+    font-size: 0.85rem !important;
+  }
+
+  .nav a {
+    font-size: 0.85rem !important;
+    min-height: 32px !important;
+    padding: 0.2rem 0 !important;
+    justify-content: center !important;
+    text-align: center !important;
+  }
+
+  /* Sub-links */
+  .nav-sub {
+    align-items: center !important;
+    width: 100% !important;
+    gap: 0 !important;
+    margin: 0 !important;
+    padding: 0 !important;
+  }
+
+  .nav-sub a {
+    font-size: 0.75rem !important;
+    min-height: 28px !important;
+    padding: 0.15rem 0 !important;
+    justify-content: center !important;
+    text-align: center !important;
+  }
+
+  /* Nav-group Gallery label */
+  .nav-link-main {
+    justify-content: center !important;
+    width: 100% !important;
+    text-align: center !important;
+  }
+}
+
+/* ══════════════════════════════════════════════════════════════════
+   DEFINITIVE: Mobile nav centering — overrides all flex-end rules
+   ══════════════════════════════════════════════════════════════════ */
+@media (max-width: 1024px) {
+
+  /* Drawer itself: center all children */
+  .nav {
+    align-items: center !important;
+    padding-left: 1.5rem !important;
+    padding-right: 1.5rem !important;
+  }
+
+  /* Every top-level link */
+  .nav > a {
+    justify-content: center !important;
+    text-align: center !important;
+    width: 100% !important;
+  }
+
+  /* Nav-group (Gallery row) */
+  .nav-group {
+    align-items: center !important;
+    width: 100% !important;
+  }
+
+  /* Gallery label / arrow row */
+  .nav-link-main {
+    justify-content: center !important;
+    text-align: center !important;
+    width: 100% !important;
+  }
+
+  /* Sub-links container */
+  .nav-sub {
+    align-items: center !important;
+    width: 100% !important;
+  }
+
+  /* Every sub-link */
+  .nav-sub a {
+    justify-content: center !important;
+    text-align: center !important;
+    width: 100% !important;
+  }
+
+  /* Any other .nav a catch-all */
+  .nav a {
+    justify-content: center !important;
+    text-align: center !important;
+  }
+
+  /* Hamburger → X animation (also in styles so no inline needed) */
+  .menu-toggle span {
+    display: block;
+    transition: transform 0.25s ease, opacity 0.2s ease;
+    transform-origin: center;
+  }
+  .menu-toggle.is-active span:nth-child(1) {
+    transform: translateY(8px) rotate(45deg) !important;
+  }
+  .menu-toggle.is-active span:nth-child(2) {
+    opacity: 0 !important;
+    transform: scaleX(0) !important;
+  }
+  .menu-toggle.is-active span:nth-child(3) {
+    transform: translateY(-8px) rotate(-45deg) !important;
+  }
+}
+
+/* ══════════════════════════════════════════════════════════════════
+   FIX: Nav overlay — only show on mobile, never on desktop
+   Desktop nav uses hover/click on the nav-group only, no full-screen overlay
+   ══════════════════════════════════════════════════════════════════ */
+@media (min-width: 1025px) {
+  .nav-overlay {
+    display: none !important;
+    pointer-events: none !important;
+  }
+}
+
+/* ══════════════════════════════════════════════════════════════════
+   FIX: Mobile landscape nav — show gallery sub-links flat, always visible
+   No collapsible dropdown in landscape; just a flat scrollable link list
+   ══════════════════════════════════════════════════════════════════ */
+@media (max-width: 900px) and (orientation: landscape) and (max-height: 500px) {
+
+  /* Always show sub-links flat in landscape — no toggle needed */
+  .nav-sub {
+    display: flex !important;
+    flex-direction: column !important;
+    position: static !important;
+    box-shadow: none !important;
+    border: none !important;
+    background: transparent !important;
+    padding: 0 !important;
+    margin: 0 !important;
+    width: 100% !important;
+    align-items: center !important;
+  }
+
+  /* Hide the Gallery ▼ toggle arrow in landscape — sub is always shown */
+  .gallery-arrow {
+    display: none !important;
+  }
+
+  /* Gallery label: just plain text, not a toggle */
+  .nav-link-main {
+    pointer-events: none !important;
+    opacity: 0.5 !important;
+    font-size: 0.7rem !important;
+    text-transform: uppercase !important;
+    letter-spacing: 0.08em !important;
+    min-height: 24px !important;
+    padding: 0.1rem 0 !important;
   }
 }
