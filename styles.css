@@ -5118,12 +5118,13 @@ img {
 
 /* ══════════════════════════════════════════════════════════════════
    DEFINITIVE LIGHTBOX CENTERING — overrides all previous rules
-   Dialog is always centered horizontally + vertically at every
-   viewport size. Animations (genie) are preserved via transform-
-   origin staying at 50% 50%.
+   Uses position:fixed so it always centers on the VIEWPORT (what
+   the user currently sees), never on the full page height.
+   overflow:hidden on the overlay prevents it becoming a scroll
+   container — body scroll-lock in JS handles that.
    ══════════════════════════════════════════════════════════════════ */
 
-/* 1. The overlay: always fixed inset:0, always flex-center */
+/* 1. Overlay: fixed to viewport, never scrollable itself */
 .lightbox,
 .lightbox.open {
   position: fixed !important;
@@ -5134,12 +5135,11 @@ img {
   width: 100vw !important;
   height: 100vh !important;
   height: 100dvh !important;
+  overflow: hidden !important;           /* NOT overflow-y:auto — that breaks fixed centering */
   display: flex !important;
   flex-direction: column !important;
   align-items: center !important;
   justify-content: center !important;
-  overflow-y: auto !important;
-  -webkit-overflow-scrolling: touch !important;
   padding: clamp(2.5rem, 5vw, 4rem) clamp(0.75rem, 3vw, 2rem) clamp(1rem, 2vw, 2rem) !important;
   box-sizing: border-box !important;
   z-index: 200 !important;
@@ -5151,19 +5151,20 @@ img {
   pointer-events: none !important;
 }
 
-/* 2. The dialog: centered, responsive width, never off-screen */
+/* 2. Dialog: centered, responsive, scrollable internally if tall */
 .lightbox-dialog {
   position: relative !important;
-  flex-direction: column !important;    /* portrait default */
-  margin: auto !important;
+  flex-direction: column !important;
+  margin: 0 !important;                  /* auto margins not needed — parent centers via flex */
   width: min(860px, calc(100vw - 2 * clamp(0.75rem, 3vw, 2rem))) !important;
   max-width: calc(100vw - 1.5rem) !important;
   max-height: calc(100dvh - clamp(3.5rem, 8vw, 6rem)) !important;
-  overflow: hidden !important;
+  overflow-y: auto !important;           /* dialog scrolls internally if content is tall */
+  overflow-x: hidden !important;
   flex-shrink: 0 !important;
 }
 
-/* 3. Close button: always fixed top-right, above everything */
+/* 3. Close button: fixed to top-right of viewport */
 .lightbox-close {
   position: fixed !important;
   top: clamp(0.5rem, 1.5vw, 1rem) !important;
@@ -5171,7 +5172,7 @@ img {
   z-index: 210 !important;
 }
 
-/* 4. Landscape phone: side-by-side layout but still centered */
+/* 4. Landscape phone: side-by-side, still viewport-centered */
 @media (max-height: 500px) and (orientation: landscape) {
   .lightbox.open {
     flex-direction: row !important;
@@ -5184,6 +5185,7 @@ img {
     max-width: calc(100vw - 0.5rem) !important;
     max-height: 100dvh !important;
     height: 100dvh !important;
+    overflow: hidden !important;
     border-radius: 8px !important;
   }
   .lightbox-body {
