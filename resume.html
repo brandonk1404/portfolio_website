@@ -122,31 +122,34 @@
   <main id="main-content">
     <section id="resume" class="section resume">
       <h2 class="section-title">Resume</h2>
-      <div class="resume-image-wrap">
-        <img src="images/resume_preview.jpg" alt="Brandon Kreitsch Resume" class="resume-image">
+      <div class="resume-layout">
+        <div class="resume-image-wrap">
+          <img src="images/resume_preview.jpg" alt="Brandon Kreitsch Resume" class="resume-image">
+        </div>
+        <div class="resume-sidebar">
+          <div class="resume-grid">
+            <div class="resume-block">
+              <h3>Education</h3>
+              <ul class="resume-list">
+                <li id="education-line"><strong>BFA Graphic Design</strong> &mdash; Caldwell University, Expected Graduation: May 2026</li>
+              </ul>
+            </div>
+            <div class="resume-block">
+              <h3>Focus</h3>
+              <ul class="resume-list resume-skills">
+                <li>Color &amp; negative space</li><li>Identity design</li><li>Layout &amp; visual hierarchy</li><li>Typography</li>
+              </ul>
+            </div>
+            <div class="resume-block">
+              <h3>Tools</h3>
+              <ul class="resume-list resume-skills">
+                <li>Adobe Acrobat</li><li>Adobe Illustrator</li><li>Adobe Photoshop</li><li>Canva</li><li>GIMP</li>
+              </ul>
+            </div>
+          </div>
+          <a href="Brandon_Kreitsch_Resume.pdf" class="resume-download btn btn-primary" id="resume-dl-btn">Download PDF</a>
+        </div>
       </div>
-      <div class="resume-grid">
-        <div class="resume-block">
-          <h3>Education</h3>
-          <ul class="resume-list">
-            <li style="white-space:nowrap;" id="education-line"><strong>BFA Graphic Design</strong> &mdash; Caldwell University, Expected Graduation: May 2026</li>
-          </ul>
-        </div>
-        <div class="resume-block">
-          <h3>Focus</h3>
-          <ul class="resume-list resume-skills">
-            <li>Color &amp; negative space</li><li>Identity design</li><li>Layout &amp; visual hierarchy</li><li>Typography</li>
-          </ul>
-        </div>
-        <div class="resume-block">
-          <h3>Tools</h3>
-          <ul class="resume-list resume-skills">
-            <li>Adobe Acrobat</li><li>Adobe Illustrator</li><li>Adobe Photoshop</li><li>Canva</li><li>GIMP</li>
-          </ul>
-        </div>
-
-      </div>
-      <a href="Brandon_Kreitsch_Resume.pdf" class="resume-download btn btn-primary" id="resume-dl-btn">Download PDF</a>
       <script>
         document.getElementById('resume-dl-btn').addEventListener('click', function(e) {
           e.preventDefault();

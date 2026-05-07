@@ -28,7 +28,7 @@
     .nav-group { position: relative; }
     .nav-sub {
       position: absolute; left: 0; top: 100%; margin-top: 0;
-      padding: 0.5rem 0.75rem; border-radius: 8px;
+      padding: 0.5rem 0.75rem; border-radius: 8px; background: #1a1428;
       border: 1px solid rgba(167,131,230,0.25); box-shadow: 0 12px 34px rgba(25,16,36,0.45);
       display: none; flex-direction: column; gap: 0.1rem; white-space: nowrap; min-width: 140px;
     }
@@ -166,9 +166,9 @@
       padding: clamp(2.5rem, 5vw, 4rem) var(--space);
       max-width: var(--max-width);
       margin: 0 auto;
-      background: var(--bg);
-      border-radius: 12px;
-      border: 1px solid rgba(53, 42, 77, 0.14);
+      background: transparent;
+      border-radius: 0;
+      border: none;
       margin-top: clamp(1.2rem, 2vw, 2rem);
       margin-bottom: clamp(2rem, 4vw, 3rem);
     }
@@ -188,8 +188,11 @@
       background: var(--lkr-panel-bg);
     }
     .series-works-grid .gallery-image-wrap {
-      background: #0a0a0a;
-      border: 1px solid rgba(53, 42, 77, 0.16);
+      background: var(--lkr-panel-bg);
+      border: 1px solid var(--lkr-panel-border);
+    }
+    .series-works-grid .gallery-meta {
+      background: var(--lkr-panel-bg);
     }
     @media (min-width: 769px) and (max-width: 1024px) {
       .series-hero-inner { gap: 1.5rem; }

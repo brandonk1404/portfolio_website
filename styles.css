@@ -4741,3 +4741,475 @@ img {
   user-drag: none;
   -webkit-touch-callout: none;
 }
+
+/* ══════════════════════════════════════════════════════════════════
+   LIGHTBOX — DEFINITIVE FINAL RULES (override everything above)
+   ══════════════════════════════════════════════════════════════════ */
+
+/* Lightbox backdrop — always full screen fixed */
+.lightbox {
+  position: fixed !important;
+  inset: 0 !important;
+  z-index: 200 !important;
+  display: none !important;
+}
+.lightbox.open {
+  display: grid !important;
+  place-items: center !important;
+  padding: 1rem !important;
+  overflow-y: auto !important;
+  box-sizing: border-box !important;
+  /* All directional flex props reset */
+  flex-direction: unset !important;
+  align-items: unset !important;
+  justify-content: unset !important;
+}
+
+/* Dialog — always centered, never pushed offscreen */
+.lightbox-dialog {
+  position: relative !important;
+  width: min(860px, calc(100vw - 2rem)) !important;
+  max-width: 100% !important;
+  margin: auto !important;
+  /* Reset any flex-row from landscape overrides */
+  display: block !important;
+  flex-direction: unset !important;
+  max-height: none !important;
+  overflow: hidden !important;
+  border-radius: calc(var(--radius) + 6px) !important;
+  box-shadow: 0 28px 80px rgba(0,0,0,0.55) !important;
+}
+
+/* Media frame — always 16:9 */
+.lightbox-media-frame {
+  width: 100% !important;
+  aspect-ratio: 16 / 9 !important;
+  height: auto !important;
+  border-radius: calc(var(--radius) + 6px) calc(var(--radius) + 6px) 0 0 !important;
+  overflow: hidden !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  background: #000 !important;
+}
+
+/* Caption — always below media */
+.lightbox-caption {
+  display: flex !important;
+  flex-direction: column !important;
+  width: auto !important;
+  max-height: none !important;
+  border-left: none !important;
+  border-top: 1px solid var(--border) !important;
+  padding: 1.25rem 1.5rem 1.4rem !important;
+  background: var(--bg) !important;
+  border-radius: 0 0 calc(var(--radius) + 6px) calc(var(--radius) + 6px) !important;
+}
+
+/* X button — always fixed top right, always on top */
+.lightbox-close {
+  position: fixed !important;
+  top: 1rem !important;
+  right: 1rem !important;
+  width: 44px !important;
+  height: 44px !important;
+  border-radius: 999px !important;
+  background: rgba(0,0,0,0.7) !important;
+  border: 1px solid rgba(255,255,255,0.3) !important;
+  color: #fff !important;
+  font-size: 22px !important;
+  cursor: pointer !important;
+  z-index: 9999 !important;
+  display: none !important;
+  align-items: center !important;
+  justify-content: center !important;
+  line-height: 1 !important;
+  backdrop-filter: blur(6px) !important;
+  -webkit-backdrop-filter: blur(6px) !important;
+  transition: background 0.18s ease, transform 0.18s ease !important;
+}
+.lightbox.open .lightbox-close {
+  display: flex !important;
+}
+.lightbox-close:hover {
+  background: rgba(0,0,0,0.9) !important;
+  transform: scale(1.1) !important;
+}
+
+/* Nav arrows — always hidden */
+.lightbox-nav {
+  display: none !important;
+}
+
+/* Mobile adjustments */
+@media (max-width: 768px) {
+  .lightbox.open {
+    padding: 0.5rem !important;
+    padding-top: 3.5rem !important;
+    align-content: start !important;
+  }
+  .lightbox-dialog {
+    width: 100% !important;
+    border-radius: 14px !important;
+  }
+  .lightbox-media-frame {
+    border-radius: 14px 14px 0 0 !important;
+  }
+  .lightbox-caption {
+    padding: 1rem 1.1rem 1.25rem !important;
+    border-radius: 0 0 14px 14px !important;
+  }
+  .lightbox-close {
+    top: 0.6rem !important;
+    right: 0.6rem !important;
+    width: 38px !important;
+    height: 38px !important;
+    font-size: 18px !important;
+  }
+}
+
+/* Large screens */
+@media (min-width: 1200px) {
+  .lightbox-dialog {
+    width: min(1000px, calc(100vw - 4rem)) !important;
+  }
+}
+@media (min-width: 1600px) {
+  .lightbox-dialog {
+    width: min(1160px, calc(100vw - 6rem)) !important;
+  }
+}
+
+/* ══════════════════════════════════════════════════════════════════
+   BUG FIXES: Mobile gallery visibility + lightbox centering
+   ══════════════════════════════════════════════════════════════════ */
+
+/* ── FIX 1: Mobile gallery — remove carousel padding so grid is visible ── */
+@media (max-width: 768px) {
+  /* Work-group has padding:0 2rem for carousel arrows; on mobile we
+     switch to a full-width grid so that padding clips/hides content */
+  .work-group {
+    padding-left: 0 !important;
+    padding-right: 0 !important;
+  }
+
+  /* Gallery also has its own 2rem side padding from the carousel layout;
+     zero it so grid items fill the full column width */
+  .gallery {
+    padding-left: 0 !important;
+    padding-right: 0 !important;
+  }
+
+  /* Gallery items must be fully visible — ensure no overflow clipping */
+  .gallery {
+    overflow-x: visible !important;
+    overflow-y: visible !important;
+  }
+}
+
+/* ── FIX 2: Lightbox — always centered in viewport on mobile portrait ── */
+@media (max-width: 768px) and (orientation: portrait) {
+  /* Use fixed inset:0 + flex centering — avoid overflow-y which causes
+     iOS Safari to push the dialog above the visible viewport on scroll */
+  .lightbox.open {
+    position: fixed !important;
+    top: 0 !important;
+    left: 0 !important;
+    right: 0 !important;
+    bottom: 0 !important;
+    width: 100% !important;
+    height: 100% !important;
+    height: 100dvh !important;
+    overflow-y: auto !important;
+    -webkit-overflow-scrolling: touch !important;
+    display: flex !important;
+    flex-direction: column !important;
+    align-items: center !important;
+    justify-content: center !important;
+    /* Padding gives breathing room for the close button at top */
+    padding: 3.5rem 0.5rem 1rem !important;
+    box-sizing: border-box !important;
+  }
+
+  .lightbox-dialog {
+    position: relative !important;
+    /* Use margin:auto as a fallback centering mechanism */
+    margin: auto !important;
+    width: 100% !important;
+    max-width: calc(100vw - 1rem) !important;
+    /* Prevent dialog from being taller than viewport */
+    max-height: calc(100dvh - 5rem) !important;
+    overflow-y: auto !important;
+    -webkit-overflow-scrolling: touch !important;
+    flex-shrink: 0 !important;
+  }
+
+  /* Close button: fixed to top-right of the viewport so it's always reachable */
+  .lightbox-close {
+    position: fixed !important;
+    top: 0.75rem !important;
+    right: 0.75rem !important;
+    z-index: 210 !important;
+  }
+}
+
+/* ══════════════════════════════════════════════════════════════════
+   FIX: Mobile hamburger menu — center all nav items & sub-links
+   ══════════════════════════════════════════════════════════════════ */
+@media (max-width: 1024px) {
+  /* Main nav panel: center items instead of right-align */
+  .nav {
+    align-items: center !important;
+  }
+
+  /* All top-level nav links */
+  .nav a,
+  .nav > a {
+    justify-content: center !important;
+    text-align: center !important;
+  }
+
+  /* Gallery nav-group container */
+  .nav-group {
+    align-items: center !important;
+  }
+
+  /* "Gallery" heading link */
+  .nav-group .nav-link-main {
+    justify-content: center !important;
+    text-align: center !important;
+    width: 100% !important;
+  }
+
+  /* Sub-link container */
+  .nav-sub {
+    align-items: center !important;
+  }
+
+  /* Sub-links (Digital, Photography, Motion, etc.) */
+  .nav-sub a {
+    justify-content: center !important;
+    text-align: center !important;
+  }
+}
+
+/* ══════════════════════════════════════════════════════════════════
+   FIX: Desktop nav dropdown — flush with header bottom, no gap/overlap
+   ══════════════════════════════════════════════════════════════════ */
+@media (min-width: 769px) {
+  /* Make the header the positioning parent for the dropdown */
+  .site-header {
+    position: fixed !important;
+  }
+
+  /* nav-group: static so nav-sub escapes it and anchors to header */
+  .nav-group {
+    position: static !important;
+  }
+
+  /* nav-sub: absolute within header, sits flush at header bottom */
+  .nav-sub {
+    position: absolute !important;
+    top: 100% !important;       /* 100% of header height = header bottom edge */
+    left: auto !important;      /* don't stretch to header left */
+    margin-top: 0 !important;
+    border-radius: 0 0 8px 8px !important;
+    border-top: none !important;
+  }
+}
+
+/* ══════════════════════════════════════════════════════════════════
+   FIX: Mobile landscape — prevent header height growth & text warp
+   ══════════════════════════════════════════════════════════════════ */
+@media (max-width: 900px) and (orientation: landscape) and (max-height: 500px) {
+
+  /* Override the header-height variable to a fixed compact value */
+  :root {
+    --header-height: 48px !important;
+  }
+
+  /* Lock the header to a fixed compact height */
+  .site-header {
+    padding: 0 var(--space) !important;
+    height: 48px !important;
+    min-height: 48px !important;
+    max-height: 48px !important;
+    overflow: visible !important;
+    align-items: center !important;
+    flex-wrap: nowrap !important;
+  }
+
+  /* Logo: shrink text and icon so they don't push height */
+  .logo {
+    flex-shrink: 0 !important;
+    gap: 0.35rem !important;
+  }
+  .logo img {
+    height: 22px !important;
+    width: auto !important;
+  }
+  .logo span {
+    font-size: 0.82rem !important;
+    white-space: nowrap !important;
+    line-height: 1 !important;
+  }
+
+  /* Nav: ensure it doesn't stretch header */
+  .nav {
+    flex-shrink: 0 !important;
+  }
+
+  /* Hamburger toggle: compact */
+  .menu-toggle {
+    width: 36px !important;
+    height: 36px !important;
+    padding: 0 !important;
+    flex-shrink: 0 !important;
+  }
+}
+
+/* ══════════════════════════════════════════════════════════════════
+   Resume page: side-by-side layout (image left, info right)
+   ══════════════════════════════════════════════════════════════════ */
+.resume-layout {
+  display: flex;
+  align-items: flex-start;
+  gap: 2.5rem;
+}
+
+.resume-layout .resume-image-wrap {
+  flex: 0 0 auto;
+  width: min(420px, 55%);
+  margin-bottom: 0;
+}
+
+.resume-sidebar {
+  flex: 1 1 auto;
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+  min-width: 0;
+}
+
+.resume-sidebar .resume-grid {
+  margin: 0;
+  grid-template-columns: 1fr;
+}
+
+.resume-sidebar .resume-download {
+  align-self: flex-start;
+  margin-top: 0;
+}
+
+/* Stack vertically on mobile */
+@media (max-width: 768px) {
+  .resume-layout {
+    flex-direction: column;
+  }
+
+  .resume-layout .resume-image-wrap {
+    width: 100%;
+  }
+
+  .resume-sidebar .resume-download {
+    align-self: stretch;
+  }
+}
+
+/* ══════════════════════════════════════════════════════════════════
+   DEFINITIVE LIGHTBOX CENTERING — overrides all previous rules
+   Dialog is always centered horizontally + vertically at every
+   viewport size. Animations (genie) are preserved via transform-
+   origin staying at 50% 50%.
+   ══════════════════════════════════════════════════════════════════ */
+
+/* 1. The overlay: always fixed inset:0, always flex-center */
+.lightbox,
+.lightbox.open {
+  position: fixed !important;
+  top: 0 !important;
+  left: 0 !important;
+  right: 0 !important;
+  bottom: 0 !important;
+  width: 100vw !important;
+  height: 100vh !important;
+  height: 100dvh !important;
+  display: flex !important;
+  flex-direction: column !important;
+  align-items: center !important;
+  justify-content: center !important;
+  overflow-y: auto !important;
+  -webkit-overflow-scrolling: touch !important;
+  padding: clamp(2.5rem, 5vw, 4rem) clamp(0.75rem, 3vw, 2rem) clamp(1rem, 2vw, 2rem) !important;
+  box-sizing: border-box !important;
+  z-index: 200 !important;
+}
+
+/* Hidden state */
+.lightbox:not(.open):not(.closing) {
+  display: none !important;
+  pointer-events: none !important;
+}
+
+/* 2. The dialog: centered, responsive width, never off-screen */
+.lightbox-dialog {
+  position: relative !important;
+  flex-direction: column !important;    /* portrait default */
+  margin: auto !important;
+  width: min(860px, calc(100vw - 2 * clamp(0.75rem, 3vw, 2rem))) !important;
+  max-width: calc(100vw - 1.5rem) !important;
+  max-height: calc(100dvh - clamp(3.5rem, 8vw, 6rem)) !important;
+  overflow: hidden !important;
+  flex-shrink: 0 !important;
+}
+
+/* 3. Close button: always fixed top-right, above everything */
+.lightbox-close {
+  position: fixed !important;
+  top: clamp(0.5rem, 1.5vw, 1rem) !important;
+  right: clamp(0.5rem, 1.5vw, 1rem) !important;
+  z-index: 210 !important;
+}
+
+/* 4. Landscape phone: side-by-side layout but still centered */
+@media (max-height: 500px) and (orientation: landscape) {
+  .lightbox.open {
+    flex-direction: row !important;
+    padding: 0.25rem !important;
+  }
+  .lightbox-dialog {
+    display: flex !important;
+    flex-direction: row !important;
+    width: calc(100vw - 0.5rem) !important;
+    max-width: calc(100vw - 0.5rem) !important;
+    max-height: 100dvh !important;
+    height: 100dvh !important;
+    border-radius: 8px !important;
+  }
+  .lightbox-body {
+    flex: 1 1 60% !important;
+    min-width: 0 !important;
+    overflow: hidden !important;
+  }
+  .lightbox-media-frame {
+    width: 100% !important;
+    height: 100% !important;
+    aspect-ratio: unset !important;
+    border-radius: 8px 0 0 8px !important;
+  }
+  .lightbox-caption {
+    flex: 0 0 auto !important;
+    width: clamp(140px, 35%, 220px) !important;
+    max-height: 100dvh !important;
+    overflow-y: auto !important;
+    padding: 0.75rem !important;
+    display: flex !important;
+    flex-direction: column !important;
+    justify-content: center !important;
+    border-top: none !important;
+    border-left: 1px solid var(--border) !important;
+  }
+  .lightbox-nav {
+    display: none !important;
+  }
+}
