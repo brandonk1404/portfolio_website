@@ -578,6 +578,12 @@
         }
         ytOverlay.addEventListener('click', handleToggle);
         ytOverlay.addEventListener('touchend', handleToggle);
+
+        // Double-click opens the video on YouTube
+        ytOverlay.addEventListener('dblclick', function(e) {
+          e.preventDefault(); e.stopPropagation();
+          window.open('https://www.youtube.com/watch?v=' + videoId, '_blank', 'noopener');
+        });
       }
 
       if (window.YT && window.YT.Player) {
