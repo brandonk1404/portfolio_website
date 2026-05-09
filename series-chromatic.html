@@ -30,14 +30,15 @@
       position: absolute; left: 0; top: 100%; margin-top: 0;
       padding: 0.5rem 0.75rem; background: var(--nav-sub-bg, rgba(255,255,255,0.95)); border-radius: 0 0 8px 8px;
       border: none; box-shadow: 0 8px 24px rgba(49,86,64,0.12);
-      display: none; flex-direction: column; gap: 0.1rem; white-space: nowrap; min-width: 140px;
+      flex-direction: column; gap: 0.1rem; white-space: nowrap; min-width: 140px; opacity: 0; pointer-events: none; transform: translateY(-6px); transition: opacity 0.18s ease, transform 0.18s ease; display: flex;
     }
     .nav-sub a { padding: 0.3rem 0; }
-    .nav-group.open .nav-sub { display: flex; }
-    @media (min-width: 769px) { .nav-group:hover .nav-sub { display: flex; } }
+    .nav-group.open .nav-sub { opacity: 1 !important; pointer-events: auto !important; transform: translateY(0) !important; }
+    @media (min-width: 769px) { .nav-group:hover .nav-sub { opacity: 1 !important; pointer-events: auto !important; transform: translateY(0) !important; } }
+    @media (min-width: 769px) and (prefers-color-scheme: dark) { .nav-sub { background: rgba(22,29,24,0.96) !important; box-shadow: 0 8px 24px rgba(0,0,0,0.4) !important; } }
     @media (max-width: 768px) {
       .nav-sub {
-        position: static !important; display: flex !important; flex-direction: column !important;
+        position: static !important; display: flex !important; flex-direction: column !important; opacity: 1 !important; pointer-events: auto !important; transform: none !important; transition: none !important;
         gap: 0 !important; background: transparent !important; border: none !important;
         box-shadow: none !important; padding: 0 !important; margin: 0 !important;
         border-radius: 0 !important; white-space: normal !important; min-width: unset !important;

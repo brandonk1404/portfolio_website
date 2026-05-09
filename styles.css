@@ -5477,10 +5477,17 @@ img {
    ══════════════════════════════════════════════════════════════════ */
 @media (min-width: 769px) {
   .nav-sub {
-    background: rgba(255, 255, 255, 0.95) !important;
+    background: var(--nav-sub-bg, rgba(255,255,255,0.95)) !important;
     border: none !important;
     border-radius: 0 0 8px 8px !important;
     box-shadow: 0 8px 24px rgba(49, 86, 64, 0.12) !important;
+  }
+}
+
+@media (min-width: 769px) and (prefers-color-scheme: dark) {
+  .nav-sub {
+    background: rgba(22, 29, 24, 0.96) !important;
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.4) !important;
   }
 }
 
@@ -5488,4 +5495,22 @@ img {
 body.lightbox-is-open ~ * .nav-sub,
 .dark-header .nav-sub {
   background: rgba(15, 20, 16, 0.96) !important;
+}
+
+/* ══════════════════════════════════════════════════════════════════
+   Hamburger → X: global rules outside all media queries
+   ══════════════════════════════════════════════════════════════════ */
+.menu-toggle span {
+  transition: transform 0.25s ease, opacity 0.2s ease !important;
+  transform-origin: center !important;
+}
+.menu-toggle.is-active span:nth-child(1) {
+  transform: translateY(8.5px) rotate(45deg) !important;
+}
+.menu-toggle.is-active span:nth-child(2) {
+  opacity: 0 !important;
+  transform: scaleX(0) !important;
+}
+.menu-toggle.is-active span:nth-child(3) {
+  transform: translateY(-8.5px) rotate(-45deg) !important;
 }

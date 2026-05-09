@@ -324,7 +324,7 @@
       if (item.type === 'video') {
         var v = document.createElement('video');
         v.src = item.src;
-        v.loop = false;
+        v.loop = true;
         v.muted = true;
         v.playsInline = true;
         v.preload = 'auto';
@@ -616,13 +616,25 @@
           current = (current + 1) % items.length;
           lastHold = now;
           capA = capB = null;
+          // Ensure the new current item plays if it's a video
+          var newSrc = loaded[current];
+          if (newSrc && newSrc.tagName === 'VIDEO') {
+            newSrc.currentTime = 0;
+            newSrc.play().catch(function () {});
+          }
         }
       } else {
         var src = loaded[current];
         if (src) {
           var mediaReady =
             src.tagName === 'IMG' ? src.complete && src.naturalWidth : src.readyState >= 2;
-          if (mediaReady) drawContain(ctx, src, cw, ch, bg);
+          if (mediaReady) {
+            // Keep video playing
+            if (src.tagName === 'VIDEO' && src.paused) {
+              src.play().catch(function () {});
+            }
+            drawContain(ctx, src, cw, ch, bg);
+          }
         }
         if (items.length > 1 && now - lastHold > HOLD) {
           var next = (current + 1) % items.length;
