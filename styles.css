@@ -2,6 +2,7 @@
 :root {
   --bg: #ffffff;
   --bg-alt: #f5f5f4;
+  --nav-sub-bg: rgba(255,255,255,0.95);
   --text: #315640;
   --text-muted: #5a6b62;
   --accent: #52af79;
@@ -3510,6 +3511,7 @@ h1, h2, h3, h4, .cs-hero-title, .cs-hero-sub, .gallery-name,
   :root {
     --bg:        #0f1410;
     --bg-alt:    #161d18;
+    --nav-sub-bg: rgba(22,29,24,0.96);
     --text:      #e8ede9;
     --text-muted: rgba(232,237,233,0.55);
     --border:    rgba(232,237,233,0.1);
