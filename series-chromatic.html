@@ -52,9 +52,9 @@
     .nav-group:hover .nav-link-main .gallery-label, .nav-group.open .nav-link-main .gallery-label { opacity: 0; transform: translateY(-4px); }
     .nav-group:hover .nav-link-main .gallery-arrow, .nav-group.open .nav-link-main .gallery-arrow { opacity: 1; transform: translateY(0); }
     .menu-toggle span { transition: transform 0.25s ease, opacity 0.2s ease; transform-origin: center; }
-    .menu-toggle.is-active span:nth-child(1) { transform: translateY(8px) rotate(45deg); }
-    .menu-toggle.is-active span:nth-child(2) { opacity: 0; transform: scaleX(0); }
-    .menu-toggle.is-active span:nth-child(3) { transform: translateY(-8px) rotate(-45deg); }
+    .menu-toggle.is-active span:nth-child(1) { transform: translateY(8.5px) rotate(45deg) !important; }
+    .menu-toggle.is-active span:nth-child(2) { opacity: 0 !important; transform: scaleX(0) !important; }
+    .menu-toggle.is-active span:nth-child(3) { transform: translateY(-8.5px) rotate(-45deg) !important; }
     .nav a.active { color: var(--text); font-weight: 700; }
 
     /* ── Series hero ── */
@@ -345,11 +345,18 @@
     wrapId: 'chromatic-carousel',
     transition: 'chromatic',
     bg: '#f7f3ee',
-    holdMs: 4000,
-    transMs: 1150,
+    holdMs: 4500,
+    transMs: 1600,
     items: [
-      { type: 'image', src: 'images/chromatic_thumb.jpg' },
-      { type: 'image', src: 'images/chromatic_fullview.jpg' }
+      { type: 'image', src: 'images/chromatic_fullview.jpg' },
+      { type: 'image', src: 'images/confrontation_fullview.jpg' },
+      { type: 'image', src: 'images/passthrough_fullview.jpg' },
+      { type: 'image', src: 'images/branches_fullview.jpg' },
+      { type: 'image', src: 'images/reach_fullview.jpg' },
+      { type: 'image', src: 'images/free_flow_fullview.jpg' },
+      { type: 'image', src: 'images/pathway_fullview.jpg' },
+      { type: 'image', src: 'images/chains_fullview.jpg' },
+      { type: 'image', src: 'images/circuits_fullview.jpg' }
     ]
   });
   </script>

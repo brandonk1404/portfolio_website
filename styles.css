@@ -826,10 +826,11 @@ ul {
     position: fixed;
     top: 0;
     right: 0;
+    bottom: 0;
     width: min(85vw, 300px);
-    height: 100%;
+    height: 100vh;
     height: 100dvh;
-    height: -webkit-fill-available;
+    min-height: -webkit-fill-available;
     margin: 0;
     padding: calc(var(--header-height) + 1.5rem) 1.5rem 2rem;
     flex-direction: column;
@@ -2762,6 +2763,18 @@ h1, h2, h3, h4, .cs-hero-title, .cs-hero-sub, .gallery-name,
     transform: none !important;
     box-shadow: none !important;
   }
+  .gallery-item:hover .gallery-image-wrap img {
+    transform: none !important;
+  }
+  .gallery-item:hover .gallery-meta {
+    transform: none !important;
+  }
+  .gallery-item:hover .gallery-name {
+    color: inherit !important;
+  }
+  .gallery-item:hover .gallery-overlay {
+    opacity: 0 !important;
+  }
   /* Suppress nav link underline stuck on touch */
   .nav a:not(.nav-link-main):hover::after {
     width: 0 !important;
@@ -3615,8 +3628,10 @@ h1, h2, h3, h4, .cs-hero-title, .cs-hero-sub, .gallery-name,
     border-color: #6eb88c !important;
     color: #6eb88c !important;
   }
+  ::-webkit-scrollbar { width: 8px; height: 8px; }
   ::-webkit-scrollbar-track { background: #0f1410 !important; }
-  ::-webkit-scrollbar-thumb { background: #2a3530 !important; }
+  ::-webkit-scrollbar-thumb { background: #2a3530 !important; border-radius: 4px; }
+  * { scrollbar-color: #2a3530 #0f1410; }
 
   /* Images, video, logo — excluded entirely */
   img, video, canvas, .about-photo,
@@ -5262,6 +5277,7 @@ img {
     height: 36px !important;
     padding: 0 !important;
     flex-shrink: 0 !important;
+    margin-left: auto !important;
   }
 
   /* Nav drawer: fits the short landscape viewport, scrollable */
@@ -5397,14 +5413,14 @@ img {
     transform-origin: center;
   }
   .menu-toggle.is-active span:nth-child(1) {
-    transform: translateY(8px) rotate(45deg) !important;
+    transform: translateY(8.5px) rotate(45deg) !important;
   }
   .menu-toggle.is-active span:nth-child(2) {
     opacity: 0 !important;
     transform: scaleX(0) !important;
   }
   .menu-toggle.is-active span:nth-child(3) {
-    transform: translateY(-8px) rotate(-45deg) !important;
+    transform: translateY(-8.5px) rotate(-45deg) !important;
   }
 }
 

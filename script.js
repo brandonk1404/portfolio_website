@@ -54,18 +54,26 @@
             if (e.pointerType && e.pointerType !== 'mouse') return;
             if (!menuOpen) return;
 
-            var rect = menuToggle.getBoundingClientRect();
-            // Expanded hit area around the toggle; if the pointer leaves
-            // this reasonably large boundary, close the menu.
-            var margin = 160; // px boundary around the toggle
-            var left = rect.left - margin;
-            var right = rect.right + margin;
-            var top = rect.top - margin;
-            var bottom = rect.bottom + margin;
-
             var x = e.clientX;
             var y = e.clientY;
-            if (x < left || x > right || y < top || y > bottom) {
+
+            // Don't close if pointer is over the nav drawer itself
+            var navRect = nav.getBoundingClientRect();
+            if (x >= navRect.left && x <= navRect.right && y >= navRect.top && y <= navRect.bottom) {
+              return;
+            }
+
+            // Don't close if pointer is over the toggle button
+            var rect = menuToggle.getBoundingClientRect();
+            if (x >= rect.left && x <= rect.right && y >= rect.top && y <= rect.bottom) {
+              return;
+            }
+
+            // Close if pointer has moved well away from both
+            var margin = 40;
+            var farFromToggle = x < rect.left - margin || x > rect.right + margin || y < rect.top - margin || y > rect.bottom + margin;
+            var farFromNav = x < navRect.left - margin;
+            if (farFromToggle && farFromNav) {
               setMenuOpen(false);
             }
           };
@@ -576,10 +584,27 @@
             else { player.playVideo(); showTapIndicator(true); }
           } catch(err) {}
         }
-        ytOverlay.addEventListener('click', handleToggle);
-        ytOverlay.addEventListener('touchend', handleToggle);
+        var lastTap = 0;
+        var tapTimer = null;
 
-        // Double-click opens the video on YouTube
+        ytOverlay.addEventListener('touchend', function(e) {
+          e.preventDefault(); e.stopPropagation();
+          var now = Date.now();
+          if (now - lastTap < 300) {
+            // Double tap — open on YouTube
+            clearTimeout(tapTimer);
+            lastTap = 0;
+            window.open('https://www.youtube.com/watch?v=' + videoId, '_blank', 'noopener');
+          } else {
+            // Single tap — toggle play/pause after short delay
+            lastTap = now;
+            tapTimer = setTimeout(function() { handleToggle(e); }, 300);
+          }
+        });
+
+        ytOverlay.addEventListener('click', handleToggle);
+
+        // Double-click opens the video on YouTube (desktop)
         ytOverlay.addEventListener('dblclick', function(e) {
           e.preventDefault(); e.stopPropagation();
           window.open('https://www.youtube.com/watch?v=' + videoId, '_blank', 'noopener');
