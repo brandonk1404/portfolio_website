@@ -328,9 +328,7 @@
       <div class="series-list">
 
         <!-- ── Last Known Recording ── -->
-        <article class="series-entry reveal">
-          <div class="series-visual">
-            <img class="series-visual-main is-poster" src="images/lkr_poster_fullview.jpg" alt="Last Known Recording poster">
+        <article class="series-entry reveal" data-series="lkr">
             <div class="series-visual-strip is-hidden">
               <img class="series-strip-thumb poster-thumb active" src="images/lkr_poster_thumb.jpg" alt="Last Known Recording">
               <img class="series-strip-thumb" src="images/savior_thumb.jpg" alt="The Illustrator's Savior" data-video="images/savior_loop.mp4">
@@ -338,10 +336,7 @@
               <img class="series-strip-thumb" src="images/never_ending_thumb.jpg" alt="Never Ending" data-video="images/never_ending_loop.mp4">
               <img class="series-strip-thumb" src="images/955_thumb.jpg" alt="9:55" data-video="images/955_loop.mp4">
             </div>
-            <span class="series-count">4 works</span>
-          </div>
-          <div class="series-info">
-            <span class="series-eyebrow">Series I</span>
+            <span class="series-count"></span>
             <h3 class="series-title"><a href="series-last-known-recording.html" style="color:inherit; text-decoration:none;">Last Known Recording</a></h3>
             <hr class="series-divider">
             <p class="series-description">Stories detailing local company Quartz Productions, as their shady business practices would lead to mind warping tapes, death, and a cult formed around a reality altering clock.</p>
@@ -351,16 +346,16 @@
         </article>
 
         <!-- ── Creation of the Earthly ── -->
-        <article class="series-entry reveal">
+        <article class="series-entry reveal" data-series="earthly">
           <div class="series-visual">
-            <img class="series-visual-main is-poster" src="images/earthly_thumb.jpg" alt="Creation of the Earthly poster">
+            <img class="series-visual-main is-poster" src="images/earthly_fullview.jpg" alt="Creation of the Earthly poster">
             <div class="series-visual-strip is-hidden">
               <img class="series-strip-thumb poster-thumb active" src="images/earthly_thumb.jpg" alt="Poster">
               <img class="series-strip-thumb" src="images/mural_thumb.jpg" alt="Mural">
               <img class="series-strip-thumb" src="images/doors_thumb.jpg" alt="Doors" data-video="images/doors_loop.mp4">
               <img class="series-strip-thumb" src="images/the_maker_thumb.jpg" alt="The Maker">
             </div>
-            <span class="series-count">4 works</span>
+            <span class="series-count"></span>
           </div>
           <div class="series-info">
             <span class="series-eyebrow">Series II</span>
@@ -373,13 +368,21 @@
         </article>
 
         <!-- ── Chromatic Fragments ── -->
-        <article class="series-entry reveal">
+        <article class="series-entry reveal" data-series="chromatic">
           <div class="series-visual">
             <img class="series-visual-main is-poster" src="images/chromatic_fullview.jpg" alt="Chromatic Fragments poster">
             <div class="series-visual-strip is-hidden">
               <img class="series-strip-thumb poster-thumb active" src="images/chromatic_fullview.jpg" alt="Poster">
+              <img class="series-strip-thumb" src="images/confrontation_thumb.jpg" alt="Confrontation">
+              <img class="series-strip-thumb" src="images/passthrough_thumb.jpg" alt="Passthrough">
+              <img class="series-strip-thumb" src="images/branches_thumb.jpg" alt="Branches">
+              <img class="series-strip-thumb" src="images/reach_thumb.jpg" alt="Reach">
+              <img class="series-strip-thumb" src="images/free_flow_thumb.jpg" alt="Free Flow">
+              <img class="series-strip-thumb" src="images/pathway_thumb.jpg" alt="Pathway">
+              <img class="series-strip-thumb" src="images/chains_thumb.jpg" alt="Chains">
+              <img class="series-strip-thumb" src="images/circuits_thumb.jpg" alt="Circuits">
             </div>
-            <span class="series-count">1 work</span>
+            <span class="series-count"></span>
           </div>
           <div class="series-info">
             <span class="series-eyebrow">Series III</span>
@@ -401,6 +404,67 @@
     <p>Download, scraping, or use of any material is prohibited without permission. &nbsp;|&nbsp; <a href="terms.html">Terms of Service</a></p>
   </footer>
 
+
+  <script>
+    // ── Series data — single source of truth ─────────────────────────────
+    // To add a piece: push an entry to the right array. The strip + count update automatically.
+    // image: { src, alt }   video: { src, alt, video: 'path/to/loop.mp4' }
+    var SERIES_DATA = {
+      lkr: [
+        { src: 'images/lkr_poster_thumb.jpg',       alt: 'Last Known Recording',    poster: true },
+        { src: 'images/savior_thumb.jpg',            alt: "The Illustrator's Savior", video: 'images/savior_loop.mp4' },
+        { src: 'images/strength_thumb.jpg',          alt: 'Strength',                video: 'images/strength_loop.mp4' },
+        { src: 'images/never_ending_thumb.jpg',      alt: 'Never Ending',            video: 'images/never_ending_loop.mp4' },
+        { src: 'images/955_thumb.jpg',               alt: '9:55',                    video: 'images/955_loop.mp4' },
+      ],
+      earthly: [
+        { src: 'images/earthly_fullview.jpg',           alt: 'Poster',                  poster: true },
+        { src: 'images/mural_thumb.jpg',             alt: 'Mural' },
+        { src: 'images/doors_thumb.jpg',             alt: 'Doors',                   video: 'images/doors_loop.mp4' },
+        { src: 'images/the_maker_thumb.jpg',         alt: 'The Maker' },
+      ],
+      chromatic: [
+        { src: 'images/chromatic_fullview.jpg',      alt: 'Poster',                  poster: true },
+        { src: 'images/confrontation_thumb.jpg',     alt: 'Confrontation' },
+        { src: 'images/passthrough_thumb.jpg',       alt: 'Passthrough' },
+        { src: 'images/branches_thumb.jpg',          alt: 'Branches' },
+        { src: 'images/reach_thumb.jpg',             alt: 'Reach' },
+        { src: 'images/free_flow_thumb.jpg',         alt: 'Free Flow' },
+        { src: 'images/pathway_thumb.jpg',           alt: 'Pathway' },
+        { src: 'images/chains_thumb.jpg',            alt: 'Chains' },
+        { src: 'images/circuits_thumb.jpg',          alt: 'Circuits' },
+      ],
+    };
+
+    // Auto-render strips and counts from SERIES_DATA
+    document.querySelectorAll('[data-series]').forEach(function(article) {
+      var key = article.getAttribute('data-series');
+      var pieces = SERIES_DATA[key];
+      if (!pieces) return;
+
+      var strip = article.querySelector('.series-visual-strip');
+      var countEl = article.querySelector('.series-count');
+
+      // Rebuild strip
+      if (strip) {
+        strip.innerHTML = '';
+        pieces.forEach(function(piece) {
+          var img = document.createElement('img');
+          img.className = 'series-strip-thumb' + (piece.poster ? ' poster-thumb active' : '');
+          img.src = piece.src;
+          img.alt = piece.alt || '';
+          if (piece.video) img.setAttribute('data-video', piece.video);
+          strip.appendChild(img);
+        });
+      }
+
+      // Update count
+      if (countEl) {
+        var n = pieces.length;
+        countEl.textContent = n + (n === 1 ? ' work' : ' works');
+      }
+    });
+  </script>
 
   <script>
     // Scroll-in animation for series entries

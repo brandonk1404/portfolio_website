@@ -55,7 +55,9 @@
     off.width = w;
     off.height = h;
     var oc = off.getContext('2d');
-    drawContain(oc, source, w, h, bg);
+    oc.fillStyle = bg || '#0a0a0a';
+    oc.fillRect(0, 0, w, h);
+    drawCover(oc, source, w, h);
     return off;
   }
 
@@ -86,7 +88,7 @@
     function makeVid(src) {
       var v = document.createElement('video');
       v.src = src;
-      v.loop = false;
+      v.loop = true;
       v.muted = true;
       v.playsInline = true;
       v.preload = 'auto';
@@ -210,6 +212,7 @@
       var dpr = window.devicePixelRatio || 1;
       var lw = Math.round(canvas.width / dpr);
       var lh = Math.round(canvas.height / dpr);
+      if (vid.paused) vid.play().catch(function () {});
       ctx.clearRect(0, 0, lw, lh);
       ctx.fillStyle = '#0a0a0a'; ctx.fillRect(0, 0, lw, lh); drawCover(ctx, vid, lw, lh);
       ctx.globalAlpha = 0.055;
@@ -633,7 +636,9 @@
             if (src.tagName === 'VIDEO' && src.paused) {
               src.play().catch(function () {});
             }
-            drawContain(ctx, src, cw, ch, bg);
+            ctx.fillStyle = bg || '#0a0a0a';
+            ctx.fillRect(0, 0, cw, ch);
+            drawCover(ctx, src, cw, ch);
           }
         }
         if (items.length > 1 && now - lastHold > HOLD) {

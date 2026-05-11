@@ -834,7 +834,7 @@ ul {
     margin: 0;
     padding: calc(var(--header-height) + 1.5rem) 1.5rem 2rem;
     flex-direction: column;
-    align-items: flex-end;
+    align-items: center;
     gap: 0.25rem;
     background: var(--bg, #fff);
     border-left: 1px solid var(--border);
@@ -858,11 +858,11 @@ ul {
     align-items: center;
     padding: 0.5rem 0;
     width: 100%;
-    justify-content: flex-end;
+    justify-content: center;
   }
 
   .nav-group {
-    align-items: flex-end;
+    align-items: center;
     width: 100%;
     display: flex;
     flex-direction: column;
@@ -871,7 +871,7 @@ ul {
   .nav-sub {
     position: static;
     flex-direction: column;
-    align-items: flex-end;
+    align-items: center;
     flex-wrap: nowrap;
     gap: 0;
     margin-top: 0;
@@ -1289,7 +1289,7 @@ body.is-leaving {
     padding: 0.4rem 0 !important;
     font-size: 0.85rem !important;
     color: var(--text-muted) !important;
-    justify-content: flex-end !important;
+    justify-content: center !important;
     width: 100% !important;
     display: flex !important;
   }
@@ -2415,7 +2415,7 @@ h1, h2, h3, h4, .cs-hero-title, .cs-hero-sub, .gallery-name,
     pointer-events: none;
     font-weight: 700;
     width: 100%;
-    justify-content: flex-end;
+    justify-content: center;
     color: var(--text);
     opacity: 1;
   }
@@ -2425,7 +2425,7 @@ h1, h2, h3, h4, .cs-hero-title, .cs-hero-sub, .gallery-name,
     position: static !important;
     display: flex !important;
     flex-direction: column !important;
-    align-items: flex-end !important;
+    align-items: center !important;
     gap: 0 !important;
     background: transparent !important;
     border: none !important;
@@ -2443,7 +2443,7 @@ h1, h2, h3, h4, .cs-hero-title, .cs-hero-sub, .gallery-name,
     color: var(--text-muted) !important;
     padding: 0.35rem 0 !important;
     min-height: 2rem !important;
-    justify-content: flex-end !important;
+    justify-content: center !important;
     width: 100% !important;
     display: flex !important;
     align-items: center !important;
@@ -2875,7 +2875,7 @@ h1, h2, h3, h4, .cs-hero-title, .cs-hero-sub, .gallery-name,
     align-items: center !important;
     padding: 0.65rem 1rem !important;
     width: 100% !important;
-    justify-content: flex-end !important;
+    justify-content: center !important;
     box-sizing: border-box !important;
   }
   .nav-sub a {
@@ -2883,7 +2883,7 @@ h1, h2, h3, h4, .cs-hero-title, .cs-hero-sub, .gallery-name,
     padding: 0.5rem 1rem !important;
     display: flex !important;
     align-items: center !important;
-    justify-content: flex-end !important;
+    justify-content: center !important;
   }
   .about-layout {
     grid-template-columns: 1fr !important;
@@ -5513,4 +5513,30 @@ body.lightbox-is-open ~ * .nav-sub,
 }
 .menu-toggle.is-active span:nth-child(3) {
   transform: translateY(-8.5px) rotate(-45deg) !important;
+}
+
+/* ══════════════════════════════════════════════════════════════════
+   Remove hover states from non-interactive elements
+   ══════════════════════════════════════════════════════════════════ */
+
+/* series-entry is an article container — not clickable */
+.series-entry:hover {
+  transform: none !important;
+  box-shadow: inherit !important;
+  border-color: inherit !important;
+}
+
+/* work-group-title heading — not a link itself */
+.work-group-title:hover {
+  border-bottom-color: inherit !important;
+  background: none !important;
+}
+
+/* Orphaned card rules — zero out in case elements are added later */
+.contact-card:hover,
+.resume-card:hover,
+.featured-card:hover {
+  transform: none !important;
+  box-shadow: inherit !important;
+  border-color: inherit !important;
 }
