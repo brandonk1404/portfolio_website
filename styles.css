@@ -30,6 +30,7 @@ html {
   -webkit-text-size-adjust: 100%;
   overflow-x: hidden;
   height: 100%;
+  background-color: var(--bg);
 }
 
 body {
@@ -38,7 +39,7 @@ body {
   font-size: clamp(0.9375rem, 1.5vw, 1rem);
   line-height: 1.6;
   color: var(--text);
-  background-color: var(--bg);
+  background-color: transparent;
   min-height: 100%;
   display: flex;
   flex-direction: column;
@@ -53,6 +54,8 @@ img {
 main {
   flex: 1 0 auto;
   padding-top: 3rem;
+  position: relative;
+  z-index: 1;
 }
 
 a {
@@ -437,11 +440,15 @@ ul {
   display: flex;
   flex-direction: column;
   padding: 1rem;
-  overflow-y: auto;
-  -webkit-overflow-scrolling: touch;
+  overflow: hidden;
   align-items: center;
   justify-content: center;
   min-height: 100%;
+}
+
+.lightbox.open.is-scrollable {
+  overflow-y: auto;
+  -webkit-overflow-scrolling: touch;
 }
 
 .lightbox.open .lightbox-backdrop {
@@ -533,11 +540,19 @@ ul {
 .lightbox-dialog {
   position: relative;
   width: min(860px, calc(100vw - 2 * var(--space)));
+  max-height: calc(100dvh - 2rem);
   margin: 0 auto;
   background: var(--bg);
   border-radius: calc(var(--radius) + 6px);
   box-shadow: 0 28px 80px rgba(0, 0, 0, 0.55);
   overflow: hidden;
+  display: flex;
+  flex-direction: column;
+}
+
+.lightbox-media-frame {
+  flex: 1 1 auto;
+  min-height: 0;
 }
 
 .lightbox-caption {
@@ -651,6 +666,8 @@ ul {
   border-top: none;
   text-align: center;
   font-size: 0.85rem;
+  position: relative;
+  z-index: 1;
   color: rgba(255, 255, 255, 0.55);
   background: #3d4a40;
   flex-shrink: 0;
@@ -5098,8 +5115,16 @@ img {
 
 .resume-layout .resume-image-wrap {
   flex: 0 0 auto;
-  width: min(420px, 55%);
+  width: clamp(260px, 40%, 420px);
+  max-width: 420px;
   margin-bottom: 0;
+}
+
+.resume-layout .resume-image {
+  width: 100%;
+  height: auto;
+  display: block;
+  border-radius: var(--radius);
 }
 
 .resume-sidebar {

@@ -706,7 +706,7 @@
     if (!lightbox || !lightboxBody) return;
     lightbox.classList.add('closing');
     setTimeout(function () {
-      lightbox.classList.remove('open', 'closing');
+      lightbox.classList.remove('open', 'closing', 'is-scrollable');
       lightbox.setAttribute('aria-hidden', 'true');
       // Clear JS-set inline styles so lightbox is truly hidden
       lightbox.style.cssText = '';
@@ -1191,7 +1191,7 @@
 
     var bgLayer = document.createElement('div');
     bgLayer.id = 'bg-parallax';
-    bgLayer.style.cssText = 'position:fixed;inset:0;z-index:-1;pointer-events:none;background-size:1024px 1024px;background-repeat:repeat;';
+    bgLayer.style.cssText = 'position:fixed;inset:0;z-index:0;pointer-events:none;background-size:1024px 1024px;background-repeat:repeat;';
     bgLayer.style.backgroundImage = getPattern();
     document.documentElement.insertBefore(bgLayer, document.body);
 
