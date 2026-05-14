@@ -492,10 +492,10 @@
       // PDF page flipper
       var totalPages = parseInt(pdfPages, 10);
       var currentPage = 1;
-      frame.style.cssText = 'position:relative; background:#1a1a1a; display:flex; flex-direction:column; align-items:center; justify-content:center; aspect-ratio:unset; height:80vh;';
+      frame.style.cssText = 'position:relative; background:#1a1a1a; display:flex; flex-direction:column; align-items:center; justify-content:center; aspect-ratio:unset; max-height:100%; height:auto;';
 
       var pdfImg = document.createElement('img');
-      pdfImg.style.cssText = 'max-width:100%; max-height:calc(80vh - 56px); object-fit:contain; display:block;';
+      pdfImg.style.cssText = 'max-width:100%; max-height:100%; object-fit:contain; display:block; flex:1 1 auto;';
 
       var controls = document.createElement('div');
       controls.style.cssText = 'display:flex; align-items:center; gap:1.2rem; padding:0.75rem 0; flex-shrink:0;';
