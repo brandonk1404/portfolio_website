@@ -85,21 +85,42 @@
     resize();
     window.addEventListener('resize', resize);
 
-    function makeVid(src) {
-      var v = document.createElement('video');
-      v.src = src;
-      v.loop = true;
-      v.muted = true;
-      v.playsInline = true;
-      v.preload = 'auto';
-      v.setAttribute('playsinline', '');
-      v.style.cssText = 'position:absolute;left:-9999px;top:-9999px;width:1px;height:1px;opacity:0;';
-      document.body.appendChild(v);
-      return v;
+    function makeMedia(clip) {
+      if (typeof clip === 'string') {
+        // Legacy: just a video path string
+        var v = document.createElement('video');
+        v.src = clip;
+        v.loop = true;
+        v.muted = true;
+        v.playsInline = true;
+        v.preload = 'auto';
+        v.setAttribute('playsinline', '');
+        v.style.cssText = 'position:absolute;left:-9999px;top:-9999px;width:1px;height:1px;opacity:0;';
+        document.body.appendChild(v);
+        return v;
+      }
+      if (clip.type === 'video') {
+        var vid = document.createElement('video');
+        vid.src = clip.src;
+        vid.loop = true;
+        vid.muted = true;
+        vid.playsInline = true;
+        vid.preload = 'auto';
+        vid.setAttribute('playsinline', '');
+        vid.style.cssText = 'position:absolute;left:-9999px;top:-9999px;width:1px;height:1px;opacity:0;';
+        document.body.appendChild(vid);
+        return vid;
+      } else {
+        var img = document.createElement('img');
+        img.src = clip.src;
+        img.style.cssText = 'position:absolute;left:-9999px;top:-9999px;width:1px;height:1px;opacity:0;';
+        document.body.appendChild(img);
+        return img;
+      }
     }
 
-    var vidA = makeVid(clips[0]);
-    var vidB = makeVid(clips.length > 1 ? clips[1] : clips[0]);
+    var vidA = makeMedia(clips[0]);
+    var vidB = makeMedia(clips.length > 1 ? clips[1] : clips[0]);
     vidA.setAttribute('data-clip', '0');
     vidB.setAttribute('data-clip', clips.length > 1 ? '1' : '0');
     var current = 0;
@@ -208,13 +229,13 @@
       ctx.globalAlpha = 1;
     }
 
-    function drawNormal(vid) {
+    function drawNormal(media) {
       var dpr = window.devicePixelRatio || 1;
       var lw = Math.round(canvas.width / dpr);
       var lh = Math.round(canvas.height / dpr);
-      if (vid.paused) vid.play().catch(function () {});
+      if (media.tagName === 'VIDEO' && media.paused) media.play().catch(function () {});
       ctx.clearRect(0, 0, lw, lh);
-      ctx.fillStyle = '#0a0a0a'; ctx.fillRect(0, 0, lw, lh); drawCover(ctx, vid, lw, lh);
+      ctx.fillStyle = '#0a0a0a'; ctx.fillRect(0, 0, lw, lh); drawCover(ctx, media, lw, lh);
       ctx.globalAlpha = 0.055;
       ctx.fillStyle = '#000';
       for (var s = 0; s < lh; s += 3) {
@@ -225,19 +246,53 @@
 
     function preloadNext() {
       var nextIdx = (current + 1) % clips.length;
+      var nextClip = clips[nextIdx];
+      var needsSrc = typeof nextClip === 'string' ? nextClip : nextClip.src;
+      var currentSrc = inactiveVid.tagName === 'VIDEO' ? inactiveVid.src : inactiveVid.src;
+      
       if (inactiveVid.getAttribute('data-clip') !== String(nextIdx)) {
-        inactiveVid.src = clips[nextIdx];
-        inactiveVid.setAttribute('data-clip', String(nextIdx));
-        inactiveVid.load();
-        inactiveVid.play().catch(function () {});
+        // Need to swap the inactive element if types don't match
+        var needsVideo = typeof nextClip === 'string' || (nextClip && nextClip.type === 'video');
+        var hasVideo = inactiveVid.tagName === 'VIDEO';
+        
+        if (needsVideo && !hasVideo) {
+          // Replace image with video
+          document.body.removeChild(inactiveVid);
+          inactiveVid = makeMedia(nextClip);
+          inactiveVid.setAttribute('data-clip', String(nextIdx));
+          if (inactiveVid.tagName === 'VIDEO') {
+            inactiveVid.addEventListener('loadeddata', preloadNext);
+            inactiveVid.play().catch(function () {});
+          }
+        } else if (!needsVideo && hasVideo) {
+          // Replace video with image
+          document.body.removeChild(inactiveVid);
+          inactiveVid = makeMedia(nextClip);
+          inactiveVid.setAttribute('data-clip', String(nextIdx));
+        } else {
+          // Same type, just update src
+          if (typeof nextClip === 'string') {
+            inactiveVid.src = nextClip;
+          } else {
+            inactiveVid.src = nextClip.src;
+          }
+          inactiveVid.setAttribute('data-clip', String(nextIdx));
+          if (inactiveVid.tagName === 'VIDEO') {
+            inactiveVid.load();
+            inactiveVid.play().catch(function () {});
+          }
+        }
       }
     }
 
-    vidA.addEventListener('loadeddata', preloadNext);
-    vidB.addEventListener('loadeddata', preloadNext);
-
-    vidA.play().catch(function () {});
-    vidB.play().catch(function () {});
+    if (vidA.tagName === 'VIDEO') {
+      vidA.addEventListener('loadeddata', preloadNext);
+      vidA.play().catch(function () {});
+    }
+    if (vidB.tagName === 'VIDEO') {
+      vidB.addEventListener('loadeddata', preloadNext);
+      vidB.play().catch(function () {});
+    }
 
     function tick(now) {
       requestAnimationFrame(tick);

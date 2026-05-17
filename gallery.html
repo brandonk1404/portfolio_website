@@ -68,37 +68,6 @@
     .resume-download { margin-top: 0.5rem; }
     .contact-email, .contact-phone { text-decoration: none; min-width: min(11rem, 100%); }
     .nav a.active { color: var(--text); font-weight: 700; }
-    /* ── Sight By Sound expandable card ── */
-    .sbs-expandable { display: flex; flex-direction: column; }
-    .sbs-expand-btn {
-      display: flex; align-items: center; justify-content: center; gap: 0.4rem;
-      width: 100%; padding: 0.55rem 1rem;
-      background: none; border: none; border-top: 1px solid var(--border, rgba(49,86,64,0.12));
-      color: var(--accent, #52af79); font-size: 0.8rem; font-weight: 600;
-      letter-spacing: 0.06em; text-transform: uppercase; cursor: pointer;
-      transition: background 0.15s ease, color 0.15s ease;
-    }
-    .sbs-expand-btn:hover { background: rgba(82,175,121,0.06); }
-    .sbs-expand-chevron { transition: transform 0.25s ease; flex-shrink: 0; }
-    .sbs-expand-btn[aria-expanded="true"] .sbs-expand-chevron { transform: rotate(180deg); }
-    .sbs-video-panel {
-      max-height: 0; overflow: hidden;
-      transition: max-height 0.4s cubic-bezier(0.4,0,0.2,1);
-    }
-    .sbs-video-panel.is-open { max-height: 600px; }
-    .sbs-video-inner { padding: 0.75rem; }
-    .sbs-yt-wrap {
-      position: relative; width: 100%; aspect-ratio: 16/9;
-      background: #000; border-radius: 6px; overflow: hidden; cursor: pointer;
-    }
-    .sbs-yt-thumb { width: 100%; height: 100%; object-fit: cover; display: block; transition: opacity 0.2s; }
-    .sbs-yt-play {
-      position: absolute; inset: 0; display: flex; align-items: center; justify-content: center;
-      background: none; border: none; cursor: pointer; transition: transform 0.15s ease;
-    }
-    .sbs-yt-play:hover { transform: scale(1.1); }
-    .sbs-yt-iframe { position: absolute; inset: 0; width: 100%; height: 100%; }
-    .sbs-video-caption { margin: 0.5rem 0 0; font-size: 0.78rem; color: var(--text-muted); text-align: center; letter-spacing: 0.04em; }
   </style>
   <meta property="og:type" content="website">
   <meta property="og:site_name" content="Brandon Kreitsch">
@@ -279,27 +248,11 @@
             </a>
 
           </article>
-          <article class="gallery-item sbs-expandable" id="sbs-card">
-            <a href="images/sight_by_sound_fullview.png" class="gallery-link" target="_blank" rel="noopener">
-              <div class="gallery-image-wrap gallery-image-wrap-white"><img src="images/sight_by_sound_thumb.png" alt="Sight By Sound Packaging"><div class="gallery-overlay"><span class="gallery-overlay-text">Product packaging design for a music-themed concept</span></div></div>
-              <div class="gallery-meta"><span class="gallery-category">Digital Illustration</span><span class="gallery-name">Sight By Sound Packaging</span></div>
+          <article class="gallery-item video-item">
+            <a href="https://youtu.be/Xp1zMrHLCWI" class="gallery-link" target="_blank" rel="noopener">
+              <div class="gallery-image-wrap gallery-image-wrap-white"><img src="images/sight_by_sound_thumb.png" alt="Sight By Sound"><div class="play-icon"></div><div class="gallery-overlay"><span class="gallery-overlay-text">Product packaging design for a music-themed concept</span></div></div>
+              <div class="gallery-meta"><span class="gallery-category">Video</span><span class="gallery-name">Sight By Sound</span></div>
             </a>
-            <button class="sbs-expand-btn" aria-expanded="false" aria-controls="sbs-video-panel">
-              <span class="sbs-expand-label">Watch the tape</span>
-              <svg class="sbs-expand-chevron" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" width="16" height="16"><path d="M6 9l6 6 6-6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
-            </button>
-            <div class="sbs-video-panel" id="sbs-video-panel" aria-hidden="true">
-              <div class="sbs-video-inner">
-                <div class="sbs-yt-wrap">
-                  <img class="sbs-yt-thumb" src="https://img.youtube.com/vi/Xp1zMrHLCWI/maxresdefault.jpg" alt="Sight By Sound tape playing" loading="lazy">
-                  <button class="sbs-yt-play" aria-label="Play video" data-vid="Xp1zMrHLCWI">
-                    <svg viewBox="0 0 24 24" fill="white" width="48" height="48"><circle cx="12" cy="12" r="12" fill="rgba(0,0,0,0.55)"/><polygon points="10,8 18,12 10,16" fill="white"/></svg>
-                  </button>
-                  <iframe class="sbs-yt-iframe" style="display:none;" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
-                </div>
-                <p class="sbs-video-caption">The tape, played.</p>
-              </div>
-            </div>
           </article>
           <article class="gallery-item">
             <a href="images/starwars_fullview.jpg" class="gallery-link" target="_blank" rel="noopener">
@@ -473,30 +426,5 @@
       </div>
     </div>
   </div>
-  <script>
-    (function () {
-      var btn = document.querySelector('.sbs-expand-btn');
-      var panel = document.getElementById('sbs-video-panel');
-      if (!btn || !panel) return;
-      btn.addEventListener('click', function () {
-        var open = btn.getAttribute('aria-expanded') === 'true';
-        btn.setAttribute('aria-expanded', String(!open));
-        panel.setAttribute('aria-hidden', String(open));
-        panel.classList.toggle('is-open', !open);
-      });
-      var playBtn = document.querySelector('.sbs-yt-play');
-      var iframe = document.querySelector('.sbs-yt-iframe');
-      var thumb = document.querySelector('.sbs-yt-thumb');
-      if (playBtn && iframe && thumb) {
-        playBtn.addEventListener('click', function (e) {
-          e.stopPropagation();
-          iframe.src = 'https://www.youtube.com/embed/Xp1zMrHLCWI?autoplay=1&rel=0';
-          iframe.style.display = 'block';
-          thumb.style.opacity = '0';
-          playBtn.style.display = 'none';
-        });
-      }
-    })();
-  </script>
   <script src="script.js"></script>
 </html>

@@ -5565,3 +5565,21 @@ body.lightbox-is-open ~ * .nav-sub,
   box-shadow: inherit !important;
   border-color: inherit !important;
 }
+
+/* ══════════════════════════════════════════════════════════════════
+   Gallery dropdown: trigger only on text, not full nav bar
+   ══════════════════════════════════════════════════════════════════ */
+@media (min-width: 1025px) {
+  .nav-group {
+    display: inline-block;
+    width: auto;
+  }
+  .nav-link-main {
+    display: inline-flex !important;
+    width: auto !important;
+    padding: 0.5rem 0.75rem !important;
+  }
+  .nav-sub {
+    left: 0;
+  }
+}
