@@ -34,6 +34,7 @@
     }
     .nav-sub a { padding: 0.3rem 0; color: rgba(238,242,237,0.85) !important; }
     .nav-sub a:hover { color: #eef2ed !important; }
+    @media (min-width: 769px) and (prefers-color-scheme: light) { .nav-sub { background: var(--nav-sub-bg, rgba(255,255,255,0.95)) !important; box-shadow: 0 8px 24px rgba(49, 86, 64, 0.12) !important; } .nav-sub a { color: var(--text, #1a1a1a) !important; } .nav-sub a:hover { color: var(--accent, #52af79) !important; } }
     .nav-group.open .nav-sub { opacity: 1 !important; pointer-events: auto !important; transform: translateY(0) !important; }
     @media (min-width: 769px) { .nav-group:hover .nav-sub { opacity: 1 !important; pointer-events: auto !important; transform: translateY(0) !important; } }
     @media (min-width: 769px) and (prefers-color-scheme: dark) { .nav-sub { background: rgba(22,29,24,0.96) !important; box-shadow: 0 8px 24px rgba(0,0,0,0.4) !important; } }
@@ -200,6 +201,10 @@
       .series-hero-title { font-size: clamp(1.6rem, 3.5vw, 2.4rem); }
       .series-hero-media { aspect-ratio: 4 / 3; }
     }
+    @media (prefers-color-scheme: light) {
+      .site-header { background: rgba(255,255,255,0.96) !important; }
+      .nav { background: #fff !important; }
+    }
     @media (prefers-color-scheme: dark) {
       .nav-sub { background: #1e1830 !important; border-color: rgba(167,131,230,0.2) !important; }
       .nav-sub a { color: rgba(238,232,255,0.8) !important; }
@@ -309,7 +314,7 @@
           </article>
           <article class="gallery-item">
             <a href="images/sight_by_sound_fullview.png" class="gallery-link" target="_blank" rel="noopener">
-              <div class="gallery-image-wrap gallery-image-wrap-white"><img src="images/sight_by_sound_thumb.png" alt="Sight By Sound"><div class="gallery-overlay"><span class="gallery-overlay-text">Product packaging design for a music-themed concept</span></div></div>
+              <div class="gallery-image-wrap gallery-image-wrap-white"><img src="images/sight_by_sound_thumb.png" alt="Sight By Sound" style="object-fit:contain;"><div class="gallery-overlay"><span class="gallery-overlay-text">Product packaging design for a music-themed concept</span></div></div>
               <div class="gallery-meta"><span class="gallery-category">Digital Illustration</span><span class="gallery-name">Sight By Sound</span></div>
             </a>
           </article>

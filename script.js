@@ -687,6 +687,10 @@
     lastFocused = document.activeElement;
     lightbox.classList.add('open');
     lightbox.setAttribute('aria-hidden', 'false');
+    
+    // Push history state so back button closes the lightbox
+    history.pushState({ lightboxOpen: true }, '');
+    
     document.body.classList.add('lightbox-is-open');
     document.documentElement.style.overflow = 'hidden';
     document.body.style.overflow = 'hidden';
@@ -704,6 +708,13 @@
 
   function closeLightbox() {
     if (!lightbox || !lightboxBody) return;
+    
+    // If not closing from history event, go back to remove the lightbox history entry
+    if (!closingFromHistory && history.state && history.state.lightboxOpen) {
+      history.back();
+      return; // Let popstate handle the actual close
+    }
+    
     lightbox.classList.add('closing');
     setTimeout(function () {
       lightbox.classList.remove('open', 'closing', 'is-scrollable');
@@ -979,9 +990,12 @@
 
   // ── Guard: close lightbox on browser back/forward so case study
   //    back-navigation never re-opens the lightbox behind the page ──
+  var closingFromHistory = false;
   window.addEventListener('popstate', function () {
     if (lightbox && lightbox.classList.contains('open')) {
+      closingFromHistory = true;
       closeLightbox();
+      closingFromHistory = false;
     }
   });
 
