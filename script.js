@@ -770,13 +770,18 @@
       if (target.matches('[data-lightbox-close]')) closeLightbox();
       if (target.matches('[data-lightbox-prev]')) go(-1);
       if (target.matches('[data-lightbox-next]')) go(1);
-      if (target === lightbox || target.matches('.lightbox-backdrop')) closeLightbox();
+      // Close if clicking on the lightbox container but not on the dialog or its children
+      var dialog = document.querySelector('.lightbox-dialog');
+      if (target === lightbox && dialog && !dialog.contains(target)) {
+        closeLightbox();
+      }
     });
 
     lightbox.addEventListener('touchend', function (e) {
       var target = e.target;
       if (!target) return;
-      if (target === lightbox || target.matches('.lightbox-backdrop')) {
+      var dialog = document.querySelector('.lightbox-dialog');
+      if (target === lightbox && dialog && !dialog.contains(target)) {
         e.preventDefault();
         closeLightbox();
       }

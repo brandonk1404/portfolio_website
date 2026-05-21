@@ -167,17 +167,6 @@
     .series-works-section .section-title {
       margin-bottom: 2rem;
     }
-    .series-works-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(min(340px, 100%), 1fr));
-      gap: 2rem;
-    }
-    .series-works-grid .gallery-image-wrap img {
-      object-fit: cover;
-    }
-    .series-works-grid .gallery-image-wrap {
-      background: #0a0a0a;
-    }
     @media (min-width: 769px) and (max-width: 1024px) {
       .series-hero-inner { gap: 1.5rem; }
       .series-hero-title { font-size: clamp(1.6rem, 3.5vw, 2.4rem); }
@@ -256,7 +245,7 @@
     <!-- ── Works grid ── -->
     <section class="series-works-section">
       <h2 class="section-title">Works</h2>
-      <div class="series-works-grid gallery">
+      <div class="gallery-grid">
           <article class="gallery-item">
 <a href="images/mural_fullview.jpg" class="gallery-link" target="_blank" rel="noopener">
               <div class="gallery-image-wrap"><img src="images/mural_thumb.jpg" alt="Mural"><div class="gallery-overlay"><span class="gallery-overlay-text">Mixed media work combining photography, cardboard, and acrylic</span></div></div>
