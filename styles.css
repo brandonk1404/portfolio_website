@@ -1232,17 +1232,22 @@ body.is-leaving {
 
 /* ── Prototype link under gallery card ─────────────────────────── */
 .gallery-prototype-link {
-  display: block;
-  margin-top: 1rem;
-  margin-bottom: 0.75rem;
-  padding-left: 0.75rem;
-  font-size: 0.8rem;
-  font-weight: 700;
-  letter-spacing: 0.06em;
-  color: var(--accent-dark);
-  text-decoration: none;
-  border-bottom: 1px solid rgba(82,175,121,0.4);
-  transition: color 0.18s ease, border-color 0.18s ease;
+  display: block !important;
+  margin-top: 1rem !important;
+  margin-bottom: 0.75rem !important;
+  margin-left: 0 !important;
+  margin-right: 0 !important;
+  padding-left: 0.75rem !important;
+  padding-top: 0.5rem !important;
+  padding-bottom: 0.5rem !important;
+  font-size: 0.8rem !important;
+  font-weight: 700 !important;
+  letter-spacing: 0.06em !important;
+  color: var(--accent-dark) !important;
+  text-decoration: none !important;
+  border-bottom: 1px solid rgba(82,175,121,0.4) !important;
+  transition: color 0.18s ease, border-color 0.18s ease !important;
+  width: fit-content !important;
 }
 .gallery-prototype-link:hover {
   color: var(--accent);
@@ -5888,33 +5893,44 @@ body.show-grid::before {
 .lightbox-media-frame video,
 .lightbox-media-frame iframe,
 .lightbox-media-frame canvas {
-  max-width: 100%;
-  max-height: 100%;
-  object-fit: contain;
-  width: auto;
-  height: auto;
+  max-width: 100% !important;
+  max-height: 100% !important;
+  object-fit: contain !important;
+  width: auto !important;
+  height: auto !important;
 }
 
-.lightbox body {
+body.lightbox-is-open {
   overflow: hidden !important;
+  scrollbar-width: none !important;
+  -ms-overflow-style: none !important;
+}
+
+body.lightbox-is-open::-webkit-scrollbar {
+  display: none !important;
 }
 
 /* Hide scrollbars on all overflow elements */
 .lightbox-media-frame::-webkit-scrollbar {
-  display: none;
+  display: none !important;
+  width: 0 !important;
+  height: 0 !important;
 }
 
 .lightbox-media-frame {
-  -ms-overflow-style: none;
-  scrollbar-width: none;
+  -ms-overflow-style: none !important;
+  scrollbar-width: none !important;
+  overflow: hidden !important;
 }
 
 /* Remove scrollbar from lightbox itself */
 .lightbox.open {
-  scrollbar-width: none;
-  -ms-overflow-style: none;
+  scrollbar-width: none !important;
+  -ms-overflow-style: none !important;
+  overflow: hidden !important;
 }
 
 .lightbox.open::-webkit-scrollbar {
-  display: none;
+  display: none !important;
+  width: 0 !important;
 }
