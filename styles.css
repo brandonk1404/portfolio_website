@@ -1233,13 +1233,13 @@ body.is-leaving {
 /* ── Prototype link under gallery card ─────────────────────────── */
 .gallery-prototype-link {
   display: block !important;
-  margin-top: 1rem !important;
+  margin-top: 0.75rem !important;
   margin-bottom: 0.75rem !important;
-  margin-left: 0 !important;
+  margin-left: 0.85rem !important;
   margin-right: 0 !important;
-  padding-left: 0.75rem !important;
-  padding-top: 0.5rem !important;
-  padding-bottom: 0.5rem !important;
+  padding-left: 0 !important;
+  padding-top: 0.25rem !important;
+  padding-bottom: 0.25rem !important;
   font-size: 0.8rem !important;
   font-weight: 700 !important;
   letter-spacing: 0.06em !important;
@@ -5703,3 +5703,43 @@ body.lightbox-is-open::-webkit-scrollbar { display: none !important; }
 .lightbox-media-frame::-webkit-scrollbar { display: none !important; width: 0 !important; }
 .lightbox.open { scrollbar-width: none !important; -ms-overflow-style: none !important; overflow: hidden !important; }
 .lightbox.open::-webkit-scrollbar { display: none !important; width: 0 !important; }
+
+/* ══════════════════════════════════════════════════════════════════
+   Force hamburger menu center alignment — all levels
+   ══════════════════════════════════════════════════════════════════ */
+@media (max-width: 768px) {
+  .nav,
+  .nav-group,
+  .nav-sub {
+    align-items: center !important;
+    text-align: center !important;
+  }
+  .nav a,
+  .nav-link-main,
+  .nav-sub a {
+    display: flex !important;
+    justify-content: center !important;
+    align-items: center !important;
+    text-align: center !important;
+    width: 100% !important;
+    padding-left: 0 !important;
+    padding-right: 0 !important;
+  }
+}
+
+/* ══════════════════════════════════════════════════════════════════
+   FINAL: Gallery dropdown hitbox — only on "Gallery" text
+   ══════════════════════════════════════════════════════════════════ */
+@media (min-width: 1025px) {
+  .nav-group {
+    display: inline-block !important;
+    width: auto !important;
+    position: relative !important;
+  }
+  .nav-group .nav-link-main {
+    display: inline-flex !important;
+    width: auto !important;
+    padding: 0.5rem 0.75rem !important;
+    cursor: pointer !important;
+  }
+}
