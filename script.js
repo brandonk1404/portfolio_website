@@ -709,22 +709,14 @@
   function closeLightbox() {
     if (!lightbox || !lightboxBody) return;
     
-    // If not closing from history event, go back to remove the lightbox history entry
-    if (!closingFromHistory && history.state && history.state.lightboxOpen) {
-      history.back();
-      return; // Let popstate handle the actual close
-    }
-    
     lightbox.classList.add('closing');
     setTimeout(function () {
       lightbox.classList.remove('open', 'closing', 'is-scrollable');
       lightbox.setAttribute('aria-hidden', 'true');
-      // Clear JS-set inline styles so lightbox is truly hidden
       lightbox.style.cssText = '';
       document.body.classList.remove('lightbox-is-open');
       document.documentElement.style.overflow = '';
       document.body.style.overflow = '';
-      // Remove resize listener
       if (lightbox._resizeHandler) {
         window.removeEventListener('resize', lightbox._resizeHandler);
         lightbox._resizeHandler = null;

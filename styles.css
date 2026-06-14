@@ -540,7 +540,7 @@ ul {
 .lightbox-dialog {
   position: relative;
   width: min(860px, calc(100vw - 2 * var(--space)));
-  max-height: calc(100dvh - 2rem);
+  max-height: calc(100dvh - 4rem);
   margin: 0 auto;
   background: var(--bg);
   border-radius: calc(var(--radius) + 6px);
@@ -556,7 +556,7 @@ ul {
   display: flex;
   align-items: center;
   justify-content: center;
-  overflow: hidden;
+  overflow: hidden !important;
 }
 
 .lightbox-caption {
@@ -3579,9 +3579,24 @@ h1, h2, h3, h4, .cs-hero-title, .cs-hero-sub, .gallery-name,
     --border:    rgba(232,237,233,0.1);
   }
 
-  /* Page background — dark green. Squares show through from #bg-parallax */
+  /* Page background — dark green with visible square pattern */
   html, body {
     background-color: #0f1410 !important;
+    background-image: 
+      repeating-linear-gradient(
+        90deg,
+        rgba(232,237,233,0.04) 0px,
+        rgba(232,237,233,0.04) 1px,
+        transparent 1px,
+        transparent 50px
+      ),
+      repeating-linear-gradient(
+        0deg,
+        rgba(232,237,233,0.04) 0px,
+        rgba(232,237,233,0.04) 1px,
+        transparent 1px,
+        transparent 50px
+      );
     color: #e8ede9 !important;
   }
 
