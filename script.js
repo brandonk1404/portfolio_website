@@ -458,11 +458,11 @@
     if (captionTitle) captionTitle.textContent = nameEl ? nameEl.textContent : '';
     var descEl = link.querySelector('.gallery-overlay-text');
     if (captionDesc) captionDesc.textContent = descEl ? descEl.textContent : '';
-    // Show prototype link only for ArKade
+    // Show prototype link only for ArKade Mood Board specifically
     var protoLink = document.getElementById('lightbox-prototype-link');
     if (protoLink) {
       var title = nameEl ? nameEl.textContent : '';
-      protoLink.style.display = title.indexOf('ArKade') !== -1 ? 'inline-flex' : 'none';
+      protoLink.style.display = title === 'ArKade Mood Board & Website' ? 'inline-flex' : 'none';
     }
   }
 
@@ -664,6 +664,7 @@
     // CSS position:fixed stacking context bugs in Chrome entirely.
     var vw = window.innerWidth;
     var vh = window.innerHeight;
+    lightbox.style.display = '';
     lightbox.style.cssText = [
       'display:flex',
       'position:fixed',
@@ -687,10 +688,6 @@
     lastFocused = document.activeElement;
     lightbox.classList.add('open');
     lightbox.setAttribute('aria-hidden', 'false');
-    
-    // Push history state so back button closes the lightbox
-    history.pushState({ lightboxOpen: true }, '');
-    
     document.body.classList.add('lightbox-is-open');
     document.documentElement.style.overflow = 'hidden';
     document.body.style.overflow = 'hidden';
@@ -708,12 +705,15 @@
 
   function closeLightbox() {
     if (!lightbox || !lightboxBody) return;
-    
+    // Guard: don't close if already closed or closing
+    if (!lightbox.classList.contains('open')) return;
+
     lightbox.classList.add('closing');
     setTimeout(function () {
       lightbox.classList.remove('open', 'closing', 'is-scrollable');
       lightbox.setAttribute('aria-hidden', 'true');
-      lightbox.style.cssText = '';
+      // Explicitly hide rather than wiping all inline styles
+      lightbox.style.display = 'none';
       document.body.classList.remove('lightbox-is-open');
       document.documentElement.style.overflow = '';
       document.body.style.overflow = '';
@@ -759,16 +759,19 @@
     lightbox.addEventListener('click', function (e) {
       var target = e.target;
       if (!target) return;
-      if (target.matches('[data-lightbox-close]')) closeLightbox();
-      if (target.matches('[data-lightbox-prev]')) go(-1);
-      if (target.matches('[data-lightbox-next]')) go(1);
-      if (target === lightbox || target.matches('.lightbox-backdrop')) closeLightbox();
+      if (target.matches('[data-lightbox-prev]')) { go(-1); return; }
+      if (target.matches('[data-lightbox-next]')) { go(1); return; }
+      // Close on X button or backdrop — deduplicated with early return
+      if (target.matches('[data-lightbox-close]') || target === lightbox) {
+        closeLightbox();
+        return;
+      }
     });
 
     lightbox.addEventListener('touchend', function (e) {
       var target = e.target;
       if (!target) return;
-      if (target === lightbox || target.matches('.lightbox-backdrop')) {
+      if (target.matches('[data-lightbox-close]') || target === lightbox) {
         e.preventDefault();
         closeLightbox();
       }
@@ -979,17 +982,6 @@
       window.addEventListener('load', tryOpen);
     }
   })();
-
-  // ── Guard: close lightbox on browser back/forward so case study
-  //    back-navigation never re-opens the lightbox behind the page ──
-  var closingFromHistory = false;
-  window.addEventListener('popstate', function () {
-    if (lightbox && lightbox.classList.contains('open')) {
-      closingFromHistory = true;
-      closeLightbox();
-      closingFromHistory = false;
-    }
-  });
 
   // ── Extended animation system ─────────────────────────────────
   (function () {
