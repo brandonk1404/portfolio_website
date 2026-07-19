@@ -191,12 +191,25 @@
       .site-footer a { color: var(--accent, #52af79) !important; }
     }
     @media (prefers-color-scheme: dark) {
+      :root {
+        --lkr-page-bg: #0f0d18;
+        --lkr-panel-bg: #1e1830;
+        --lkr-panel-border: rgba(167, 131, 230, 0.25);
+        --lkr-text-main: #eee8ff;
+        --lkr-text-muted: rgba(238, 232, 255, 0.65);
+      }
       .nav-sub { background: #1e1830 !important; border-color: rgba(167,131,230,0.2) !important; }
       .nav-sub a { color: rgba(238,232,255,0.8) !important; }
-      .nav { background: #0f1410 !important; }
-      .site-header { background: rgba(15,20,16,0.96) !important; }
+      .nav { background: #0f0d18 !important; }
+      .site-header { background: rgba(12,10,20,0.96) !important; }
       .site-footer { color: rgba(238,232,255,0.8) !important; }
       .site-footer a { color: rgba(167,131,230,0.85) !important; }
+      .site-footer p { color: rgba(238,232,255,0.5) !important; }
+      .series-hero-title, .series-hero-desc, .series-hero-year,
+      h1, h2, h3, h4, p, li, span { color: var(--lkr-text-main) !important; }
+      .gallery-meta { background: #0f0d18 !important; }
+      .gallery-image-wrap { background: var(--lkr-panel-bg) !important; border-color: var(--lkr-panel-border) !important; }
+      .gallery-item { background: transparent !important; }
     }
   </style>
   <meta property="og:type" content="website">

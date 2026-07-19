@@ -4244,6 +4244,59 @@ h1, h2, h3, h4, .cs-hero-title, .cs-hero-sub, .gallery-name,
   .resume.section {
     background: transparent !important;
   }
+
+  /* accent-dark too dark in dark mode — lighten it */
+  :root {
+    --accent-dark: #6eb88c;
+  }
+
+  /* gallery-prototype-link needs lighter color in dark mode */
+  .gallery-prototype-link {
+    color: #6eb88c !important;
+    border-bottom-color: rgba(110,184,140,0.4) !important;
+  }
+  .gallery-prototype-link:hover {
+    color: #52af79 !important;
+    border-color: #52af79 !important;
+  }
+
+  /* series-divider */
+  .series-divider {
+    border-color: rgba(232,237,233,0.12) !important;
+  }
+
+  /* series-eyebrow, series-year */
+  .series-eyebrow {
+    color: rgba(232,237,233,0.5) !important;
+  }
+  .series-year {
+    color: rgba(232,237,233,0.5) !important;
+  }
+  .series-description {
+    color: rgba(232,237,233,0.8) !important;
+  }
+
+  /* series.html info panel */
+  .series-info {
+    background: transparent !important;
+  }
+  .series-entry {
+    background: transparent !important;
+    border-color: rgba(232,237,233,0.06) !important;
+  }
+
+  /* gallery-img-poster light bg → dark */
+  .gallery-img-poster {
+    background: #1e2620 !important;
+  }
+
+  /* contact-row link color */
+  .contact-row a {
+    color: #e8ede9 !important;
+  }
+  .contact-row a:hover {
+    color: #6eb88c !important;
+  }
 }
 
 /* ══════════════════════════════════════════════════════════════════
@@ -4258,26 +4311,40 @@ h1, h2, h3, h4, .cs-hero-title, .cs-hero-sub, .gallery-name,
     align-items: center !important;
     justify-content: center !important;
     padding: 1rem !important;
-    overflow-y: auto !important;
+    overflow: hidden !important;
     min-height: 100% !important;
   }
   .lightbox-dialog {
-    display: block !important;
-    flex-direction: unset !important;
+    display: flex !important;
+    flex-direction: column !important;
     width: min(860px, calc(100vw - 2rem)) !important;
     max-width: 100% !important;
+    max-height: calc(100dvh - 4rem) !important;
     margin: auto !important;
-    max-height: none !important;
     overflow: hidden !important;
   }
   .lightbox-media-frame {
-    aspect-ratio: 16 / 9 !important;
+    flex: 1 1 auto !important;
+    min-height: 0 !important;
     width: 100% !important;
     height: auto !important;
-    border-radius: inherit !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    overflow: hidden !important;
+    padding: 1rem !important;
+  }
+  .lightbox-media-frame img,
+  .lightbox-media-frame video,
+  .lightbox-media-frame canvas {
+    max-width: 100% !important;
+    max-height: 100% !important;
+    width: auto !important;
+    height: auto !important;
+    object-fit: contain !important;
   }
   .lightbox-caption {
-    flex: unset !important;
+    flex: 0 0 auto !important;
     width: auto !important;
     max-height: none !important;
     border-left: none !important;
@@ -5828,5 +5895,155 @@ body.lightbox-is-open::-webkit-scrollbar { display: none !important; }
     width: 100% !important;
     padding-left: 0 !important;
     padding-right: 0 !important;
+  }
+}
+
+/* ══════════════════════════════════════════════════════════════════
+   DARK MODE — COMPLETE COVERAGE PASS
+   ══════════════════════════════════════════════════════════════════ */
+@media (prefers-color-scheme: dark) {
+
+  /* Gallery prototype / video link */
+  .gallery-prototype-link {
+    color: #6eb88c !important;
+    border-bottom-color: rgba(110,184,140,0.35) !important;
+  }
+  .gallery-prototype-link:hover {
+    color: #52af79 !important;
+    border-bottom-color: #52af79 !important;
+  }
+
+  /* Gallery nav arrows & scrollbars */
+  .gallery-nav-prev,
+  .gallery-nav-next {
+    background: rgba(15,20,16,0.85) !important;
+    border-color: rgba(232,237,233,0.12) !important;
+    color: #e8ede9 !important;
+  }
+
+  /* Contact SVG icons */
+  .contact-svg path,
+  .contact-svg rect,
+  .contact-svg circle {
+    stroke: #6eb88c !important;
+    fill: none !important;
+  }
+  .contact-svg path[fill="#52af79"],
+  .contact-svg circle[fill="#52af79"] {
+    fill: #6eb88c !important;
+    stroke: none !important;
+  }
+
+  /* Contact row links */
+  .contact-row a { color: #e8ede9 !important; }
+  .contact-row a:hover { color: #6eb88c !important; }
+
+  /* Resume skills list */
+  .resume-list li { color: #e8ede9 !important; }
+  .resume-list li span { color: rgba(232,237,233,0.55) !important; }
+  .resume-grid { gap: inherit; }
+
+  /* Awards */
+  .awards-item { background: rgba(110,184,140,0.06) !important; border-color: rgba(232,237,233,0.08) !important; }
+
+  /* Homepage hero showcase bg */
+  .hero-showcase-inner,
+  .hero-canvas-wrap {
+    background: #161d18 !important;
+  }
+
+  /* Featured cards */
+  .featured-card {
+    background: #161d18 !important;
+    border-color: rgba(232,237,233,0.08) !important;
+  }
+  .featured-title { color: #e8ede9 !important; }
+  .featured-desc { color: rgba(232,237,233,0.7) !important; }
+  .featured-tag {
+    background: rgba(110,184,140,0.12) !important;
+    color: #6eb88c !important;
+  }
+
+  /* Lightbox */
+  .lightbox-dialog {
+    background: #161d18 !important;
+    border-color: rgba(232,237,233,0.08) !important;
+  }
+  .lightbox-caption {
+    background: #161d18 !important;
+    border-top-color: rgba(232,237,233,0.08) !important;
+  }
+  .lightbox-title { color: #e8ede9 !important; }
+  .lightbox-category { color: rgba(232,237,233,0.55) !important; }
+  .lightbox-desc { color: rgba(232,237,233,0.75) !important; }
+  .lightbox-backdrop { background: rgba(0,0,0,0.8) !important; }
+  .lightbox-nav { color: #e8ede9 !important; background: rgba(15,20,16,0.7) !important; }
+
+  /* About page */
+  .about-inner { background: transparent !important; }
+  .about-photo { border-color: rgba(232,237,233,0.1) !important; }
+
+  /* Skip link */
+  .skip-link:focus { background: #161d18 !important; color: #6eb88c !important; }
+}
+
+/* ══════════════════════════════════════════════════════════════════
+   Dark mode — remaining gaps
+   ══════════════════════════════════════════════════════════════════ */
+@media (prefers-color-scheme: dark) {
+  /* Lightbox caption border */
+  .lightbox-caption {
+    border-top-color: rgba(232,237,233,0.08) !important;
+  }
+
+  /* gallery-img-poster light bg → dark */
+  .gallery-img-poster {
+    background: #1e2620 !important;
+  }
+
+  /* series.html entry borders and backgrounds */
+  .series-entry {
+    background: transparent !important;
+  }
+
+  /* series work count badge */
+  .series-count {
+    background: rgba(110,184,140,0.25) !important;
+    color: #c8ecd6 !important;
+  }
+
+  /* about page photo border */
+  .about-photo {
+    border-color: rgba(232,237,233,0.1) !important;
+    box-shadow: 0 8px 32px rgba(0,0,0,0.4) !important;
+  }
+
+  /* hero section */
+  .hero-label {
+    color: rgba(232,237,233,0.5) !important;
+  }
+
+  /* featured section cards */
+  .featured-card {
+    border-color: rgba(232,237,233,0.06) !important;
+  }
+
+  /* resume download button */
+  .resume-download {
+    background: #52af79 !important;
+    color: #0f1410 !important;
+  }
+
+  /* series page gallery name */
+  .gallery-name {
+    color: #e8ede9 !important;
+  }
+  .gallery-category {
+    color: rgba(232,237,233,0.55) !important;
+  }
+
+  /* Play icon in dark mode */
+  .play-icon::before {
+    border-left-color: #fff !important;
   }
 }

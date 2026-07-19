@@ -3,9 +3,9 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
-  <meta name="theme-color" content="#315640">
-  <meta name="description" content="In my series, Creation of The Earthly, I explore the construction of a tree house — a series by Brandon Kreitsch.">
-  <title>Creation of the Earthly — Brandon Kreitsch</title>
+  <meta name="theme-color" content="#1a0f2e">
+  <meta name="description" content="ArKade — a retro arcade brand identity project including mood board, web design, and promotional poster by Brandon Kreitsch.">
+  <title>ArKade — Brandon Kreitsch</title>
   <link rel="icon" type="image/svg+xml" href="site-logo.svg">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -14,11 +14,11 @@
   <style>
     :root {
       --series-page-bg: #ffffff;
-      --series-panel-bg: #2a3d2e;
-      --series-panel-border: rgba(82, 175, 121, 0.28);
-      --series-text-main: #d4eadb;
-      --series-text-muted: rgba(212, 234, 219, 0.78);
-      --series-accent: #52af79;
+      --series-panel-bg: #1a0f2e;
+      --series-panel-border: rgba(200, 160, 80, 0.3);
+      --series-text-main: #fef3c0;
+      --series-text-muted: rgba(254, 243, 192, 0.72);
+      --series-accent: #e8c840;
     }
     body {
       font-family: "Roboto", system-ui, sans-serif;
@@ -85,7 +85,7 @@
     }
     .series-hero-media img,
     .series-hero-media video {
-      width: 100%; height: 100%; object-fit: contain; display: block; background: var(--bg-alt);
+      width: 100%; height: 100%; object-fit: contain; display: block; background: var(--series-panel-bg);
     }
     .series-hero-info {
       display: flex;
@@ -132,16 +132,6 @@
       line-height: 1.7;
       margin: 0;
     }
-    .series-hero-statement {
-      border-left: 2px solid var(--series-accent);
-      padding-left: 1rem;
-      font-size: 0.9rem;
-      color: var(--series-text-muted);
-      opacity: 0.65;
-      font-style: italic;
-      line-height: 1.65;
-      margin: 0;
-    }
     .series-hero-year {
       font-size: 0.78rem;
       letter-spacing: 0.1em;
@@ -185,15 +175,17 @@
       .gallery-category, .gallery-year { color: rgba(232,237,233,0.55) !important; }
       .gallery-meta { background: #161d18 !important; }
       .gallery-image-wrap { background: #161d18 !important; border-color: rgba(232,237,233,0.08) !important; }
+      .gallery-image-wrap-white { background: #1e1830 !important; }
       .gallery-item { background: transparent !important; }
       .gallery-overlay { background: rgba(10,14,11,0.85) !important; }
     }
   </style>
   <meta property="og:type" content="website">
   <meta property="og:site_name" content="Brandon Kreitsch">
-  <meta property="og:title" content="Creation of the Earthly — Brandon Kreitsch">
-  <meta property="og:description" content="In my series, Creation of The Earthly, I explore the construction of a tree house. Each piece further symbolizes a power structure centered around the Maker figure. World-building and telling a deeper story are very important to me. These two ideas are heavily reflected in my works, including this series. The Maker's creation of a world driven by ambition highlights the alternative meaning of creation as a life&#8209;giving force fueled by hopes, dreams, and&nbsp;perseverance.">
-  <meta property="og:url" content="https://brandonkreitsch.com/series-earthly.html">
+  <meta property="og:title" content="ArKade — Brandon Kreitsch">
+  <meta property="og:description" content="ArKade — a retro arcade brand identity project including mood board, web design, and promotional poster.">
+  <meta property="og:image" content="https://brandonkreitsch.com/images/arkade_fullview.png">
+  <meta property="og:url" content="https://brandonkreitsch.com/series-arkade.html">
   <script>
     (function () {
       var loc = window.location;
@@ -212,7 +204,7 @@
       <img src="site-logo.svg" alt="Brandon Kreitsch logo">
       <span>Brandon Kreitsch</span>
     </a>
-        <nav id="site-nav" class="nav" aria-label="Main">
+    <nav id="site-nav" class="nav" aria-label="Main">
       <a href="index.html">Home</a>
       <a href="about.html">About</a>
       <div class="nav-group">
@@ -238,17 +230,16 @@
     <!-- ── Hero intro panel ── -->
     <section class="series-hero">
       <div class="series-hero-inner">
-        <div class="series-hero-media" id="earthly-carousel">
-          <canvas id="earthly-canvas" style="width:100%;height:100%;display:block;"></canvas>
+        <div class="series-hero-media" id="arkade-carousel">
+          <canvas id="arkade-canvas" style="width:100%;height:100%;display:block;"></canvas>
         </div>
         <div class="series-hero-info">
           <a href="series.html" class="series-hero-back">&#8592; All Series</a>
-          <span class="series-hero-eyebrow">Series II</span>
-          <h1 class="series-hero-title">Creation of the Earthly</h1>
+          <span class="series-hero-eyebrow">Series IV</span>
+          <h1 class="series-hero-title">ArKade</h1>
           <hr class="series-hero-divider">
-          <p class="series-hero-desc">In my series, Creation of The Earthly, I explore the construction of a tree house. Each piece further symbolizes a power structure centered around the Maker figure. World-building and telling a deeper story are very important to me. These two ideas are heavily reflected in my works, including this series. The Maker's creation of a world driven by ambition highlights the alternative meaning of creation as a life&#8209;giving force fueled by hopes, dreams, and&nbsp;perseverance.</p>
-          <blockquote class="series-hero-statement">In my series, Creation of The Earthly, I explore the construction of a tree house. Each piece further symbolizes a power structure centered around the Maker figure. World-building and telling a deeper story are very important to me. These two ideas are heavily reflected in my works, including this series. The Maker's creation of a world driven by ambition highlights the alternative meaning of creation as a life&#8209;giving force fueled by hopes, dreams, and&nbsp;perseverance.</blockquote>
-          <span class="series-hero-year">2025</span>
+          <p class="series-hero-desc">A retro arcade brand identity concept for ArKade Systems — combining nostalgic pixel aesthetics with modern design sensibility. The project spans mood board exploration, e-commerce web design, and a promotional poster built to evoke the energy of classic arcade culture.</p>
+          <span class="series-hero-year">2026</span>
         </div>
       </div>
     </section>
@@ -257,24 +248,19 @@
     <section class="series-works-section">
       <h2 class="section-title">Works</h2>
       <div class="gallery">
-          <article class="gallery-item">
-<a href="images/mural_fullview.jpg" class="gallery-link" target="_blank" rel="noopener">
-              <div class="gallery-image-wrap"><img src="images/mural_thumb.jpg" alt="Mural"><div class="gallery-overlay"><span class="gallery-overlay-text">Mixed media work combining photography, cardboard, and acrylic</span></div></div>
-              <div class="gallery-meta"><span class="gallery-category">Mixed Media</span><span class="gallery-name">Mural</span></div>
-            </a>
-          </article>
-          <article class="gallery-item video-item">
-            <a href="https://www.youtube.com/watch?v=31V2p2QEiEk" class="gallery-link" target="_blank" rel="noopener">
-              <div class="gallery-image-wrap"><img src="images/doors_thumb.jpg" alt="Doors"><div class="play-icon"></div><div class="gallery-overlay"><span class="gallery-overlay-text">A man stranded in an endless dimension must confront a god and help build a treehouse.</span></div></div>
-              <div class="gallery-meta"><span class="gallery-category">Video</span><span class="gallery-name">Doors</span></div>
-            </a>
-          </article>
-          <article class="gallery-item">
-            <a href="images/the_maker_fullview.jpg" class="gallery-link" target="_blank" rel="noopener">
-              <div class="gallery-image-wrap"><img src="images/the_maker_thumb.jpg" alt="The Maker"><div class="gallery-overlay"><span class="gallery-overlay-text">Conceptual photographic study reimagining a craftsman's tools as digital desktop windows</span></div></div>
-              <div class="gallery-meta"><span class="gallery-category">Photographic Print</span><span class="gallery-name">The Maker</span></div>
-            </a>
-          </article>
+        <article class="gallery-item">
+          <a href="images/arkade_fullview.png" class="gallery-link" target="_blank" rel="noopener">
+            <div class="gallery-image-wrap"><img src="images/arkade_thumb.png" alt="ArKade Mood Board &amp; Website"><div class="gallery-overlay"><span class="gallery-overlay-text">E-commerce web design and identity for a personal retro arcade system</span></div></div>
+            <div class="gallery-meta"><span class="gallery-category">Web Design</span><span class="gallery-name">ArKade Mood Board &amp; Website</span></div>
+          </a>
+          <a href="https://xd.adobe.com/view/7e13c877-b002-478d-97a0-552efbed5e7d-2b40/" class="gallery-prototype-link" target="_blank" rel="noopener">View Prototype →</a>
+        </article>
+        <article class="gallery-item">
+          <a href="images/arkade_poster_fullview.jpg" class="gallery-link" target="_blank" rel="noopener">
+            <div class="gallery-image-wrap gallery-image-wrap-white"><img src="images/arkade_poster_thumb.png" alt="ArKade Retro Arcade Poster" style="object-fit:contain;"><div class="gallery-overlay"><span class="gallery-overlay-text">Retro arcade flyer poster for the ArKade system</span></div></div>
+            <div class="gallery-meta"><span class="gallery-category">Digital Illustration</span><span class="gallery-name">ArKade — Retro Poster</span></div>
+          </a>
+        </article>
       </div>
     </section>
 
@@ -286,17 +272,15 @@
   <script src="js/series-hero-carousel.js"></script>
   <script>
   window.SeriesHeroCarousel.runMixed({
-    canvasId: 'earthly-canvas',
-    wrapId: 'earthly-carousel',
+    canvasId: 'arkade-canvas',
+    wrapId: 'arkade-carousel',
     transition: 'greenery',
-    bg: '#1a2e1a',
+    bg: '#1a0f2e',
     holdMs: 4500,
     transMs: 1800,
     items: [
-      { type: 'image', src: 'images/earthly_fullview.jpg' },
-      { type: 'image', src: 'images/mural_fullview.jpg' },
-      { type: 'video', src: 'images/doors_loop.mp4' },
-      { type: 'image', src: 'images/the_maker_fullview.jpg' }
+      { type: 'image', src: 'images/arkade_fullview.png' },
+      { type: 'image', src: 'images/arkade_poster_fullview.jpg' }
     ]
   });
   </script>

@@ -272,6 +272,15 @@
         gap: 4rem;
       }
     }
+    @media (prefers-color-scheme: dark) {
+      .site-header { background: rgba(15,20,16,0.96) !important; }
+      .nav { background: #0f1410 !important; }
+      .site-footer { background: #080c09 !important; }
+      .site-footer p, .site-footer a { color: rgba(232,237,233,0.45) !important; }
+      .series-entry { background: transparent !important; }
+      .series-visual { border-color: rgba(232,237,233,0.08) !important; }
+      .series-count { background: rgba(110,184,140,0.2) !important; }
+    }
   </style>
 
   <meta property="og:type" content="website">
@@ -398,6 +407,26 @@
           </div>
         </article>
 
+        <!-- ── ArKade ── -->
+        <article class="series-entry reveal" data-series="arkade">
+          <div class="series-visual">
+            <img class="series-visual-main is-poster" src="images/arkade_fullview.png" alt="ArKade Mood Board">
+            <div class="series-visual-strip is-hidden">
+              <img class="series-strip-thumb poster-thumb active" src="images/arkade_thumb.png" alt="ArKade Mood Board">
+              <img class="series-strip-thumb" src="images/arkade_poster_thumb.png" alt="ArKade Retro Poster">
+            </div>
+            <span class="series-count"></span>
+          </div>
+          <div class="series-info">
+            <span class="series-eyebrow">Series IV</span>
+            <h3 class="series-title"><a href="series-arkade.html" style="color:inherit; text-decoration:none;">ArKade</a></h3>
+            <hr class="series-divider">
+            <p class="series-description">A retro arcade brand identity concept for ArKade Systems — combining nostalgic pixel aesthetics with modern design sensibility. Spanning mood board exploration, e-commerce web design, and a promotional poster built to evoke the energy of classic arcade culture.</p>
+            <span class="series-year">2026</span>
+            <a href="series-arkade.html" class="btn btn-primary" style="margin-top:1rem; align-self:flex-start;">View Series →</a>
+          </div>
+        </article>
+
       </div>
     </section>
   
@@ -438,6 +467,10 @@
         { src: 'images/pathway_thumb.jpg',           alt: 'Pathway' },
         { src: 'images/chains_thumb.jpg',            alt: 'Chains' },
         { src: 'images/circuits_thumb.jpg',          alt: 'Circuits' },
+      ],
+      arkade: [
+        { src: 'images/arkade_thumb.png',        alt: 'ArKade Mood Board',  poster: true },
+        { src: 'images/arkade_poster_thumb.png', alt: 'ArKade Retro Poster' },
       ],
     };
 
