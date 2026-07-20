@@ -550,7 +550,17 @@
       }
 
       var ytWrap = document.createElement('div');
-      ytWrap.style.cssText = 'position:relative;width:100%;aspect-ratio:16/9;background:#000;overflow:hidden;cursor:pointer;';
+      ytWrap.style.cssText = [
+        'position:relative',
+        'background:#000',
+        'overflow:hidden',
+        'cursor:pointer',
+        /* Fit within frame: take the smaller of full-width or height-derived width */
+        'width:min(100%, calc((100dvh - 12rem) * (16/9)))',
+        'aspect-ratio:16/9',
+        'max-width:100%',
+        'flex-shrink:0'
+      ].join(';');
 
       var ytDiv = document.createElement('div');
       var ytDivId = 'yt-player-' + Date.now();
@@ -653,6 +663,7 @@
       video.autoplay = true;
       video.muted = true;
       video.playsInline = true;
+      video.style.cssText = 'display:block;width:100%;height:100%;max-width:100%;max-height:100%;object-fit:contain;background:#000;';
       vwrap.appendChild(video);
       frame.appendChild(vwrap);
     } else {
