@@ -607,19 +607,11 @@ ul {
   background: transparent;
 }
 
-.lightbox-media-frame {
-  width: 100%;
-  aspect-ratio: 16 / 9;
-  background: #000;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  overflow: hidden;
-}
-
 .lightbox-media-frame img {
-  width: 100%;
-  height: 100%;
+  max-width: 100%;
+  max-height: 100%;
+  width: auto;
+  height: auto;
   object-fit: contain;
   background: var(--bg-alt);
 }
@@ -3487,20 +3479,28 @@ h1, h2, h3, h4, .cs-hero-title, .cs-hero-sub, .gallery-name,
   .lightbox-dialog {
     flex-direction: column !important;
     width: min(860px, calc(100vw - 2 * var(--space))) !important;
-    max-height: none !important;
+    max-height: calc(100dvh - 4rem) !important;
   }
   .lightbox-body {
-    flex: unset !important;
+    flex: 1 1 auto !important;
+    min-height: 0 !important;
     width: 100% !important;
+    display: flex !important;
+    flex-direction: column !important;
   }
   .lightbox-media-frame {
+    flex: 1 1 auto !important;
+    min-height: 0 !important;
     width: 100% !important;
-    height: 100% !important;
-    aspect-ratio: 16 / 9 !important;
-    border-radius: inherit !important;
+    height: auto !important;
+    aspect-ratio: unset !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    overflow: hidden !important;
   }
   .lightbox-caption {
-    flex: unset !important;
+    flex: 0 0 auto !important;
     width: auto !important;
     max-height: none !important;
     border-left: none !important;
@@ -5346,7 +5346,7 @@ img {
   width: min(860px, calc(100vw - 2 * clamp(0.75rem, 3vw, 2rem))) !important;
   max-width: calc(100vw - 1.5rem) !important;
   max-height: calc(100dvh - clamp(3.5rem, 8vw, 6rem)) !important;
-  overflow-y: auto !important;           /* dialog scrolls internally if content is tall */
+  overflow: hidden !important;
   overflow-x: hidden !important;
   flex-shrink: 0 !important;
 }
@@ -6058,5 +6058,58 @@ body.lightbox-is-open::-webkit-scrollbar { display: none !important; }
   /* Play icon in dark mode */
   .play-icon::before {
     border-left-color: #fff !important;
+  }
+}
+
+/* ══════════════════════════════════════════════════════════════════
+   Mobile gallery — smoother scrolling, better card display
+   ══════════════════════════════════════════════════════════════════ */
+@media (max-width: 768px) {
+  /* Smoother scroll — proximity instead of mandatory stops mid-scroll */
+  .gallery {
+    scroll-snap-type: x proximity !important;
+    -webkit-overflow-scrolling: touch !important;
+    overscroll-behavior-x: contain !important;
+    padding: 0 1.25rem !important;
+    gap: 1rem !important;
+    scrollbar-width: none !important;
+  }
+  .gallery::-webkit-scrollbar { display: none !important; }
+
+  /* Cards: show 1.1 cards at a time so user knows more exist */
+  .gallery-item {
+    flex: 0 0 min(88vw, 360px) !important;
+    scroll-snap-align: start !important;
+  }
+
+  /* Gallery image taller on mobile for better visual impact */
+  .gallery-image-wrap {
+    aspect-ratio: 4 / 3 !important;
+  }
+
+  /* Gallery meta: bigger, more readable */
+  .gallery-name {
+    font-size: 1rem !important;
+  }
+  .gallery-category {
+    font-size: 0.72rem !important;
+  }
+  .gallery-meta {
+    padding: 0.75rem 0.9rem !important;
+  }
+
+  /* Work group title: less padding */
+  .work-group-title {
+    font-size: 1.1rem !important;
+    padding: 0.5rem 1.25rem !important;
+  }
+
+  /* View prototype/video link: more breathing room */
+  .gallery-prototype-link {
+    padding: 0.5rem 1rem !important;
+    margin-left: 0 !important;
+    margin-bottom: 0.5rem !important;
+    display: block !important;
+    font-size: 0.85rem !important;
   }
 }

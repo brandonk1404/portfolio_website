@@ -550,17 +550,24 @@
       }
 
       var ytWrap = document.createElement('div');
-      ytWrap.style.cssText = [
-        'position:relative',
-        'background:#000',
-        'overflow:hidden',
-        'cursor:pointer',
-        /* Fit within frame: take the smaller of full-width or height-derived width */
-        'width:min(100%, calc((100dvh - 12rem) * (16/9)))',
-        'aspect-ratio:16/9',
-        'max-width:100%',
-        'flex-shrink:0'
-      ].join(';');
+      // Give initial size so dialog/frame have dimensions before JS measures
+      ytWrap.style.cssText = 'position:relative;background:#000;overflow:hidden;cursor:pointer;flex-shrink:0;width:100%;aspect-ratio:16/9;';
+
+      function sizeYtWrap() {
+        var fw = frame.clientWidth;
+        var fh = frame.clientHeight;
+        if (!fw || !fh) return;
+        var ratio = 16 / 9;
+        var w, h;
+        if (fw / fh > ratio) { h = fh; w = h * ratio; }
+        else { w = fw; h = w / ratio; }
+        ytWrap.style.width = Math.round(w) + 'px';
+        ytWrap.style.height = Math.round(h) + 'px';
+      }
+      // Two rAFs: first ensures lightbox is visible, second ensures layout is computed
+      requestAnimationFrame(function() { requestAnimationFrame(sizeYtWrap); });
+      var ytResizeObs = window.ResizeObserver ? new ResizeObserver(sizeYtWrap) : null;
+      if (ytResizeObs) { ytResizeObs.observe(frame); lightbox._ytResizeObs = ytResizeObs; }
 
       var ytDiv = document.createElement('div');
       var ytDivId = 'yt-player-' + Date.now();
@@ -663,7 +670,22 @@
       video.autoplay = true;
       video.muted = true;
       video.playsInline = true;
-      video.style.cssText = 'display:block;width:100%;height:100%;max-width:100%;max-height:100%;object-fit:contain;background:#000;';
+      video.style.cssText = 'display:block;background:#000;flex-shrink:0;width:100%;aspect-ratio:16/9;';
+      function sizeVideo() {
+        var fw = frame.clientWidth;
+        var fh = frame.clientHeight;
+        if (!fw || !fh) return;
+        var ratio = 16 / 9;
+        var w, h;
+        if (fw / fh > ratio) { h = fh; w = h * ratio; }
+        else { w = fw; h = w / ratio; }
+        video.style.width = Math.round(w) + 'px';
+        video.style.height = Math.round(h) + 'px';
+        video.style.aspectRatio = '';
+      }
+      requestAnimationFrame(function() { requestAnimationFrame(sizeVideo); });
+      var vidResizeObs = window.ResizeObserver ? new ResizeObserver(sizeVideo) : null;
+      if (vidResizeObs) { vidResizeObs.observe(frame); lightbox._ytResizeObs = vidResizeObs; }
       vwrap.appendChild(video);
       frame.appendChild(vwrap);
     } else {
@@ -733,6 +755,7 @@
         lightbox._resizeHandler = null;
       }
       lightboxBody.innerHTML = '';
+      if (lightbox._ytResizeObs) { lightbox._ytResizeObs.disconnect(); lightbox._ytResizeObs = null; }
       activeIndex = -1;
       var protoLink = document.getElementById('lightbox-prototype-link');
       if (protoLink) protoLink.style.display = 'none';
