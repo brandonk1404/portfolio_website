@@ -6128,10 +6128,18 @@ body.lightbox-is-open::-webkit-scrollbar { display: none !important; }
   overflow: hidden !important;
 }
 
+/* Body must be flex so frame inside can grow */
+.lightbox-dialog.is-video .lightbox-body {
+  flex: 1 1 0 !important;
+  min-height: 0 !important;
+  display: flex !important;
+  flex-direction: column !important;
+  overflow: hidden !important;
+}
+
 .lightbox-dialog.is-video .lightbox-media-frame {
   flex: 1 1 0 !important;
   min-height: 0 !important;
-  height: 0 !important;
   width: 100% !important;
   display: flex !important;
   align-items: center !important;
@@ -6144,6 +6152,7 @@ body.lightbox-is-open::-webkit-scrollbar { display: none !important; }
 
 .lightbox-dialog.is-video .lightbox-caption {
   flex: 0 0 auto !important;
+  order: 2 !important;
   background: #111 !important;
   border-top: 1px solid rgba(255,255,255,0.08) !important;
   padding: 0.85rem 1.25rem !important;
@@ -6161,7 +6170,7 @@ body.lightbox-is-open::-webkit-scrollbar { display: none !important; }
   color: #52af79 !important;
 }
 
-/* Image mode stays light */
+/* Image mode keeps padding */
 .lightbox-dialog:not(.is-video) .lightbox-media-frame {
   padding: 1rem !important;
 }
