@@ -3482,17 +3482,16 @@ h1, h2, h3, h4, .cs-hero-title, .cs-hero-sub, .gallery-name,
     max-height: calc(100dvh - 4rem) !important;
   }
   .lightbox-body {
-    flex: 1 1 auto !important;
+    flex: 1 1 0 !important;
     min-height: 0 !important;
     width: 100% !important;
     display: flex !important;
     flex-direction: column !important;
   }
   .lightbox-media-frame {
-    flex: 1 1 auto !important;
+    flex: 1 1 0 !important;
     min-height: 0 !important;
     width: 100% !important;
-    height: auto !important;
     aspect-ratio: unset !important;
     display: flex !important;
     align-items: center !important;
@@ -6112,4 +6111,57 @@ body.lightbox-is-open::-webkit-scrollbar { display: none !important; }
     display: block !important;
     font-size: 0.85rem !important;
   }
+}
+
+/* ══════════════════════════════════════════════════════════════════
+   DEFINITIVE VIDEO LIGHTBOX — wins over all previous rules
+   ══════════════════════════════════════════════════════════════════ */
+
+/* Video mode: dialog fills the screen, proper player experience */
+.lightbox-dialog.is-video {
+  height: calc(100dvh - 4rem) !important;
+  width: min(1200px, calc(100vw - 2rem)) !important;
+  max-width: calc(100vw - 2rem) !important;
+  background: #000 !important;
+  display: flex !important;
+  flex-direction: column !important;
+  overflow: hidden !important;
+}
+
+.lightbox-dialog.is-video .lightbox-media-frame {
+  flex: 1 1 0 !important;
+  min-height: 0 !important;
+  height: 0 !important;
+  width: 100% !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  overflow: hidden !important;
+  background: #000 !important;
+  aspect-ratio: unset !important;
+  padding: 0 !important;
+}
+
+.lightbox-dialog.is-video .lightbox-caption {
+  flex: 0 0 auto !important;
+  background: #111 !important;
+  border-top: 1px solid rgba(255,255,255,0.08) !important;
+  padding: 0.85rem 1.25rem !important;
+}
+
+.lightbox-dialog.is-video .lightbox-title {
+  color: #fff !important;
+}
+
+.lightbox-dialog.is-video .lightbox-category {
+  color: rgba(255,255,255,0.55) !important;
+}
+
+.lightbox-dialog.is-video .lightbox-prototype-btn {
+  color: #52af79 !important;
+}
+
+/* Image mode stays light */
+.lightbox-dialog:not(.is-video) .lightbox-media-frame {
+  padding: 1rem !important;
 }

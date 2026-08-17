@@ -542,6 +542,9 @@
       img.alt = (captionTitle && captionTitle.textContent) ? captionTitle.textContent : 'Work preview';
       frame.appendChild(img);
     } else if (mediaType === 'youtube') {
+      // Mark dialog as video mode — triggers full-height dark player CSS
+      var dlg = lightbox.querySelector('.lightbox-dialog');
+      if (dlg) dlg.classList.add('is-video');
       var videoId = '';
       if (href.indexOf('watch?v=') !== -1) {
         videoId = href.split('watch?v=')[1].split('&')[0];
@@ -556,16 +559,17 @@
       function sizeYtWrap() {
         var fw = frame.clientWidth;
         var fh = frame.clientHeight;
-        if (!fw || !fh) return;
+        if (!fw || !fh) { setTimeout(sizeYtWrap, 50); return; }
         var ratio = 16 / 9;
         var w, h;
         if (fw / fh > ratio) { h = fh; w = h * ratio; }
         else { w = fw; h = w / ratio; }
         ytWrap.style.width = Math.round(w) + 'px';
         ytWrap.style.height = Math.round(h) + 'px';
+        ytWrap.style.aspectRatio = '';
       }
-      // Two rAFs: first ensures lightbox is visible, second ensures layout is computed
-      requestAnimationFrame(function() { requestAnimationFrame(sizeYtWrap); });
+      // Wait 2 frames then retry until frame has real dimensions
+      requestAnimationFrame(function() { requestAnimationFrame(function() { setTimeout(sizeYtWrap, 50); }); });
       var ytResizeObs = window.ResizeObserver ? new ResizeObserver(sizeYtWrap) : null;
       if (ytResizeObs) { ytResizeObs.observe(frame); lightbox._ytResizeObs = ytResizeObs; }
 
@@ -662,6 +666,8 @@
         };
       }
     } else if (mediaType === 'video') {
+      var dlgV = lightbox.querySelector('.lightbox-dialog');
+      if (dlgV) dlgV.classList.add('is-video');
       var vwrap = document.createElement('div');
       vwrap.className = 'video-embed-wrap';
       var video = document.createElement('video');
@@ -674,7 +680,7 @@
       function sizeVideo() {
         var fw = frame.clientWidth;
         var fh = frame.clientHeight;
-        if (!fw || !fh) return;
+        if (!fw || !fh) { setTimeout(sizeVideo, 50); return; }
         var ratio = 16 / 9;
         var w, h;
         if (fw / fh > ratio) { h = fh; w = h * ratio; }
@@ -683,7 +689,7 @@
         video.style.height = Math.round(h) + 'px';
         video.style.aspectRatio = '';
       }
-      requestAnimationFrame(function() { requestAnimationFrame(sizeVideo); });
+      requestAnimationFrame(function() { requestAnimationFrame(function() { setTimeout(sizeVideo, 50); }); });
       var vidResizeObs = window.ResizeObserver ? new ResizeObserver(sizeVideo) : null;
       if (vidResizeObs) { vidResizeObs.observe(frame); lightbox._ytResizeObs = vidResizeObs; }
       vwrap.appendChild(video);
@@ -756,6 +762,8 @@
       }
       lightboxBody.innerHTML = '';
       if (lightbox._ytResizeObs) { lightbox._ytResizeObs.disconnect(); lightbox._ytResizeObs = null; }
+      var dlgClose = lightbox.querySelector('.lightbox-dialog');
+      if (dlgClose) dlgClose.classList.remove('is-video');
       activeIndex = -1;
       var protoLink = document.getElementById('lightbox-prototype-link');
       if (protoLink) protoLink.style.display = 'none';
