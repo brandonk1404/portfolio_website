@@ -593,8 +593,13 @@
       }
 
       function initYTPlayer() {
+        // Measure AFTER lightbox is visible so ytWrap has real CSS dimensions
+        var w = ytWrap.offsetWidth || 640;
+        var h = ytWrap.offsetHeight || (w * 9 / 16);
         var player = new YT.Player(ytDivId, {
           videoId: videoId,
+          width: w,
+          height: h,
           playerVars: {
             autoplay: 1, controls: 0, rel: 0, modestbranding: 1,
             showinfo: 0, iv_load_policy: 3, cc_load_policy: 0,
@@ -604,11 +609,16 @@
           events: {
             onReady: function(e) {
               e.target.playVideo();
+              // Resize player to actual container size in case it drifted
+              var fw = ytWrap.offsetWidth;
+              var fh = ytWrap.offsetHeight;
+              if (fw && fh) e.target.setSize(fw, fh);
+              // Also force iframe to fill container via CSS
               var iframeEl = ytWrap.querySelector('iframe');
               if (iframeEl) {
-                iframeEl.style.cssText = 'position:absolute;top:0;left:0;width:100%;height:100%;border:0;display:block;pointer-events:none;';
                 iframeEl.removeAttribute('width');
                 iframeEl.removeAttribute('height');
+                iframeEl.style.cssText = 'position:absolute;top:0;left:0;width:100%;height:100%;border:0;display:block;pointer-events:none;';
               }
             }
           }
@@ -650,7 +660,12 @@
       }
 
       if (window.YT && window.YT.Player) {
-        initYTPlayer();
+        // Defer until lightbox is open and CSS-computed dimensions are available
+        requestAnimationFrame(function() {
+          requestAnimationFrame(function() {
+            initYTPlayer();
+          });
+        });
       } else {
         if (!document.getElementById('yt-api-script')) {
           var tag = document.createElement('script');
