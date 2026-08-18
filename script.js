@@ -568,11 +568,6 @@
         ytWrap.style.height = Math.round(h) + 'px';
         ytWrap.style.aspectRatio = '';
       }
-      // Wait 2 frames then retry until frame has real dimensions
-      requestAnimationFrame(function() { requestAnimationFrame(function() { setTimeout(sizeYtWrap, 50); }); });
-      var ytResizeObs = window.ResizeObserver ? new ResizeObserver(sizeYtWrap) : null;
-      if (ytResizeObs) { ytResizeObs.observe(frame); lightbox._ytResizeObs = ytResizeObs; }
-
       var ytDiv = document.createElement('div');
       var ytDivId = 'yt-player-' + Date.now();
       ytDiv.id = ytDivId;
@@ -610,7 +605,11 @@
             onReady: function(e) {
               e.target.playVideo();
               var iframeEl = ytWrap.querySelector('iframe');
-              if (iframeEl) iframeEl.style.cssText = 'width:100%;height:100%;border:0;display:block;pointer-events:none;';
+              if (iframeEl) {
+                iframeEl.style.cssText = 'position:absolute;top:0;left:0;width:100%;height:100%;border:0;display:block;pointer-events:none;';
+                iframeEl.removeAttribute('width');
+                iframeEl.removeAttribute('height');
+              }
             }
           }
         });
@@ -676,22 +675,8 @@
       video.autoplay = true;
       video.muted = true;
       video.playsInline = true;
-      video.style.cssText = 'display:block;background:#000;flex-shrink:0;width:100%;aspect-ratio:16/9;';
-      function sizeVideo() {
-        var fw = frame.clientWidth;
-        var fh = frame.clientHeight;
-        if (!fw || !fh) { setTimeout(sizeVideo, 50); return; }
-        var ratio = 16 / 9;
-        var w, h;
-        if (fw / fh > ratio) { h = fh; w = h * ratio; }
-        else { w = fw; h = w / ratio; }
-        video.style.width = Math.round(w) + 'px';
-        video.style.height = Math.round(h) + 'px';
-        video.style.aspectRatio = '';
-      }
-      requestAnimationFrame(function() { requestAnimationFrame(function() { setTimeout(sizeVideo, 50); }); });
-      var vidResizeObs = window.ResizeObserver ? new ResizeObserver(sizeVideo) : null;
-      if (vidResizeObs) { vidResizeObs.observe(frame); lightbox._ytResizeObs = vidResizeObs; }
+      // CSS handles sizing: max-height:100% works because grid parent has definite height
+      video.style.cssText = 'display:block;background:#000;width:100%;max-width:100%;max-height:100%;aspect-ratio:16/9;';
       vwrap.appendChild(video);
       frame.appendChild(vwrap);
     } else {
