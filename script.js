@@ -761,7 +761,6 @@
         lightbox._resizeHandler = null;
       }
       lightboxBody.innerHTML = '';
-      if (lightbox._ytResizeObs) { lightbox._ytResizeObs.disconnect(); lightbox._ytResizeObs = null; }
       var dlgClose = lightbox.querySelector('.lightbox-dialog');
       if (dlgClose) dlgClose.classList.remove('is-video');
       activeIndex = -1;

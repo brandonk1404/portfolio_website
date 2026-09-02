@@ -625,22 +625,7 @@ ul {
 }
 
 .video-embed-wrap {
-  width: 100%;
-  height: 100%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  overflow: hidden;
-  background: #000;
-}
-
-.video-embed-wrap video {
-  display: block;
-  width: 100%;
-  max-width: 100%;
-  max-height: 100%;
-  aspect-ratio: 16/9;
-  background: #000;
+  display: none;
 }
 
 .lightbox-close,
@@ -6114,63 +6099,63 @@ body.lightbox-is-open::-webkit-scrollbar { display: none !important; }
 }
 
 /* ══════════════════════════════════════════════════════════════════
-   DEFINITIVE VIDEO LIGHTBOX — wins over all previous rules
+   VIDEO LIGHTBOX — simple, reliable
    ══════════════════════════════════════════════════════════════════ */
 
-/* Video mode: dialog fills the screen, proper player experience */
 .lightbox-dialog.is-video {
-  height: calc(100dvh - 4rem) !important;
-  width: min(1200px, calc(100vw - 2rem)) !important;
+  width: min(90vw, 1400px) !important;
   max-width: calc(100vw - 2rem) !important;
+  height: 90dvh !important;
+  max-height: 90dvh !important;
   background: #000 !important;
+  border-radius: 8px !important;
+  overflow: hidden !important;
   display: flex !important;
   flex-direction: column !important;
-  overflow: hidden !important;
 }
 
-/* Body must be flex so frame inside can grow */
 .lightbox-dialog.is-video .lightbox-body {
   flex: 1 1 0 !important;
   min-height: 0 !important;
+  overflow: hidden !important;
   display: flex !important;
   flex-direction: column !important;
-  overflow: hidden !important;
 }
 
 .lightbox-dialog.is-video .lightbox-media-frame {
   flex: 1 1 0 !important;
   min-height: 0 !important;
-  width: 100% !important;
-  display: flex !important;
-  align-items: center !important;
-  justify-content: center !important;
   overflow: hidden !important;
-  background: #000 !important;
-  aspect-ratio: unset !important;
   padding: 0 !important;
+  aspect-ratio: unset !important;
+  background: #000 !important;
+  display: flex !important;
+  flex-direction: column !important;
+}
+
+.lightbox-dialog.is-video .lightbox-media-frame iframe,
+.lightbox-dialog.is-video .lightbox-media-frame video {
+  display: block !important;
+  flex: 1 1 0 !important;
+  min-height: 0 !important;
+  width: 100% !important;
+  border: none !important;
+  background: #000 !important;
 }
 
 .lightbox-dialog.is-video .lightbox-caption {
   flex: 0 0 auto !important;
-  order: 2 !important;
   background: #111 !important;
-  border-top: 1px solid rgba(255,255,255,0.08) !important;
+  border-top: 1px solid rgba(255,255,255,0.1) !important;
   padding: 0.85rem 1.25rem !important;
 }
 
-.lightbox-dialog.is-video .lightbox-title {
-  color: #fff !important;
-}
+.lightbox-dialog.is-video .lightbox-title   { color: #fff !important; }
+.lightbox-dialog.is-video .lightbox-category { color: rgba(255,255,255,0.5) !important; }
+.lightbox-dialog.is-video .lightbox-desc     { color: rgba(255,255,255,0.65) !important; }
+.lightbox-dialog.is-video .lightbox-prototype-btn { color: #52af79 !important; }
 
-.lightbox-dialog.is-video .lightbox-category {
-  color: rgba(255,255,255,0.55) !important;
-}
-
-.lightbox-dialog.is-video .lightbox-prototype-btn {
-  color: #52af79 !important;
-}
-
-/* Image mode keeps padding */
+/* Image mode: padding so image has breathing room */
 .lightbox-dialog:not(.is-video) .lightbox-media-frame {
   padding: 1rem !important;
 }
