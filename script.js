@@ -731,6 +731,16 @@
     document.documentElement.style.overflow = 'hidden';
     document.body.style.overflow = 'hidden';
 
+    // For video mode: sync body bottom to actual caption height
+    requestAnimationFrame(function() {
+      var dlg = lightbox.querySelector('.lightbox-dialog');
+      if (dlg && dlg.classList.contains('is-video')) {
+        var cap = lightbox.querySelector('.lightbox-caption');
+        var body = lightbox.querySelector('.lightbox-body');
+        if (cap && body) body.style.bottom = cap.offsetHeight + 'px';
+      }
+    });
+
     // Re-apply viewport size on resize while open
     lightbox._resizeHandler = function() {
       lightbox.style.width = window.innerWidth + 'px';

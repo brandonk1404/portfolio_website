@@ -6099,10 +6099,11 @@ body.lightbox-is-open::-webkit-scrollbar { display: none !important; }
 }
 
 /* ══════════════════════════════════════════════════════════════════
-   VIDEO LIGHTBOX — simple, reliable
+   VIDEO LIGHTBOX — absolute positioning, no flex chain needed
    ══════════════════════════════════════════════════════════════════ */
 
 .lightbox-dialog.is-video {
+  position: relative !important;
   width: min(90vw, 1400px) !important;
   max-width: calc(100vw - 2rem) !important;
   height: 90dvh !important;
@@ -6110,44 +6111,52 @@ body.lightbox-is-open::-webkit-scrollbar { display: none !important; }
   background: #000 !important;
   border-radius: 8px !important;
   overflow: hidden !important;
-  display: flex !important;
-  flex-direction: column !important;
-}
-
-.lightbox-dialog.is-video .lightbox-body {
-  flex: 1 1 0 !important;
-  min-height: 0 !important;
-  overflow: hidden !important;
-  display: flex !important;
-  flex-direction: column !important;
-}
-
-.lightbox-dialog.is-video .lightbox-media-frame {
-  flex: 1 1 0 !important;
-  min-height: 0 !important;
-  overflow: hidden !important;
-  padding: 0 !important;
-  aspect-ratio: unset !important;
-  background: #000 !important;
-  display: flex !important;
-  flex-direction: column !important;
-}
-
-.lightbox-dialog.is-video .lightbox-media-frame iframe,
-.lightbox-dialog.is-video .lightbox-media-frame video {
+  /* override any display/flex from other rules */
   display: block !important;
-  flex: 1 1 0 !important;
-  min-height: 0 !important;
-  width: 100% !important;
-  border: none !important;
-  background: #000 !important;
 }
 
+/* Caption anchored to bottom */
 .lightbox-dialog.is-video .lightbox-caption {
-  flex: 0 0 auto !important;
+  position: absolute !important;
+  bottom: 0 !important;
+  left: 0 !important;
+  right: 0 !important;
+  height: auto !important;
   background: #111 !important;
   border-top: 1px solid rgba(255,255,255,0.1) !important;
   padding: 0.85rem 1.25rem !important;
+  z-index: 2 !important;
+}
+
+/* Body fills everything above caption */
+.lightbox-dialog.is-video .lightbox-body {
+  position: absolute !important;
+  top: 0 !important;
+  left: 0 !important;
+  right: 0 !important;
+  bottom: 72px !important;   /* approx caption height — overridden by JS if needed */
+  overflow: hidden !important;
+}
+
+/* Frame fills body */
+.lightbox-dialog.is-video .lightbox-media-frame {
+  position: absolute !important;
+  inset: 0 !important;
+  padding: 0 !important;
+  background: #000 !important;
+  aspect-ratio: unset !important;
+}
+
+/* iframe/video fill frame */
+.lightbox-dialog.is-video .lightbox-media-frame iframe,
+.lightbox-dialog.is-video .lightbox-media-frame video {
+  display: block !important;
+  position: absolute !important;
+  inset: 0 !important;
+  width: 100% !important;
+  height: 100% !important;
+  border: none !important;
+  background: #000 !important;
 }
 
 .lightbox-dialog.is-video .lightbox-title   { color: #fff !important; }
@@ -6155,7 +6164,7 @@ body.lightbox-is-open::-webkit-scrollbar { display: none !important; }
 .lightbox-dialog.is-video .lightbox-desc     { color: rgba(255,255,255,0.65) !important; }
 .lightbox-dialog.is-video .lightbox-prototype-btn { color: #52af79 !important; }
 
-/* Image mode: padding so image has breathing room */
+/* Image mode: keeps padding */
 .lightbox-dialog:not(.is-video) .lightbox-media-frame {
   padding: 1rem !important;
 }
