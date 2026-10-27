@@ -6164,7 +6164,19 @@ body.lightbox-is-open::-webkit-scrollbar { display: none !important; }
 .lightbox-dialog.is-video .lightbox-desc     { color: rgba(255,255,255,0.65) !important; }
 .lightbox-dialog.is-video .lightbox-prototype-btn { color: #52af79 !important; }
 
-/* Image mode: keeps padding */
+/* Image mode: white background in light mode */
+.lightbox-dialog:not(.is-video) {
+  background: #ffffff !important;
+}
 .lightbox-dialog:not(.is-video) .lightbox-media-frame {
   padding: 1rem !important;
+  background: #ffffff !important;
+}
+@media (prefers-color-scheme: dark) {
+  .lightbox-dialog:not(.is-video) {
+    background: var(--bg, #0f1410) !important;
+  }
+  .lightbox-dialog:not(.is-video) .lightbox-media-frame {
+    background: var(--bg, #0f1410) !important;
+  }
 }
